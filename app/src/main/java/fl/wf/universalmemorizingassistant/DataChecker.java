@@ -4,16 +4,14 @@ import android.os.Environment;
 
 /**
  * Created by WF on 2017/5/4.
+ * For now,just used to check if external storage is available for read and write.
  */
 
-public final class DataChecker{
+final class DataChecker {
 
-    /* Checks if external storage is available for read and write */
-    public static final boolean isExternalStorageWritable() {
+    //Checks if external storage is available for read and write
+    static boolean isExternalStorageWritable() {
         String state = Environment.getExternalStorageState();
-        if (Environment.MEDIA_MOUNTED.equals(state)) {
-            return true;
-        }
-        return false;
+        return (Environment.MEDIA_MOUNTED.equals(state));
     }
 }
