@@ -2,6 +2,7 @@ package fl.wf.universalmemorizingassistant;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -13,11 +14,14 @@ import android.widget.Toast;
 
 import java.io.File;
 
+import static android.os.Environment.DIRECTORY_DOCUMENTS;
+
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "WFMainActivity";
     private static final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 4289;
     private String dirPath;
+    private String myDoc = "/UniversalMemorizingAssistant";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +35,8 @@ public class MainActivity extends AppCompatActivity {
         getRuntimePermission();
         Log.d(TAG, "onCreate: 1");
 
-        dirPath = this.getExternalFilesDir(null).getPath();
+        dirPath = Environment.getExternalStoragePublicDirectory(DIRECTORY_DOCUMENTS).getPath() + myDoc;
+        File file = new File(dirPath);// TODO: 2017/5/4 This seems not working
         Log.d(TAG, "onCreate: " + dirPath);
     }
 
