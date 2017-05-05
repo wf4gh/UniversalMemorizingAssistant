@@ -14,14 +14,11 @@ import android.widget.Toast;
 
 import java.io.File;
 
-import static android.os.Environment.DIRECTORY_DOCUMENTS;
-
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "WFMainActivity";
     private static final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 4289;
-    private String dirPath;
-    private String myDoc = "/UniversalMemorizingAssistant";
+    private String myDocPath = "/MyTestDocPath";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,15 +26,26 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         if (!DataChecker.isExternalStorageWritable()) {
-            Toast.makeText(this, "ExternalStorageUnavailable", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "ExternalStorageUnavailable", Toast.LENGTH_LONG).show();
             finish();
         }
         getRuntimePermission();
-        Log.d(TAG, "onCreate: 1");
+// FIXME: 2017/5/5 This create a new folder function may not run at the first time the user grant his app the permission.
+        // FIXME: 2017/5/5 fix this by moving this create function to the "when permitted" part below
+        File file = new File(myDocPath);
+        boolean createResult;
+        Log.d(TAG, "onCreate: myDocPath: " + myDocPath);
+        Log.d(TAG, "onCreate: AbsolutePath: " + file.getAbsolutePath());
+        Log.d(TAG, "onCreate: ParentPath: " + file.getParent());
 
-        dirPath = Environment.getExternalStoragePublicDirectory(DIRECTORY_DOCUMENTS).getPath() + myDoc;
-        File file = new File(dirPath);// TODO: 2017/5/4 This seems not working
-        Log.d(TAG, "onCreate: " + dirPath);
+        createResult = file.mkdir();
+
+        if (createResult) Log.d(TAG, "onCreate: created");
+        else Log.d(TAG, "onCreate: notCreated");
+
+        if (!file.exists()) Log.d(TAG, "onCreate: notExist");
+        else Log.d(TAG, "onCreate: exist");
+
     }
 
     @Override
