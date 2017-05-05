@@ -33,7 +33,7 @@ class BasicFile {
                 Log.d(TAG, "createNewFile: CREATE_SUCCESS");
                 return CREATE_SUCCESS;
             } else {
-                Log.d(TAG, "createNewFile: CREATE_FAILED");
+                Log.w(TAG, "createNewFile: CREATE_FAILED");
                 return CREATE_FAILED;
             }
         } else {
@@ -50,7 +50,7 @@ class BasicFile {
                 Log.d(TAG, "createNewFolder: CREATE_SUCCESS");
                 return CREATE_SUCCESS;
             } else {
-                Log.d(TAG, "createNewFolder: CREATE_FAILED");
+                Log.w(TAG, "createNewFolder: CREATE_FAILED");
                 return CREATE_FAILED;
             }
         } else {

@@ -2,6 +2,7 @@ package fl.wf.universalmemorizingassistant;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -46,6 +47,11 @@ public class MainActivity extends AppCompatActivity {
 //        So i actually don't need so much lines of code at all!
 //        --------------------------At least this can be reusable--------------------------
 
+        Log.d(TAG, "onCreate: SSSSSSSSSSSSSSS" + Environment.getExternalStorageDirectory());
+        Log.d(TAG, "onCreate: SSSSSSSSSSSSS222222" + getExternalFilesDir(null));
+        File anotherTest = new File(Environment.getExternalStorageDirectory() + myDocPath);
+        BasicFile.createNewFolder(anotherTest);
+
         tryToCreateUserDataFile();
     }
 
@@ -87,6 +93,8 @@ public class MainActivity extends AppCompatActivity {
             case MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE: {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     tryToCreateUserDataFile();
+                    File anotherTest = new File(Environment.getExternalStorageDirectory() + myDocPath);
+                    BasicFile.createNewFolder(anotherTest);
                 } else {
                     Toast.makeText(this, "Need Permission", Toast.LENGTH_LONG).show();
                     finish();
