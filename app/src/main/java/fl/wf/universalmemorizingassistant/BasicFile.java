@@ -11,7 +11,7 @@ import java.io.IOException;
  * Used to read and write user data
  */
 
-public class BasicFile {
+class BasicFile {
 // TODO: 2017/5/4 Check if the permission is really needed to manipulate these files.The docs said this is only needed in low SDK versions.
     // TODO: 2017/5/4  so may need to add this       android:maxSdkVersion="18"      to the permission in manifest
 
@@ -22,24 +22,41 @@ public class BasicFile {
     private static final int CREATE_ALREADY_EXISTS = 2;
 
     //create a file
-    public static int createNewFile(File file) {
+    static int createNewFile(File file) {
 
         if (!file.exists()) {
-            boolean userDataFileCreateResult = false;
+            boolean createNewFileResult = false;
             try {
-                userDataFileCreateResult = file.createNewFile();
+                createNewFileResult = file.createNewFile();
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            if (userDataFileCreateResult) {
-                Log.d(TAG, "onCreate: UserDataFileCreated");
+            if (createNewFileResult) {
+                Log.i(TAG, "createNewFile: CREATE_SUCCESS");
                 return CREATE_SUCCESS;
             } else {
-                Log.d(TAG, "onCreate: UserDataFileNOOOOOOOOOOOOOTCreated");
+                Log.i(TAG, "createNewFile: CREATE_FAILED");
                 return CREATE_FAILED;
             }
         } else {
-            Log.d(TAG, "onCreate: UserDataFileAlreadyExists");
+            Log.i(TAG, "createNewFile: CREATE_ALREADY_EXISTS");
+            return CREATE_ALREADY_EXISTS;
+        }
+    }
+
+    //create a new folder
+    static int createNewFolder(File file) {
+        if (!file.exists()) {
+            boolean folderCreateResult = file.mkdirs();
+            if (folderCreateResult) {
+                Log.i(TAG, "createNewFolder: CREATE_SUCCESS");
+                return CREATE_SUCCESS;
+            } else {
+                Log.i(TAG, "createNewFolder: CREATE_FAILED");
+                return CREATE_FAILED;
+            }
+        } else {
+            Log.i(TAG, "createNewFolder: CREATE_ALREADY_EXISTS");
             return CREATE_ALREADY_EXISTS;
         }
     }

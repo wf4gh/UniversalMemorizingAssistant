@@ -32,22 +32,21 @@ public class MainActivity extends AppCompatActivity {
             finish();
         }
         getRuntimePermission();
-// FIXME: 2017/5/5 This create a new folder function may not run at the first time the user grant his app the permission.
+
+        // FIXME: 2017/5/5 This create a new folder function may not run at the first time the user grant his app the permission.
         // FIXME: 2017/5/5 fix this by moving this create function to the "when permitted" part below
-        File file = new File(getExternalFilesDir(null) + myDocPath);
-        boolean createResult = file.mkdir();
-        if (createResult) Log.d(TAG, "onCreate: Created");
-        else Log.d(TAG, "onCreate: notCreated");
+        // FIXME: 2017/5/5 OK,the problem seems to be that even if i have not get the permission,i can still create this folder and file  :|
+        tryToCreateUserDataFile();
 
-        File userDataFile = new File(getExternalFilesDir(null) + userDataFilePath);
-
-        BasicFile.createNewFile(userDataFile);
-
-        testPart();
     }
 
-    void testPart() {
+    //try to create user data file.If already created,this will not create new file
+    void tryToCreateUserDataFile() {
+        File testFolder = new File(getExternalFilesDir(null) + myDocPath);
+        BasicFile.createNewFolder(testFolder);
 
+        File userDataFile = new File(getExternalFilesDir(null) + userDataFilePath);
+        BasicFile.createNewFile(userDataFile);
     }
 
     void getRuntimePermission() {
@@ -70,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
                         new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
                         MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE);
             }
-        } else Log.i(TAG, "getRuntimePermission: Permission GET");
+        } else Log.i(TAG, "getRuntimePermission: Permission Already GET");
     }
 
     @Override
@@ -78,7 +77,9 @@ public class MainActivity extends AppCompatActivity {
         switch (requestCode) {
             case MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE: {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    // TODO: 2017/5/4 when permitted,add some check here
+                    //Due to the wired(amazing?) bug that i can always create a file despite the permission,this line of code may not necessary.
+                    //But to make sure this file being created,still need it here.
+                    tryToCreateUserDataFile();
                 } else {
                     Toast.makeText(this, "Need Permission", Toast.LENGTH_LONG).show();
                     finish();
