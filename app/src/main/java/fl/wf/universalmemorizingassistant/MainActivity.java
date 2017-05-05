@@ -33,11 +33,20 @@ public class MainActivity extends AppCompatActivity {
         }
         getRuntimePermission();
 
-        // FIXME: 2017/5/5 This create a new folder function may not run at the first time the user grant his app the permission.
-        // FIXME: 2017/5/5 fix this by moving this create function to the "when permitted" part below
-        // FIXME: 2017/5/5 OK,the problem seems to be that even if i have not get the permission,i can still create this folder and file  :|
-        tryToCreateUserDataFile();
+        // 2017/5/5 This create a new folder function may not run at the first time the user grant his app the permission.
+        // 2017/5/5 fix this by moving this create function to the "when permitted" part below
+        // 2017/5/5 OK,the problem seems to be that even if i have not get the permission,i can still create this folder and file  :|
+        // 2017/5/5 The reason may be the minSDK!!!!!!!!!!!!!
+        // 2017/5/4 Check if the permission is really needed to manipulate these files.The docs said this is only needed in low SDK versions.
+        // 2017/5/4  so may need to add this       android:maxSdkVersion="18"      to the permission in manifest
 
+//         2017/5/5 OK,here may be the result:
+//        Only after API 23 i need to request permission at runtime.
+//        Only before API 18 i need to request the permission.
+//        So i actually don't need so much lines of code at all!
+//        --------------------------At least this can be reusable--------------------------
+
+        tryToCreateUserDataFile();
     }
 
     //try to create user data file.If already created,this will not create new file
@@ -69,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
                         new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
                         MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE);
             }
-        } else Log.i(TAG, "getRuntimePermission: Permission Already GET");
+        } else Log.d(TAG, "getRuntimePermission: Permission Already GET");
     }
 
     @Override
@@ -77,8 +86,6 @@ public class MainActivity extends AppCompatActivity {
         switch (requestCode) {
             case MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE: {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    //Due to the wired(amazing?) bug that i can always create a file despite the permission,this line of code may not necessary.
-                    //But to make sure this file being created,still need it here.
                     tryToCreateUserDataFile();
                 } else {
                     Toast.makeText(this, "Need Permission", Toast.LENGTH_LONG).show();

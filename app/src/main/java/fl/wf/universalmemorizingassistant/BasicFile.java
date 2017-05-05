@@ -12,8 +12,6 @@ import java.io.IOException;
  */
 
 class BasicFile {
-// TODO: 2017/5/4 Check if the permission is really needed to manipulate these files.The docs said this is only needed in low SDK versions.
-    // TODO: 2017/5/4  so may need to add this       android:maxSdkVersion="18"      to the permission in manifest
 
     private static final String TAG = "FLWFBasicFile";
 
@@ -32,14 +30,14 @@ class BasicFile {
                 e.printStackTrace();
             }
             if (createNewFileResult) {
-                Log.i(TAG, "createNewFile: CREATE_SUCCESS");
+                Log.d(TAG, "createNewFile: CREATE_SUCCESS");
                 return CREATE_SUCCESS;
             } else {
-                Log.i(TAG, "createNewFile: CREATE_FAILED");
+                Log.d(TAG, "createNewFile: CREATE_FAILED");
                 return CREATE_FAILED;
             }
         } else {
-            Log.i(TAG, "createNewFile: CREATE_ALREADY_EXISTS");
+            Log.d(TAG, "createNewFile: CREATE_ALREADY_EXISTS");
             return CREATE_ALREADY_EXISTS;
         }
     }
@@ -49,14 +47,14 @@ class BasicFile {
         if (!file.exists()) {
             boolean folderCreateResult = file.mkdirs();
             if (folderCreateResult) {
-                Log.i(TAG, "createNewFolder: CREATE_SUCCESS");
+                Log.d(TAG, "createNewFolder: CREATE_SUCCESS");
                 return CREATE_SUCCESS;
             } else {
-                Log.i(TAG, "createNewFolder: CREATE_FAILED");
+                Log.d(TAG, "createNewFolder: CREATE_FAILED");
                 return CREATE_FAILED;
             }
         } else {
-            Log.i(TAG, "createNewFolder: CREATE_ALREADY_EXISTS");
+            Log.d(TAG, "createNewFolder: CREATE_ALREADY_EXISTS");
             return CREATE_ALREADY_EXISTS;
         }
     }
