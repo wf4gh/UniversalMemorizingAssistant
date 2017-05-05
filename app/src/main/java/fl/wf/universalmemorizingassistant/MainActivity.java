@@ -2,7 +2,6 @@ package fl.wf.universalmemorizingassistant;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
-import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -13,13 +12,15 @@ import android.util.Log;
 import android.widget.Toast;
 
 import java.io.File;
+import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "WFMainActivity";
     private static final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 4289;
-//    private static final int MY_PERMISSIONS_REQUEST_MOUNT_UNMOUNT_FILESYSTEMS = 4290;
-    private String myDocPath = "/storage/emulated/0/Android/data/fl.wf.universalmemorizingassistant/files/MyTestDocPath";
+    //    private static final int MY_PERMISSIONS_REQUEST_MOUNT_UNMOUNT_FILESYSTEMS = 4290;
+    private String myDocPath = "/MyTestDocPath";
+    private String userDataFilePath="/UserData.xml";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,45 +34,26 @@ public class MainActivity extends AppCompatActivity {
         getRuntimePermission();
 // FIXME: 2017/5/5 This create a new folder function may not run at the first time the user grant his app the permission.
         // FIXME: 2017/5/5 fix this by moving this create function to the "when permitted" part below
-        File file = new File(myDocPath);
-        boolean createResult;
-        Log.d(TAG, "onCreate: myDocPath: " + myDocPath);
-        Log.d(TAG, "onCreate: AbsolutePath: " + file.getAbsolutePath());
-        Log.d(TAG, "onCreate: ParentPath: " + file.getParent());
-
-        createResult = file.mkdirs();
-
-        if (createResult) Log.d(TAG, "onCreate: created");
+        File file = new File(getExternalFilesDir(null) + myDocPath);
+        boolean createResult = file.mkdir();
+        if (createResult) Log.d(TAG, "onCreate: Created");
         else Log.d(TAG, "onCreate: notCreated");
 
-        if (!file.exists()) Log.d(TAG, "onCreate: notExist");
-        else Log.d(TAG, "onCreate: exist");
+        File userDataFile = new File(getExternalFilesDir(null)+userDataFilePath);
+        boolean userDataFileCreateResult=false;
+        try {
+            userDataFileCreateResult=userDataFile.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if(userDataFileCreateResult) Log.d(TAG, "onCreate: UserDataFileCreated");
+        else Log.d(TAG, "onCreate: UserDataFileNOOOOOOOOOOOOOTCreated");
+
         testPart();
     }
 
     void testPart() {
 
-        File testFile = new File("/Shanbay");
-        if (testFile.exists()) Log.d(TAG, "onCreate: SHANEEEEEEEEEEEEE");
-        else Log.d(TAG, "onCreate: NEEEEEEEEEEEEEEe");
-
-        File testFile2 = new File("/kgmusic.ver");
-        if (testFile2.exists()) Log.d(TAG, "onCreate: SmmmmmmmmmmmmmEEEEEEEEEEE");
-        else Log.d(TAG, "onCreate: NmmmmmmmmmmmmEEEEEEEEEEEEe");
-
-        File testFile3 = this.getExternalFilesDir(null);
-        Log.d(TAG, "testPart11: " + testFile3);
-        File testFile33 = this.getFilesDir();
-        Log.d(TAG, "testPart22: " + testFile3);
-
-        File testFile4 = getExternalCacheDir();
-        Log.d(TAG, "testPart:fffffffff " + testFile3);
-
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
     }
 
     void getRuntimePermission() {
@@ -95,27 +77,6 @@ public class MainActivity extends AppCompatActivity {
                         MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE);
             }
         } else Log.i(TAG, "getRuntimePermission: Permission GET");
-//
-//        if (ContextCompat.checkSelfPermission(this, Manifest.permission.MOUNT_UNMOUNT_FILESYSTEMS)
-//                != PackageManager.PERMISSION_GRANTED) {
-//            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-//                    Manifest.permission.MOUNT_UNMOUNT_FILESYSTEMS)) {
-//
-//                new AlertDialog.Builder(this)
-//                        .setTitle("TitleHere2")
-//                        .setMessage("Need Permission2")
-//                        .setPositiveButton("OK2", null)
-//                        .show();
-//
-//                ActivityCompat.requestPermissions(this,
-//                        new String[]{Manifest.permission.MOUNT_UNMOUNT_FILESYSTEMS},
-//                        MY_PERMISSIONS_REQUEST_MOUNT_UNMOUNT_FILESYSTEMS);
-//            } else {
-//                ActivityCompat.requestPermissions(this,
-//                        new String[]{Manifest.permission.MOUNT_UNMOUNT_FILESYSTEMS},
-//                        MY_PERMISSIONS_REQUEST_MOUNT_UNMOUNT_FILESYSTEMS);
-//            }
-//        } else Log.d(TAG, "getRuntimePermission: Has PERMISSION!!!!!!!!!!!");
     }
 
     @Override
@@ -129,13 +90,6 @@ public class MainActivity extends AppCompatActivity {
                     finish();
                 }
             }
-//            case MY_PERMISSIONS_REQUEST_MOUNT_UNMOUNT_FILESYSTEMS: {
-//                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-//                } else {
-//                    Toast.makeText(this, "Need Permission2", Toast.LENGTH_LONG).show();
-//                    finish();
-//                }
-//            }
         }
     }
 }
