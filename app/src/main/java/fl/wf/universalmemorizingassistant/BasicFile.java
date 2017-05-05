@@ -30,14 +30,14 @@ class BasicFile {
                 e.printStackTrace();
             }
             if (createNewFileResult) {
-                Log.d(TAG, "createNewFile: CREATE_SUCCESS");
+                Log.d(TAG, "createNewFile: " + file.getName() + " CREATE_SUCCESS");
                 return CREATE_SUCCESS;
             } else {
-                Log.w(TAG, "createNewFile: CREATE_FAILED");
+                Log.w(TAG, "createNewFile: " + file.getName() + " CREATE_FAILED");
                 return CREATE_FAILED;
             }
         } else {
-            Log.d(TAG, "createNewFile: CREATE_ALREADY_EXISTS");
+            Log.d(TAG, "createNewFile: " + file.getName() + " CREATE_ALREADY_EXISTS");
             return CREATE_ALREADY_EXISTS;
         }
     }
@@ -47,14 +47,14 @@ class BasicFile {
         if (!file.exists()) {
             boolean folderCreateResult = file.mkdirs();
             if (folderCreateResult) {
-                Log.d(TAG, "createNewFolder: CREATE_SUCCESS");
+                Log.d(TAG, "createNewFolder: " + file.getName() + " CREATE_SUCCESS");
                 return CREATE_SUCCESS;
             } else {
-                Log.w(TAG, "createNewFolder: CREATE_FAILED");
+                Log.w(TAG, "createNewFolder: " + file.getName() + " CREATE_FAILED");
                 return CREATE_FAILED;
             }
         } else {
-            Log.d(TAG, "createNewFolder: CREATE_ALREADY_EXISTS");
+            Log.d(TAG, "createNewFolder: " + file.getName() + " CREATE_ALREADY_EXISTS");
             return CREATE_ALREADY_EXISTS;
         }
     }

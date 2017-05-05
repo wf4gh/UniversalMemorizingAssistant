@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
     void getRuntimePermission() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
+            Log.d(TAG, "getRuntimePermission: Permission NOT GET");
             if (ActivityCompat.shouldShowRequestPermissionRationale(this,
                     Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
 
