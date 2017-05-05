@@ -12,15 +12,15 @@ import android.util.Log;
 import android.widget.Toast;
 
 import java.io.File;
-import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final String TAG = "WFMainActivity";
+    private static final String TAG = "FLWFMainActivity";
+
     private static final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 4289;
-    //    private static final int MY_PERMISSIONS_REQUEST_MOUNT_UNMOUNT_FILESYSTEMS = 4290;
+
     private String myDocPath = "/MyTestDocPath";
-    private String userDataFilePath="/UserData.xml";
+    private String userDataFilePath = "/UserData.xml";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,15 +39,9 @@ public class MainActivity extends AppCompatActivity {
         if (createResult) Log.d(TAG, "onCreate: Created");
         else Log.d(TAG, "onCreate: notCreated");
 
-        File userDataFile = new File(getExternalFilesDir(null)+userDataFilePath);
-        boolean userDataFileCreateResult=false;
-        try {
-            userDataFileCreateResult=userDataFile.createNewFile();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        if(userDataFileCreateResult) Log.d(TAG, "onCreate: UserDataFileCreated");
-        else Log.d(TAG, "onCreate: UserDataFileNOOOOOOOOOOOOOTCreated");
+        File userDataFile = new File(getExternalFilesDir(null) + userDataFilePath);
+
+        BasicFile.createNewFile(userDataFile);
 
         testPart();
     }
