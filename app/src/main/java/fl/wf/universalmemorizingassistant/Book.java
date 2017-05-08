@@ -5,7 +5,7 @@ package fl.wf.universalmemorizingassistant;
  * Represents the book created by user
  */
 
-public class Book {
+class Book {
     private String name;
     private String path;
 
