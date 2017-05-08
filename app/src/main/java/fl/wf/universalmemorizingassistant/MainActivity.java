@@ -1,6 +1,7 @@
 package fl.wf.universalmemorizingassistant;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -12,8 +13,11 @@ import android.util.Log;
 import android.widget.Toast;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 import static android.os.Environment.getExternalStorageDirectory;
+import static fl.wf.universalmemorizingassistant.BasicFile.*;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,28 +26,33 @@ public class MainActivity extends AppCompatActivity {
     private static final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 4289;
 
     private String myDocPath = "/U_Memorizing";
-    private String userDataFilePath = "/UserData.xml";
+    private String myUserDataFileName = "/UserData.txt";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //Check if the storage is writable
         if (!DataChecker.isExternalStorageWritable()) {
             Toast.makeText(this, "ExternalStorageUnavailable", Toast.LENGTH_LONG).show();
             finish();
         }
         getRuntimePermission();
-        tryToCreateUserDataFile();
+        initializingUserData(myDocPath, myUserDataFileName);
+        File userDataFile = new File(getExternalStorageDirectory() + myDocPath + myUserDataFileName);
+        writeStringToFile(userDataFile, "Here is another string to write.\n");
+        appendStringToFile(userDataFile, "Here is the content to append");
+        Log.d(TAG, "onCreate: Read from file:\n" + readStringFromFile(userDataFile));
     }
 
-    //try to create user data file.If already created,this will not create new file
-    void tryToCreateUserDataFile() {
-        File testFolder = new File(getExternalStorageDirectory() + myDocPath);
-        BasicFile.createNewFolder(testFolder);
+    //try to create user data folder and file.If already created,this will not create new file
+    void initializingUserData(String appDataFolder, String userDataFileName) {
+        File appDataFolderPath = new File(getExternalStorageDirectory() + appDataFolder);
+        createNewFolder(appDataFolderPath);
 
-        File userDataFile = new File(getExternalStorageDirectory() + myDocPath + userDataFilePath);
-        BasicFile.createNewFile(userDataFile);
+        File userDataFile = new File(getExternalStorageDirectory() + appDataFolder + userDataFileName);
+        createNewFile(userDataFile);
     }
 
     void getRuntimePermission() {
@@ -75,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
         switch (requestCode) {
             case MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE: {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    tryToCreateUserDataFile();
+                    initializingUserData(myDocPath, myUserDataFileName);
                 } else {
                     Toast.makeText(this, "Need Permission", Toast.LENGTH_LONG).show();
                     finish();

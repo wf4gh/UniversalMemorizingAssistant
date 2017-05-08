@@ -1,9 +1,17 @@
 package fl.wf.universalmemorizingassistant;
 
+import android.content.Context;
 import android.util.Log;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.Charset;
 
 
 /**
@@ -57,5 +65,47 @@ class BasicFile {
             Log.d(TAG, "createNewFolder: " + file.getName() + " CREATE_ALREADY_EXISTS");
             return CREATE_ALREADY_EXISTS;
         }
+    }
+
+    //This does work.But i can't see this using PC,only through the phone client can i see the file already be written
+    static void writeStringToFile(File fileToWrite, String contentToWrite) {
+        try {
+            FileOutputStream fileOutputStream = new FileOutputStream(fileToWrite);
+            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(fileOutputStream, "UTF-8");
+            outputStreamWriter.write(contentToWrite);
+            outputStreamWriter.flush();
+            outputStreamWriter.close();
+            fileOutputStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    static void appendStringToFile(File fileToWrite, String contentToWrite) {
+        try {
+            FileOutputStream fileOutputStream = new FileOutputStream(fileToWrite, true);
+            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(fileOutputStream, "UTF-8");
+            outputStreamWriter.write(contentToWrite);
+            outputStreamWriter.flush();
+            outputStreamWriter.close();
+            fileOutputStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    static String readStringFromFile(File fileToRead) {
+        try {
+            FileInputStream fileInputStream = new FileInputStream(fileToRead);
+            InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream, "UTF-8");
+            char[] input = new char[fileInputStream.available()];
+            inputStreamReader.read(input);
+            inputStreamReader.close();
+            fileInputStream.close();
+            return new String(input);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }
