@@ -1,17 +1,13 @@
 package fl.wf.universalmemorizingassistant;
 
-import android.content.Context;
 import android.util.Log;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.io.UnsupportedEncodingException;
-import java.nio.charset.Charset;
 
 
 /**
@@ -92,6 +88,26 @@ class BasicFile {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        //These may also work ,but seems on way to set the encoding
+//          //Here is one way
+//        try {
+//            FileWriter fileWriter = new FileWriter(fileToWrite, true);
+//            fileWriter.write(contentToWrite);
+//            fileWriter.close();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//          //Here is another way
+//        try {
+//            FileOutputStream fileOutputStream = new FileOutputStream(fileToWrite, true);
+//            fileOutputStream.write(contentToWrite.getBytes());
+//            fileOutputStream.flush();
+//            fileOutputStream.close();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+
     }
 
     static String readStringFromFile(File fileToRead) {

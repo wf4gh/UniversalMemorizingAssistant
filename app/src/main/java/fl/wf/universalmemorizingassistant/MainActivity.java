@@ -1,20 +1,17 @@
 package fl.wf.universalmemorizingassistant;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.pm.PackageManager;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
 
 import static android.os.Environment.getExternalStorageDirectory;
 import static fl.wf.universalmemorizingassistant.BasicFile.*;
@@ -26,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
     private static final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 4289;
 
     private String myDocPath = "/U_Memorizing";
-    private String myUserDataFileName = "/UserData.txt";
+    private String myUserDataFileName = "/UserBooksData.xml";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,8 +38,8 @@ public class MainActivity extends AppCompatActivity {
         getRuntimePermission();
         initializingUserData(myDocPath, myUserDataFileName);
         File userDataFile = new File(getExternalStorageDirectory() + myDocPath + myUserDataFileName);
-        writeStringToFile(userDataFile, "Here is another string to write.\n");
-        appendStringToFile(userDataFile, "Here is the content to append");
+//        writeStringToFile(userDataFile, "Here is another string to write.\n");
+//        appendStringToFile(userDataFile, "Here is a test content to append");
         Log.d(TAG, "onCreate: Read from file:\n" + readStringFromFile(userDataFile));
     }
 
