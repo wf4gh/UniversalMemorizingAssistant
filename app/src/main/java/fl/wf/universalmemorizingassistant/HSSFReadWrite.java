@@ -64,6 +64,7 @@ final class HSSFReadWrite {
     }
 
     static void testCreateSampleXLSXSheet(String outputFilename) throws IOException {
+        // FIXME: 2017/5/9 http://poi.apache.org/faq.html#faq-N101E6
         XSSFWorkbook wb = new XSSFWorkbook();
         try {
             XSSFSheet s = wb.createSheet();
