@@ -70,12 +70,12 @@ public class MainActivity extends AppCompatActivity {
         writeToUserDataFile(bookList, userDataFileShower);
 //        File workBookFileToRead = new File(getExternalStorageDirectory() + myDocPath + "/读取用表.xls");
 
-//        try {
-//            File workBookFileToCreate = new File(getExternalStorageDirectory() + myDocPath + "/测试生成表格.xlsx");
-//            HSSFReadWrite.testCreateSampleXLSXSheet(workBookFileToCreate.getAbsolutePath());
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+        try {
+            File workBookFileToCreate = new File(getExternalStorageDirectory() + myDocPath + "/测试生成表格.xlsx");
+            HSSFReadWrite.testCreateSampleXLSXSheet(workBookFileToCreate.getAbsolutePath());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
 //        try {
 //            FileOutputStream fileOutputStream = new FileOutputStream(workBookFileToCreate);
