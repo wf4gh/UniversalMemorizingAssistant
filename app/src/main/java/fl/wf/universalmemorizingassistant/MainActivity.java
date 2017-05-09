@@ -2,6 +2,7 @@ package fl.wf.universalmemorizingassistant;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.inputmethodservice.Keyboard;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -11,6 +12,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
 
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
@@ -25,13 +29,13 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
 import java.util.ArrayList;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
-import static android.R.attr.x;
 import static android.os.Environment.getExternalStorageDirectory;
 import static fl.wf.universalmemorizingassistant.BasicFile.*;
 
@@ -64,8 +68,24 @@ public class MainActivity extends AppCompatActivity {
         bookList = new ArrayList<>();
         bookList = readFromUserDataFile(userDataFile);
         writeToUserDataFile(bookList, userDataFileShower);
+//        File workBookFileToRead = new File(getExternalStorageDirectory() + myDocPath + "/读取用表.xls");
 
-        XSSFWorkbook xssfWorkbook = new XSSFWorkbook();
+//        try {
+//            File workBookFileToCreate = new File(getExternalStorageDirectory() + myDocPath + "/测试生成表格.xlsx");
+//            HSSFReadWrite.testCreateSampleXLSXSheet(workBookFileToCreate.getAbsolutePath());
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+
+//        try {
+//            FileOutputStream fileOutputStream = new FileOutputStream(workBookFileToCreate);
+//            Workbook wb = new HSSFWorkbook();
+//            wb.write(fileOutputStream);
+//            wb.close();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+
     }
 
     void writeToUserDataFile(ArrayList<Book> bookListToWrite, File userDataFileToWrite) {
