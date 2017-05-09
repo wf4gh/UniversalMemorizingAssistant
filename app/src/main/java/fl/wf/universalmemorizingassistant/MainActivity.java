@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         initializingUserData(myDocPath, myUserDataFileName);
         File userDataFile = new File(getExternalStorageDirectory() + myDocPath + myUserDataFileName);
 //        testCommonFileManipulation(userDataFile);
-        bookList = new ArrayList<Book>();
+        bookList = new ArrayList<>();
         readFromUserDataFile(userDataFile);
     }
 

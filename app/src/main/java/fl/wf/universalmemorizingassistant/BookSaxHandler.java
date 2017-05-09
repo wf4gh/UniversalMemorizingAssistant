@@ -37,6 +37,7 @@ class BookSaxHandler extends DefaultHandler {
         super.startElement(uri, localName, qName, attributes);
         if ("Book".equals(localName)) {
             book = new Book();
+            book.setId(Integer.parseInt(attributes.getValue(0)));
         }
     }
 

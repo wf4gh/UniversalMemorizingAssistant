@@ -34,7 +34,7 @@ class BasicFile {
                 e.printStackTrace();
             }
             if (createNewFileResult) {
-                Log.d(TAG, "createNewFile: " + file.getName() + " CREATE_SUCCESS");
+                Log.d(TAG, "createNewFile: " + file.getName() + " CREATE_SUCCEEDED");
                 return CREATE_SUCCESS;
             } else {
                 Log.w(TAG, "createNewFile: " + file.getName() + " CREATE_FAILED");
@@ -51,7 +51,7 @@ class BasicFile {
         if (!file.exists()) {
             boolean folderCreateResult = file.mkdirs();
             if (folderCreateResult) {
-                Log.d(TAG, "createNewFolder: " + file.getName() + " CREATE_SUCCESS");
+                Log.d(TAG, "createNewFolder: " + file.getName() + " CREATE_SUCCEEDED");
                 return CREATE_SUCCESS;
             } else {
                 Log.w(TAG, "createNewFolder: " + file.getName() + " CREATE_FAILED");
