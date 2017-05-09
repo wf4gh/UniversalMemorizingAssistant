@@ -1,10 +1,5 @@
 package fl.wf.universalmemorizingassistant;
 
-import android.util.Log;
-
-import static android.content.ContentValues.TAG;
-
-
 /**
  * Created by WF on 2017/5/8.
  * Represents the book created by user
@@ -13,7 +8,15 @@ import static android.content.ContentValues.TAG;
 class Book {
     private int id;
     private String name;
-    private String path;
+    private int rank;
+
+    public int getRank() {
+        return rank;
+    }
+
+    public void setRank(int rank) {
+        this.rank = rank;
+    }
 
     public int getId() {
         return id;
@@ -31,16 +34,8 @@ class Book {
         this.name = name;
     }
 
-    public String getPath() {
-        return path;
-    }
-
-    public void setPath(String path) {
-        this.path = path;
-    }
-
     @Override
     public String toString() {
-        return "\nBookID: " + id + "\nBookName: " + name + "\nBookPath: " + path;
+        return "\nBookID: " + id + "\nBookName: " + name + "\nBookRank: " + rank;
     }
 }

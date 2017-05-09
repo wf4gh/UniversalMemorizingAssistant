@@ -14,10 +14,14 @@ import android.widget.Toast;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
+import org.xmlpull.v1.XmlPullParserException;
+import org.xmlpull.v1.XmlPullParserFactory;
+import org.xmlpull.v1.XmlSerializer;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -26,6 +30,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
+import static android.R.attr.x;
 import static android.os.Environment.getExternalStorageDirectory;
 import static fl.wf.universalmemorizingassistant.BasicFile.*;
 
@@ -36,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
     private static final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 4289;
 
     private String myDocPath = "/U_Memorizing";
-    private String myUserDataFileName = "/UserBooksData.xml";
+    private String myUserDataFileName = "/测试文件.xml";
 
     private ArrayList<Book> bookList;
 
@@ -53,12 +58,42 @@ public class MainActivity extends AppCompatActivity {
         getRuntimePermission();
         initializingUserData(myDocPath, myUserDataFileName);
         File userDataFile = new File(getExternalStorageDirectory() + myDocPath + myUserDataFileName);
+        File userDataFileShower = new File(getExternalStorageDirectory() + myDocPath + "/显示测试文件.xml");
 //        testCommonFileManipulation(userDataFile);
         bookList = new ArrayList<>();
-        readFromUserDataFile(userDataFile);
+        bookList = readFromUserDataFile(userDataFile);
+        writeToUserDataFile(bookList, userDataFileShower);
     }
 
-    void readFromUserDataFile(File file) {
+    void writeToUserDataFile(ArrayList<Book> bookListToWrite, File userDataFileToWrite) {
+        try {
+            FileOutputStream fileOutputStream = new FileOutputStream(userDataFileToWrite);
+            XmlPullParserFactory xmlPullParserFactory = XmlPullParserFactory.newInstance();
+            XmlSerializer xmlSerializer = xmlPullParserFactory.newSerializer();
+            xmlSerializer.setOutput(fileOutputStream, "UTF-8");
+            xmlSerializer.startDocument("UTF-8", true);
+            xmlSerializer.startTag(null, "Books");
+            for (Book book : bookListToWrite) {
+                xmlSerializer.startTag(null, "Book");
+                xmlSerializer.attribute(null, "id", String.valueOf(book.getId()));
+                xmlSerializer.startTag(null, "Name");
+                xmlSerializer.text(book.getName());
+                xmlSerializer.endTag(null, "Name");
+                xmlSerializer.startTag(null, "Rank");
+                xmlSerializer.text(String.valueOf(book.getRank()));
+                xmlSerializer.endTag(null, "Rank");
+                xmlSerializer.endTag(null, "Book");
+            }
+            xmlSerializer.endTag(null, "Books");
+            xmlSerializer.endDocument();
+            fileOutputStream.flush();
+            fileOutputStream.close();
+        } catch (XmlPullParserException | IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    ArrayList<Book> readFromUserDataFile(File file) {
         try {
             InputStream inputStream = new FileInputStream(file);
             InputSource inputSource = new InputSource(inputStream);
@@ -77,6 +112,7 @@ public class MainActivity extends AppCompatActivity {
             result += b.toString();
         }
         Log.d(TAG, "onCreate: " + result);
+        return bookList;
     }
 
     void testCommonFileManipulation(File file) {
@@ -92,6 +128,10 @@ public class MainActivity extends AppCompatActivity {
 
         File userDataFile = new File(getExternalStorageDirectory() + appDataFolder + userDataFileName);
         createNewFile(userDataFile);
+
+        // TODO: 2017/5/9 when all done,this file will be no longer needed  
+        File userDataFileShower = new File(getExternalStorageDirectory() + appDataFolder + "/显示测试文件.xml");
+        createNewFile(userDataFileShower);
     }
 
     void getRuntimePermission() {

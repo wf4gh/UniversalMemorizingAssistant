@@ -46,8 +46,8 @@ class BookSaxHandler extends DefaultHandler {
         super.endElement(uri, localName, qName);
         if ("Name".equals(localName)) {
             book.setName(content);
-        } else if ("Path".equals(localName)) {
-            book.setPath(content);
+        } else if ("Rank".equals(localName)) {
+            book.setRank(Integer.parseInt(content));
         } else if ("Book".equals(localName)) {
             bookArrayList.add(book);
         }
