@@ -11,6 +11,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
 
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -65,7 +68,9 @@ public class MainActivity extends AppCompatActivity {
         bookList = new ArrayList<>();
         bookList = readFromUserDataFile(userDataFile);
         writeToUserDataFile(bookList, userDataFileShower);
-        File workBookFileToRead = new File(getExternalStorageDirectory() + myDocPath + "/读取用表.xls");
+        File workBookFileToRead = new File(getExternalStorageDirectory() + myDocPath + "/读取测试用表.xls");
+        File aNewFileToWriteTo = new File(getExternalStorageDirectory() + myDocPath + "/写入新表.xls");
+        createNewFile(aNewFileToWriteTo);
 
         //Create and write a file succeeded,but only for xls file.xlsx still can't be created correctly
 //        try {
@@ -79,12 +84,26 @@ public class MainActivity extends AppCompatActivity {
             Log.d(TAG, "onCreate: start");
             FileInputStream fis = new FileInputStream(workBookFileToRead);
             HSSFWorkbook wb = new HSSFWorkbook(fis);
-            Sheet s = wb.getSheetAt(0);
-            Row r0 = s.getRow(0);
-            Row r1 = s.getRow(1);
-            Cell c00 = r0.getCell(0);
+            fis.close();
+
+            HSSFSheet s = wb.getSheetAt(0);
+            HSSFRow r0 = s.getRow(0);
+            HSSFRow r1 = s.getRow(1);
+            HSSFCell c00 = r0.getCell(0);
             String s00 = c00.getStringCellValue();
             Log.d(TAG, "onCreate: " + s00);
+
+
+            HSSFCell c10 = r1.getCell(0);
+//            c10.setCellValue("ValueChanged!");
+
+            FileOutputStream fos = new FileOutputStream(aNewFileToWriteTo);
+            Log.d(TAG, "onCreate: 1");
+            wb.write(fos);
+            Log.d(TAG, "onCreate: 2");
+            fos.close();
+            wb.close();
+
             Log.d(TAG, "onCreate: end");
         } catch (IOException e) {
             e.printStackTrace();
