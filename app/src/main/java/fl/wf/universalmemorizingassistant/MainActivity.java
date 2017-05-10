@@ -2,7 +2,6 @@ package fl.wf.universalmemorizingassistant;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
-import android.inputmethodservice.Keyboard;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -13,9 +12,9 @@ import android.util.Log;
 import android.widget.Toast;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
@@ -25,11 +24,9 @@ import org.xmlpull.v1.XmlSerializer;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URL;
 import java.util.ArrayList;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -68,23 +65,30 @@ public class MainActivity extends AppCompatActivity {
         bookList = new ArrayList<>();
         bookList = readFromUserDataFile(userDataFile);
         writeToUserDataFile(bookList, userDataFileShower);
-//        File workBookFileToRead = new File(getExternalStorageDirectory() + myDocPath + "/读取用表.xls");
+        File workBookFileToRead = new File(getExternalStorageDirectory() + myDocPath + "/读取用表.xls");
 
-        try {
-            File workBookFileToCreate = new File(getExternalStorageDirectory() + myDocPath + "/测试生成表格.xlsx");
-            HSSFReadWrite.testCreateSampleXLSXSheet(workBookFileToCreate.getAbsolutePath());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+        //Create and write a file succeeded,but only for xls file.xlsx still can't be created correctly
 //        try {
-//            FileOutputStream fileOutputStream = new FileOutputStream(workBookFileToCreate);
-//            Workbook wb = new HSSFWorkbook();
-//            wb.write(fileOutputStream);
-//            wb.close();
+//            File workBookFileToCreate = new File(getExternalStorageDirectory() + myDocPath + "/测试生成表格.xls");
+//            HSSFReadWrite.testCreateSampleSheet(workBookFileToCreate.getAbsolutePath());
 //        } catch (IOException e) {
 //            e.printStackTrace();
 //        }
+
+        try {
+            Log.d(TAG, "onCreate: start");
+            FileInputStream fis = new FileInputStream(workBookFileToRead);
+            HSSFWorkbook wb = new HSSFWorkbook(fis);
+            Sheet s = wb.getSheetAt(0);
+            Row r0 = s.getRow(0);
+            Row r1 = s.getRow(1);
+            Cell c00 = r0.getCell(0);
+            String s00 = c00.getStringCellValue();
+            Log.d(TAG, "onCreate: " + s00);
+            Log.d(TAG, "onCreate: end");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 
