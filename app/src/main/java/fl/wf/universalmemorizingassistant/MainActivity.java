@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
         try {
             HSSFWorkbook wb = new HSSFWorkbook(new FileInputStream(workBookFileToRead));
 
-            HSSFSheet s = wb.createSheet();
+            HSSFSheet s = wb.getSheetAt(0);
             wb.setSheetName(0, "HSSF Test");
             HSSFRow row = s.createRow(0);
             HSSFCell cell = row.createCell(0);
