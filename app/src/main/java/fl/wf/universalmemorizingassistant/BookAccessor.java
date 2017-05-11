@@ -29,10 +29,14 @@ public class BookAccessor {
     static final int ROW_INVALID = 0;
     static final int ROW_END = -1;
 
-
-    static HSSFWorkbook openBook(File bookFileToOpen) throws IOException {
+    // TODO: 2017/5/11 move the rowCheck part to this function,and make a wholly check and validate here
+    static HSSFWorkbook openAndValidateBook(File bookFileToOpen,int maxTimes) throws IOException {
         // TODO: 2017/5/11 delete the blank rows of a sheet here
-        HSSFWorkbook wb = new HSSFWorkbook(new FileInputStream(bookFileToOpen));
+        // TODO: 2017/5/11 fix the invalid data format
+        // TODO: 2017/5/11 staff the leftTimes cell if it's blank
+        FileInputStream fis = new FileInputStream(bookFileToOpen);
+        HSSFWorkbook wb = new HSSFWorkbook(fis);
+        fis.close();
         return wb;
     }
 
@@ -59,7 +63,7 @@ public class BookAccessor {
         else return ROW_VALID;
     }
 
-    static void updateTimes(HSSFWorkbook workbookToUse, int indexOfRow, int maxTimes, int state) {
+    static void updateTimes(HSSFWorkbook workbookToUse, int indexOfRow, int maxTimes, int answerState) {
         HSSFRow rowToUpdate = workbookToUse.getSheetAt(0).getRow(indexOfRow);
         HSSFCell timesCell = rowToUpdate.getCell(2);
 
@@ -68,7 +72,7 @@ public class BookAccessor {
             timesCell.setCellValue(maxTimes);
 
         int timesNow = (int) timesCell.getNumericCellValue();
-        switch (state) {
+        switch (answerState) {
             case ANSWER_RIGHT:
                 timesCell.setCellValue(timesNow - 1);
                 break;

@@ -98,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
 
         File updateTestFile = new File(getExternalStorageDirectory() + myDocPath + "/数据更新测试2.xls");
         try {
-            HSSFWorkbook wb = BookAccessor.openBook(updateTestFile);
+            HSSFWorkbook wb = BookAccessor.openAndValidateBook(updateTestFile);
             Log.d(TAG, "onCreate: Line 1 Validated? " + BookAccessor.rowCheck(wb, 1));
             Log.d(TAG, "onCreate: Line 2 Validated? " + BookAccessor.rowCheck(wb, 2));
             Log.d(TAG, "onCreate: Line 3 Validated? " + BookAccessor.rowCheck(wb, 3));
