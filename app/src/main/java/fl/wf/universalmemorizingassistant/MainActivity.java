@@ -96,12 +96,14 @@ public class MainActivity extends AppCompatActivity {
 //        }
 
 
-        File updateTestFile = new File(getExternalStorageDirectory() + myDocPath + "/数据更新测试.xls");
+        File updateTestFile = new File(getExternalStorageDirectory() + myDocPath + "/数据更新测试2.xls");
         try {
             HSSFWorkbook wb = BookAccessor.openBook(updateTestFile);
             Log.d(TAG, "onCreate: Line 1 Validated? " + BookAccessor.rowCheck(wb, 1));
+            Log.d(TAG, "onCreate: Line 2 Validated? " + BookAccessor.rowCheck(wb, 2));
             Log.d(TAG, "onCreate: Line 3 Validated? " + BookAccessor.rowCheck(wb, 3));
-            BookAccessor.updateTimes(wb, 1, 5, BookAccessor.ANSWER_RIGHT);
+            Log.d(TAG, "onCreate: Line 4 Validated? " + BookAccessor.rowCheck(wb, 4));
+//            BookAccessor.updateTimes(wb, 1, 5, BookAccessor.ANSWER_RIGHT);
             BookAccessor.closeBookAndSave(wb, updateTestFile);
         } catch (IOException e) {
             e.printStackTrace();

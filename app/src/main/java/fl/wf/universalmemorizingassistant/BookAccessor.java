@@ -42,6 +42,7 @@ public class BookAccessor {
         if (row == null) return ROW_END;
         HSSFCell cell = row.getCell(2);
         int timesLeft = 0;
+        if (cell == null) return ROW_VALID;
         switch (cell.getCellTypeEnum()) {
             case NUMERIC:
                 timesLeft = (int) cell.getNumericCellValue();
@@ -49,7 +50,6 @@ public class BookAccessor {
             case STRING:
                 timesLeft = Integer.valueOf(cell.getStringCellValue());
                 cell.setCellType(NUMERIC);
-                // TODO: 2017/5/11 see if this is needed
                 cell.setCellValue(timesLeft);
                 break;
             default:
@@ -63,8 +63,7 @@ public class BookAccessor {
         HSSFRow rowToUpdate = workbookToUse.getSheetAt(0).getRow(indexOfRow);
         HSSFCell timesCell = rowToUpdate.getCell(2);
 
-        //new row set left times
-        // TODO: 2017/5/11 Here the judgement should be more robust,change this to see if the value of this cell is between 0 and maxTimes
+        //new valid row set left times
         if (timesCell.getCellTypeEnum() == BLANK)
             timesCell.setCellValue(maxTimes);
 
