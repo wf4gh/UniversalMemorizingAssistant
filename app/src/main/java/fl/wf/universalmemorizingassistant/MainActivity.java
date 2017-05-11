@@ -12,12 +12,11 @@ import android.util.Log;
 import android.widget.Toast;
 
 import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFRichTextString;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
@@ -27,6 +26,7 @@ import org.xmlpull.v1.XmlSerializer;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -37,7 +37,11 @@ import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
 import static android.os.Environment.getExternalStorageDirectory;
-import static fl.wf.universalmemorizingassistant.BasicFile.*;
+import static fl.wf.universalmemorizingassistant.BasicFile.appendStringToFile;
+import static fl.wf.universalmemorizingassistant.BasicFile.createNewFile;
+import static fl.wf.universalmemorizingassistant.BasicFile.createNewFolder;
+import static fl.wf.universalmemorizingassistant.BasicFile.readStringFromFile;
+import static fl.wf.universalmemorizingassistant.BasicFile.writeStringToFile;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -80,31 +84,19 @@ public class MainActivity extends AppCompatActivity {
 //            e.printStackTrace();
 //        }
 
+        File workBookFileToCreate = new File(getExternalStorageDirectory() + myDocPath + "/测试生成表格.xls");
         try {
-            Log.d(TAG, "onCreate: start");
-            FileInputStream fis = new FileInputStream(workBookFileToRead);
-            HSSFWorkbook wb = new HSSFWorkbook(fis);
-            fis.close();
+            HSSFWorkbook wb = new HSSFWorkbook(new FileInputStream(workBookFileToRead));
 
-            HSSFSheet s = wb.getSheetAt(0);
-            HSSFRow r0 = s.getRow(0);
-            HSSFRow r1 = s.getRow(1);
-            HSSFCell c00 = r0.getCell(0);
-            String s00 = c00.getStringCellValue();
-            Log.d(TAG, "onCreate: " + s00);
-
-
-            HSSFCell c10 = r1.getCell(0);
-//            c10.setCellValue("ValueChanged!");
-
-            FileOutputStream fos = new FileOutputStream(aNewFileToWriteTo);
-            Log.d(TAG, "onCreate: 1");
-            wb.write(fos);
-            Log.d(TAG, "onCreate: 2");
-            fos.close();
+            HSSFSheet s = wb.createSheet();
+            wb.setSheetName(0, "HSSF Test");
+            HSSFRow row = s.createRow(0);
+            HSSFCell cell = row.createCell(0);
+            cell.setCellValue("aaa");
+            FileOutputStream out = new FileOutputStream(workBookFileToCreate);
+            wb.write(out);
+            out.close();
             wb.close();
-
-            Log.d(TAG, "onCreate: end");
         } catch (IOException e) {
             e.printStackTrace();
         }
