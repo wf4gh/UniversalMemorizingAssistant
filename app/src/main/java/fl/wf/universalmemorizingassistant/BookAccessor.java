@@ -1,8 +1,11 @@
 package fl.wf.universalmemorizingassistant;
 
+import android.util.Log;
+
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Sheet;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -19,6 +22,7 @@ import static org.apache.poi.ss.usermodel.CellType.NUMERIC;
  */
 
 public class BookAccessor {
+    private static final String TAG = "FLWFBookAccessor";
 
     static final int ANSWER_RIGHT = 1;
     static final int ANSWER_WRONG = -1;
@@ -30,13 +34,44 @@ public class BookAccessor {
     static final int ROW_END = -1;
 
     // TODO: 2017/5/11 move the rowCheck part to this function,and make a wholly check and validate here
-    static HSSFWorkbook openAndValidateBook(File bookFileToOpen,int maxTimes) throws IOException {
+    static HSSFWorkbook openAndValidateBook(File bookFileToOpen, int maxTimes) throws IOException {
         // TODO: 2017/5/11 delete the blank rows of a sheet here
         // TODO: 2017/5/11 fix the invalid data format
         // TODO: 2017/5/11 staff the leftTimes cell if it's blank
         FileInputStream fis = new FileInputStream(bookFileToOpen);
         HSSFWorkbook wb = new HSSFWorkbook(fis);
+        Sheet sheet = wb.getSheetAt(0);
+        Log.d(TAG, "openAndValidateBook: getLastRowNum: " + sheet.getLastRowNum());
+        Log.d(TAG, "openAndValidateBook: getPhysicalNumberOfRows:" + sheet.getPhysicalNumberOfRows());
+        int[] breaks = sheet.getRowBreaks();
+        for (int b : breaks) {
+            Log.d(TAG, "openAndValidateBook: " + b);
+        }
         fis.close();
+
+        boolean isRowEmpty=false;
+        for (int i = 0; i < sheet.getLastRowNum(); i++) {
+            if (sheet.getRow(i) == null) {
+                isRowEmpty = true;
+                sheet.shiftRows(i + 1, sheet.getLastRowNum(), -1);
+                i--;
+                continue;
+            }
+            for (int j = 0; j < sheet.getRow(i).getLastCellNum(); j++) {
+                if (sheet.getRow(i).getCell(j).toString().trim().equals("")) {
+                    isRowEmpty = true;
+                } else {
+                    isRowEmpty = false;
+                    break;
+                }
+            }
+            if (isRowEmpty == true) {
+                sheet.shiftRows(i + 1, sheet.getLastRowNum(), -1);
+                i--;
+            }
+        }
+
+
         return wb;
     }
 
