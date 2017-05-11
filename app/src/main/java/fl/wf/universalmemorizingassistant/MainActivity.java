@@ -11,12 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
 
-import org.apache.poi.hssf.usermodel.HSSFCell;
-import org.apache.poi.hssf.usermodel.HSSFRichTextString;
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
@@ -26,7 +21,6 @@ import org.xmlpull.v1.XmlSerializer;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -84,19 +78,31 @@ public class MainActivity extends AppCompatActivity {
 //            e.printStackTrace();
 //        }
 
-        File workBookFileToCreate = new File(getExternalStorageDirectory() + myDocPath + "/测试生成表格.xls");
-        try {
-            HSSFWorkbook wb = new HSSFWorkbook(new FileInputStream(workBookFileToRead));
+//        File workBookFileToCreate = new File(getExternalStorageDirectory() + myDocPath + "/测试生成表格.xls");
+//        try {
+//            HSSFWorkbook wb = new HSSFWorkbook(new FileInputStream(workBookFileToRead));
+//
+//            HSSFSheet s = wb.getSheetAt(0);
+//            wb.setSheetName(0, "HSSF Test");
+//            HSSFRow row = s.getRow(0);
+//            HSSFCell cell = row.createCell(0);
+//            cell.setCellValue("aaa");
+//            FileOutputStream out = new FileOutputStream(workBookFileToCreate);
+//            wb.write(out);
+//            out.close();
+//            wb.close();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
 
-            HSSFSheet s = wb.getSheetAt(0);
-            wb.setSheetName(0, "HSSF Test");
-            HSSFRow row = s.createRow(0);
-            HSSFCell cell = row.createCell(0);
-            cell.setCellValue("aaa");
-            FileOutputStream out = new FileOutputStream(workBookFileToCreate);
-            wb.write(out);
-            out.close();
-            wb.close();
+
+        File updateTestFile = new File(getExternalStorageDirectory() + myDocPath + "/数据更新测试.xls");
+        try {
+            HSSFWorkbook wb = BookAccessor.openBook(updateTestFile);
+            Log.d(TAG, "onCreate: Line 1 Validated? " + BookAccessor.rowCheck(wb, 1));
+            Log.d(TAG, "onCreate: Line 3 Validated? " + BookAccessor.rowCheck(wb, 3));
+            BookAccessor.updateTimes(wb, 1, 5, BookAccessor.ANSWER_RIGHT);
+            BookAccessor.closeBookAndSave(wb, updateTestFile);
         } catch (IOException e) {
             e.printStackTrace();
         }
