@@ -62,22 +62,12 @@ public class MainActivity extends AppCompatActivity {
         initializingUserData(myDocPath, myUserDataFileName);
         File userDataFile = new File(getExternalStorageDirectory() + myDocPath + myUserDataFileName);
         File userDataFileShower = new File(getExternalStorageDirectory() + myDocPath + "/显示测试文件.xml");
-//        testCommonFileManipulation(userDataFile);
         bookList = new ArrayList<>();
         bookList = readFromUserDataFile(userDataFile);
         writeToUserDataFile(bookList, userDataFileShower);
         File workBookFileToRead = new File(getExternalStorageDirectory() + myDocPath + "/读取测试用表.xls");
         File aNewFileToWriteTo = new File(getExternalStorageDirectory() + myDocPath + "/写入新表.xls");
         createNewFile(aNewFileToWriteTo);
-
-        //Create and write a file succeeded,but only for xls file.xlsx still can't be created correctly
-//        try {
-//            File workBookFileToCreate = new File(getExternalStorageDirectory() + myDocPath + "/测试生成表格.xls");
-//            HSSFReadWrite.testCreateSampleSheet(workBookFileToCreate.getAbsolutePath());
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-
 
         File updateTestFile = new File(getExternalStorageDirectory() + myDocPath + "/UT1.xls");
         try {
