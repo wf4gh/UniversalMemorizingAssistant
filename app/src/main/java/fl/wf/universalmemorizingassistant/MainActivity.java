@@ -78,33 +78,11 @@ public class MainActivity extends AppCompatActivity {
 //            e.printStackTrace();
 //        }
 
-//        File workBookFileToCreate = new File(getExternalStorageDirectory() + myDocPath + "/测试生成表格.xls");
-//        try {
-//            HSSFWorkbook wb = new HSSFWorkbook(new FileInputStream(workBookFileToRead));
-//
-//            HSSFSheet s = wb.getSheetAt(0);
-//            wb.setSheetName(0, "HSSF Test");
-//            HSSFRow row = s.getRow(0);
-//            HSSFCell cell = row.createCell(0);
-//            cell.setCellValue("aaa");
-//            FileOutputStream out = new FileOutputStream(workBookFileToCreate);
-//            wb.write(out);
-//            out.close();
-//            wb.close();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-
 
         File updateTestFile = new File(getExternalStorageDirectory() + myDocPath + "/UT1.xls");
         try {
             HSSFWorkbook wb = BookAccessor.openAndValidateBook(updateTestFile, 5);
-
-//            Log.d(TAG, "onCreate: Line 1 Validated? " + BookAccessor.rowCheck(wb, 1));
-//            Log.d(TAG, "onCreate: Line 2 Validated? " + BookAccessor.rowCheck(wb, 2));
-//            Log.d(TAG, "onCreate: Line 3 Validated? " + BookAccessor.rowCheck(wb, 3));
-//            Log.d(TAG, "onCreate: Line 4 Validated? " + BookAccessor.rowCheck(wb, 4));
-//            BookAccessor.updateTimes(wb, 1, 5, BookAccessor.ANSWER_RIGHT);
+// TODO: 2017/5/12 add a lot of things here
             BookAccessor.closeBookAndSave(wb, updateTestFile);
         } catch (IOException e) {
             e.printStackTrace();

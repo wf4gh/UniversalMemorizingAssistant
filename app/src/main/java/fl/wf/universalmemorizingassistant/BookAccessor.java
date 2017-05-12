@@ -37,10 +37,8 @@ public class BookAccessor {
     static final int ROW_INVALID = 0;
     static final int ROW_END = -1;
 
-    // TODO: 2017/5/11 move the rowCheck part to this function,and make a wholly check and validate here
+    //When the book is opened the first time,call this method to pre-process
     static HSSFWorkbook openAndValidateBook(File bookFileToOpen, int maxTimes) throws IOException {
-        // TODO: 2017/5/11 fix the invalid data format
-        // TODO: 2017/5/11 staff the leftTimes cell if it's blank
         FileInputStream fis = new FileInputStream(bookFileToOpen);
         HSSFWorkbook wb = new HSSFWorkbook(fis);
         fis.close();
@@ -63,55 +61,65 @@ public class BookAccessor {
             }
         }
 
-        //This part is used to set the dataType of columns
+        //This part is used to set the dataType and staff the blank cells
         for (int i = 1; i <= sheet.getLastRowNum(); i++) {
             HSSFRow r = sheet.getRow(i);
             HSSFCell c0 = r.getCell(0);
             if (c0 == null) {
                 c0 = r.createCell(0);
                 c0.setCellValue("NoData");
+            } else {
+                c0.setCellType(STRING);
             }
+
             HSSFCell c1 = sheet.getRow(i).getCell(1);
             if (c1 == null) {
                 c1 = r.createCell(1);
                 c1.setCellValue("NoData");
+            } else {
+                c1.setCellType(STRING);
             }
+
             HSSFCell c2 = sheet.getRow(i).getCell(2);
             if (c2 == null) {
                 c2 = r.createCell(2);
                 c2.setCellValue(maxTimes);
+            } else if (c2.getCellTypeEnum() == STRING) {
+                try {
+                    int value = Integer.parseInt(c2.getStringCellValue());
+                    c2.setCellValue(value);
+                } catch (Exception e) {
+                    c2.setCellValue(maxTimes);
+                }
+            } else if (c2.getCellTypeEnum() != NUMERIC) {
+                c2.setCellValue(maxTimes);
             }
+//            else {
+//                c2.setCellValue((int) c2.getNumericCellValue());
+//            }
         }
 
-        Log.d(TAG, "openAndValidateBook: sheet.getLastRowNum(): " + sheet.getLastRowNum());
-        Log.d(TAG, "openAndValidateBook: sheet.getPhysicalNumberOfRows(): " + sheet.getPhysicalNumberOfRows());
+//        Log.d(TAG, "openAndValidateBook: sheet.getLastRowNum(): " + sheet.getLastRowNum());
+//        Log.d(TAG, "openAndValidateBook: sheet.getPhysicalNumberOfRows(): " + sheet.getPhysicalNumberOfRows());
 
         return wb;
     }
 
+    //for every row that is about to be loaded to show on the screen,call this
     static int rowCheck(HSSFWorkbook workbookToUse, int indexOfRow) {
-        // TODO: 2017/5/11 to see what will happen  when the cell is blank
         HSSFRow row = workbookToUse.getSheetAt(0).getRow(indexOfRow);
         if (row == null) return ROW_END;
         HSSFCell cell = row.getCell(2);
-        int timesLeft = 0;
-        if (cell == null) return ROW_VALID;
-        switch (cell.getCellTypeEnum()) {
-            case NUMERIC:
-                timesLeft = (int) cell.getNumericCellValue();
-                break;
-            case STRING:
-                timesLeft = Integer.valueOf(cell.getStringCellValue());
-                cell.setCellType(NUMERIC);
-                cell.setCellValue(timesLeft);
-                break;
-            default:
-                break;
-        }
-        if (timesLeft == 0) return ROW_INVALID;
+        if (cell.getNumericCellValue() == 0) return ROW_INVALID;
         else return ROW_VALID;
     }
 
+    //after getting answer from the user,call this to compare it(if needed)
+    static boolean compareAnswer(String userAnswer, HSSFWorkbook workbookToUse, int indexOfRow) {
+        return workbookToUse.getSheetAt(0).getRow(indexOfRow).getCell(1).getStringCellValue().equals(userAnswer);
+    }
+
+    //after getting the answer state of the user answer,call this
     static void updateTimes(HSSFWorkbook workbookToUse, int indexOfRow, int maxTimes, int answerState) {
         HSSFRow rowToUpdate = workbookToUse.getSheetAt(0).getRow(indexOfRow);
         HSSFCell timesCell = rowToUpdate.getCell(2);
