@@ -42,35 +42,22 @@ public class BookAccessor {
         HSSFWorkbook wb = new HSSFWorkbook(fis);
         Sheet sheet = wb.getSheetAt(0);
         Log.d(TAG, "openAndValidateBook: getLastRowNum: " + sheet.getLastRowNum());
-        Log.d(TAG, "openAndValidateBook: getPhysicalNumberOfRows:" + sheet.getPhysicalNumberOfRows());
-        int[] breaks = sheet.getRowBreaks();
-        for (int b : breaks) {
-            Log.d(TAG, "openAndValidateBook: " + b);
-        }
         fis.close();
 
-        // FIXME: 2017/5/11 This is only works for the first blank rows
-        boolean isRowEmpty=false;
+        //This loop is used to remove all the empty rows in the sheet
         for (int i = 0; i < sheet.getLastRowNum(); i++) {
             if (sheet.getRow(i) == null) {
-                isRowEmpty = true;
                 sheet.shiftRows(i + 1, sheet.getLastRowNum(), -1);
                 i--;
                 continue;
             }
-            for (int j = 0; j < sheet.getRow(i).getLastCellNum(); j++) {
-                if (sheet.getRow(i).getCell(j).toString().trim().equals("")) {
-                    isRowEmpty = true;
-                } else {
-                    isRowEmpty = false;
-                    break;
-                }
-            }
-            if (isRowEmpty == true) {
+            if (sheet.getRow(i).getLastCellNum() == -1) {
                 sheet.shiftRows(i + 1, sheet.getLastRowNum(), -1);
                 i--;
             }
         }
+
+
 
 
         return wb;

@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
 //        }
 
 
-        File updateTestFile = new File(getExternalStorageDirectory() + myDocPath + "/数据更新测试4.xls");
+        File updateTestFile = new File(getExternalStorageDirectory() + myDocPath + "/UpdateTest.xls");
         try {
             HSSFWorkbook wb = BookAccessor.openAndValidateBook(updateTestFile, 5);
 
