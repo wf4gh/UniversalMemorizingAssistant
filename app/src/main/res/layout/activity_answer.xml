@@ -7,7 +7,7 @@
     tools:context="fl.wf.universalmemorizingassistant.AnswerActivity">
 
     <LinearLayout
-        android:id="@+id/ll_ans_info"
+        android:id="@+id/ll_ans_book_info"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -40,7 +40,7 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_ans_info" />
+                app:layout_constraintTop_toBottomOf="@id/tv_ans_info" />
         </LinearLayout>
     </LinearLayout>
 
@@ -48,9 +48,10 @@
         android:id="@+id/sv_ans_hint"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="invisible"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ll_ans_info">
+        app:layout_constraintTop_toBottomOf="@id/ll_ans_book_info">
 
         <TextView
             android:id="@+id/tv_ans_hint"
@@ -65,8 +66,8 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintLeft_toLeftOf="parent"
         android:hint="Type your answer here."
+        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/sv_ans_hint" />
 
@@ -74,7 +75,9 @@
         android:id="@+id/bt_ans_yes"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:onClick="onYesClicked"
         android:text="yes"
+        android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/bt_ans_no"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
@@ -83,6 +86,7 @@
         android:id="@+id/bt_ans_no"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:onClick="onNoClicked"
         android:text="no"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
