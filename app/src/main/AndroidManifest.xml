@@ -20,7 +20,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".AnswerActivity" />
-        <activity android:name=".EditActivity"></activity>
+        <activity android:name=".EditActivity" />
+        <activity android:name=".DangiAndroidHistogram"></activity>
     </application>
 
 </manifest>

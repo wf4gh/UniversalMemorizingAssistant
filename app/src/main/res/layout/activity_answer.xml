@@ -8,7 +8,7 @@
 
     <LinearLayout
         android:id="@+id/ll_ans_info"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -44,20 +44,48 @@
         </LinearLayout>
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/tv_ans_hint"
-        android:layout_width="wrap_content"
+    <ScrollView
+        android:id="@+id/sv_ans_hint"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="HintHere"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ll_ans_info"
-        tools:layout_editor_absoluteX="0dp" />
+        app:layout_constraintTop_toBottomOf="@+id/ll_ans_info">
+
+        <TextView
+            android:id="@+id/tv_ans_hint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:text="HintHere" />
+
+    </ScrollView>
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/tv_ans_hint" />
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:hint="Type your answer here."
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sv_ans_hint" />
 
+    <Button
+        android:id="@+id/bt_ans_yes"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="yes"
+        app:layout_constraintBottom_toTopOf="@+id/bt_ans_no"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <Button
+        android:id="@+id/bt_ans_no"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="no"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

@@ -79,7 +79,6 @@ public class MainActivity extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     void writeToUserDataFile(ArrayList<Book> bookListToWrite, File userDataFileToWrite) {
