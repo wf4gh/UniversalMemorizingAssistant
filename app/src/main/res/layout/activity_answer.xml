@@ -6,9 +6,58 @@
     android:layout_height="match_parent"
     tools:context="fl.wf.universalmemorizingassistant.AnswerActivity">
 
+    <LinearLayout
+        android:id="@+id/ll_ans_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/tv_ans_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="InfoHere"
+            tools:layout_editor_absoluteX="0dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Progress:" />
+
+            <android.support.v4.widget.ContentLoadingProgressBar
+                android:id="@+id/pb_ans_progress"
+                style="@style/Base.Widget.AppCompat.ProgressBar.Horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_ans_info" />
+        </LinearLayout>
+    </LinearLayout>
+
     <TextView
+        android:id="@+id/tv_ans_hint"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Ans" />
+        android:text="HintHere"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ll_ans_info"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tv_ans_hint" />
+
 
 </android.support.constraint.ConstraintLayout>

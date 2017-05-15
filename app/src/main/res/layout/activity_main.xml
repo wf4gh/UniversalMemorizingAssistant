@@ -8,7 +8,7 @@
 
 
     <Button
-        android:id="@+id/bt_start"
+        android:id="@+id/bt_main_start"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Start"
@@ -21,22 +21,22 @@
 
 
     <TextView
-        android:id="@+id/tv_info"
+        android:id="@+id/tv_main_info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@id/bt_start"
+        app:layout_constraintBottom_toTopOf="@id/bt_main_start"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/bt_edit"
+        android:id="@+id/bt_main_edit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Edit"
         android:onClick="onEditClicked"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/bt_start" />
+        app:layout_constraintTop_toBottomOf="@id/bt_main_start" />
 
 </android.support.constraint.ConstraintLayout>
