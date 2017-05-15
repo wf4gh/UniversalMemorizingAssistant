@@ -4,11 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="fl.wf.universalmemorizingassistant.AnswerActivity">
+    tools:context="fl.wf.universalmemorizingassistant.EditActivity">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Ans" />
+        android:text="Edit" />
 
 </android.support.constraint.ConstraintLayout>

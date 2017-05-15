@@ -1,6 +1,7 @@
 package fl.wf.universalmemorizingassistant;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -9,6 +10,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -185,5 +187,15 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }
+    }
+
+    public void onStartClicked(View view) {
+        Intent intent = new Intent(this, AnswerActivity.class);
+        startActivity(intent);
+    }
+
+    public void onEditClicked(View view) {
+        Intent intent = new Intent(this, EditActivity.class);
+        startActivity(intent);
     }
 }
