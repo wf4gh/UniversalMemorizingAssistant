@@ -10,6 +10,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+
+import java.io.File;
+import java.io.IOException;
+
+import static android.os.Environment.getExternalStorageDirectory;
+
 public class AnswerActivity extends AppCompatActivity {
     private static final String TAG = "FLWFAnswerActivity";
 
@@ -27,9 +34,22 @@ public class AnswerActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        String bookName = getIntent().getStringExtra("bookName");
-        Log.d(TAG, "onCreate: " + appFolderPath + bookName);
         setContentView(R.layout.activity_answer);
+
+        String bookName = getIntent().getStringExtra("bookName");
+        // TODO: 2017/5/16 get bookTimes from the intent
+        Log.d(TAG, "onCreate: " + appFolderPath + bookName);
+        File bookFile = new File(getExternalStorageDirectory() + appFolderPath + bookName);
+
+        // TODO: 2017/5/16 this should be moved to the bottom of this method
+        try {
+            HSSFWorkbook wb = BookAccessor.openAndValidateBook(bookFile, 5);
+            // TODO: 2017/5/12 add a lot of things here
+            BookAccessor.closeBookAndSave(wb, bookFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.tb_answer);
         setSupportActionBar(toolbar);
 
