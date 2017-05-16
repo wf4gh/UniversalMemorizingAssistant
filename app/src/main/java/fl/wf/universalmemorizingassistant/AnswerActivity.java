@@ -37,11 +37,10 @@ public class AnswerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_answer);
 
         String bookName = getIntent().getStringExtra("bookName");
-        // TODO: 2017/5/16 get bookTimes from the intent
-        Log.d(TAG, "onCreate: " + appFolderPath + bookName);
+        int boookTimes = getIntent().getIntExtra("bookTimes", 5);
+        Log.d(TAG, "onCreate: \nbook:" + appFolderPath + bookName + "\nTimes: " + boookTimes);
         File bookFile = new File(getExternalStorageDirectory() + appFolderPath + bookName);
 
-        // TODO: 2017/5/16 this should be moved to the bottom of this method
         try {
             HSSFWorkbook wb = BookAccessor.openAndValidateBook(bookFile, 5);
             // TODO: 2017/5/12 add a lot of things here
