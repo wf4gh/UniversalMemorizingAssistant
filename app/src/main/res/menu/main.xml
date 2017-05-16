@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/menu_add"
+        android:orderInCategory="100"
+        android:title="add"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/menu_options"
+        android:orderInCategory="200"
+        android:title="options"
+        app:showAsAction="ifRoom">
+        <menu>
+            <item
+                android:id="@+id/menu_books"
+                android:orderInCategory="100"
+                android:title="books"
+                app:showAsAction="ifRoom" />
+            <item
+                android:id="@+id/menu_settings"
+                android:orderInCategory="200"
+                android:title="settings"
+                app:showAsAction="ifRoom" />
+            <item
+                android:id="@+id/menu_about"
+                android:orderInCategory="300"
+                android:title="about"
+                app:showAsAction="ifRoom" />
+
+        </menu>
+    </item>
+</menu>

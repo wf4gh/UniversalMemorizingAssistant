@@ -56,12 +56,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//        Toolbar myToolbar = (Toolbar) findViewById(R.id.tb_main);
-//        if(myToolbar!=null){
-//            setSupportActionBar(myToolbar);
-//            Log.d(TAG, "onCreate: SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS");
-//        }else
-//            Log.d(TAG, "onCreate: TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT");
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.tb_main);
+        setSupportActionBar(toolbar);
 
         //Check if the storage is writable
         if (!DataChecker.isExternalStorageWritable()) {
@@ -87,6 +84,12 @@ public class MainActivity extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
     }
 
     void writeToUserDataFile(ArrayList<Book> bookListToWrite, File userDataFileToWrite) {
