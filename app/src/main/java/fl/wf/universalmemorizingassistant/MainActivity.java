@@ -15,7 +15,6 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.Toast;
 
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
@@ -34,6 +33,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
+import static android.R.attr.name;
 import static android.os.Environment.getExternalStorageDirectory;
 import static fl.wf.universalmemorizingassistant.BasicFile.appendStringToFile;
 import static fl.wf.universalmemorizingassistant.BasicFile.createNewFile;
@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 4289;
 
-    private String myDocPath = "/U_Memorizing";
+    private String appFolderPath = BasicStaticData.appFolderPath;
     private String myUserDataFileName = "/测试文件.xml";
 
     private ArrayList<Book> bookList;
@@ -66,24 +66,24 @@ public class MainActivity extends AppCompatActivity {
             finish();
         }
         getRuntimePermission();
-        initializingUserData(myDocPath, myUserDataFileName);
-        File userDataFile = new File(getExternalStorageDirectory() + myDocPath + myUserDataFileName);
-        File userDataFileShower = new File(getExternalStorageDirectory() + myDocPath + "/显示测试文件.xml");
+        initializingUserData(appFolderPath, myUserDataFileName);
+        File userDataFile = new File(getExternalStorageDirectory() + appFolderPath + myUserDataFileName);
+        File userDataFileShower = new File(getExternalStorageDirectory() + appFolderPath + "/显示测试文件.xml");
         bookList = new ArrayList<>();
         bookList = readFromUserDataFile(userDataFile);
         writeToUserDataFile(bookList, userDataFileShower);
-        File workBookFileToRead = new File(getExternalStorageDirectory() + myDocPath + "/读取测试用表.xls");
-        File aNewFileToWriteTo = new File(getExternalStorageDirectory() + myDocPath + "/写入新表.xls");
+        File workBookFileToRead = new File(getExternalStorageDirectory() + appFolderPath + "/读取测试用表.xls");
+        File aNewFileToWriteTo = new File(getExternalStorageDirectory() + appFolderPath + "/写入新表.xls");
         createNewFile(aNewFileToWriteTo);
-
-        File updateTestFile = new File(getExternalStorageDirectory() + myDocPath + "/UT1.xls");
-        try {
-            HSSFWorkbook wb = BookAccessor.openAndValidateBook(updateTestFile, 5);
-// TODO: 2017/5/12 add a lot of things here
-            BookAccessor.closeBookAndSave(wb, updateTestFile);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//
+//        File updateTestFile = new File(getExternalStorageDirectory() + appFolderPath + "/UT1.xls");
+//        try {
+//            HSSFWorkbook wb = BookAccessor.openAndValidateBook(updateTestFile, 5);
+//// TODO: 2017/5/12 add a lot of things here
+//            BookAccessor.closeBookAndSave(wb, updateTestFile);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
     }
 
     @Override
@@ -190,7 +190,7 @@ public class MainActivity extends AppCompatActivity {
         switch (requestCode) {
             case MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE: {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    initializingUserData(myDocPath, myUserDataFileName);
+                    initializingUserData(appFolderPath, myUserDataFileName);
                 } else {
                     Toast.makeText(this, "Need Permission", Toast.LENGTH_LONG).show();
                     finish();
@@ -201,7 +201,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void onStartClicked(View view) {
         Intent intent = new Intent(this, AnswerActivity.class);
-        intent.putExtra("book", "name");
+        intent.putExtra("bookName", "/"+"UT2.xls");
         startActivity(intent);
     }
 

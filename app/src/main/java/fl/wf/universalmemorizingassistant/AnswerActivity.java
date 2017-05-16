@@ -3,6 +3,7 @@ package fl.wf.universalmemorizingassistant;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -10,6 +11,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 public class AnswerActivity extends AppCompatActivity {
+    private static final String TAG = "FLWFAnswerActivity";
+
+    String appFolderPath = BasicStaticData.appFolderPath;
 
     boolean answerShowed = false;
 
@@ -23,6 +27,8 @@ public class AnswerActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        String bookName = getIntent().getStringExtra("bookName");
+        Log.d(TAG, "onCreate: " + appFolderPath + bookName);
         setContentView(R.layout.activity_answer);
         Toolbar toolbar = (Toolbar) findViewById(R.id.tb_answer);
         setSupportActionBar(toolbar);
