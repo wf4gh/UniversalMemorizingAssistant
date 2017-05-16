@@ -201,6 +201,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void onStartClicked(View view) {
         Intent intent = new Intent(this, AnswerActivity.class);
+        intent.putExtra("book", "name");
         startActivity(intent);
     }
 

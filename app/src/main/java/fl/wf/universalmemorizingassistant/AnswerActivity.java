@@ -1,21 +1,24 @@
 package fl.wf.universalmemorizingassistant;
 
-import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 public class AnswerActivity extends AppCompatActivity {
 
     boolean answerShowed = false;
 
-    Button buttonYes;
-    Button buttonNo;
-    TextView answerHintTextView;
+    Button yesButton;
+    Button noButton;
+    TextView hintTextView;
+    TextView answerTextView;
+    EditText answerEditText;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,20 +29,20 @@ public class AnswerActivity extends AppCompatActivity {
 
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//            getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
-
-        buttonYes = (Button) findViewById(R.id.bt_ans_yes);
-        buttonNo = (Button) findViewById(R.id.bt_ans_no);
-        answerHintTextView = (TextView) findViewById(R.id.tv_ans_hint);
+        yesButton = (Button) findViewById(R.id.bt_ans_yes);
+        noButton = (Button) findViewById(R.id.bt_ans_no);
+        hintTextView = (TextView) findViewById(R.id.tv_ans_hint);
+        answerEditText = (EditText) findViewById(R.id.et_ans_ans);
+        answerTextView = (TextView) findViewById(R.id.tv_ans_answer);
 
         // TODO: 2017/5/15 (IUV) find a chart api,add it
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
-            case R.id.home:
+        switch (item.getItemId()) {
+            case android.R.id.home:
                 finish();
                 return true;
         }
@@ -47,25 +50,35 @@ public class AnswerActivity extends AppCompatActivity {
     }
 
     public void onYesClicked(View view) {
-        buttonYes.setVisibility(View.INVISIBLE);
-        buttonNo.setText("TOSEE");
-        answerHintTextView.setVisibility(View.INVISIBLE);
-        answerShowed = false;
+        showNext();
         // TODO: 2017/5/15 logic need to add here
     }
 
     public void onNoClicked(View view) {
         if (!answerShowed) {
-            buttonYes.setVisibility(View.VISIBLE);
-            buttonNo.setText("NO");
-            answerHintTextView.setVisibility(View.VISIBLE);
-            answerShowed = true;
+            showThis();
         } else {
-            buttonYes.setVisibility(View.INVISIBLE);
-            buttonNo.setText("TOSEE");
-            answerHintTextView.setVisibility(View.INVISIBLE);
-            answerShowed = false;
+            showNext();
             // TODO: 2017/5/16 logic add here
         }
+    }
+
+
+    //These two methods used to control the show and hide of the components depending on the current state
+    void showThis() {
+        yesButton.setVisibility(View.VISIBLE);
+        noButton.setText("NO");
+        answerTextView.setVisibility(View.VISIBLE);
+        answerShowed = true;
+        answerEditText.setEnabled(false);
+    }
+
+    void showNext() {
+        yesButton.setVisibility(View.INVISIBLE);
+        noButton.setText("TOSEE");
+        answerTextView.setVisibility(View.INVISIBLE);
+        answerShowed = false;
+        answerEditText.setText("");
+        answerEditText.setEnabled(true);
     }
 }
