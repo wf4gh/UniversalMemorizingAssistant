@@ -20,6 +20,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:text="InfoHere"
             tools:layout_editor_absoluteX="0dp" />
 
@@ -48,28 +50,30 @@
         android:id="@+id/sv_ans_hint"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="invisible"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ll_ans_book_info">
+        app:layout_constraintTop_toBottomOf="@+id/ll_ans_book_info">
 
-        <TextView
-            android:id="@+id/tv_ans_hint"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:text="HintHere" />
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_ans_hint"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="HintHere"
+                android:visibility="invisible" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Type your answer here."
+                app:layout_constraintTop_toBottomOf="@id/sv_ans_hint" />
+        </LinearLayout>
 
     </ScrollView>
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Type your answer here."
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sv_ans_hint" />
 
     <Button
         android:id="@+id/bt_ans_yes"
@@ -87,7 +91,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:onClick="onNoClicked"
-        android:text="no"
+        android:text="ToSee"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
