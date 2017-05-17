@@ -6,11 +6,12 @@
     android:layout_height="match_parent"
     tools:context="fl.wf.universalmemorizingassistant.MainActivity">
 
+    <!--todo styles of all these components required to be modified-->
     <android.support.v7.widget.Toolbar
         android:id="@+id/tb_main"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
+        style="@style/AppTheme"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"

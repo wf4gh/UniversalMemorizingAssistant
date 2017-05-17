@@ -23,6 +23,7 @@ public class AnswerActivity extends AppCompatActivity {
     String appFolderPath = BasicStaticData.appFolderPath;
 
     boolean answerShowed = false;
+    int answerState = 0;
 
     Button yesButton;
     Button noButton;
@@ -38,13 +39,29 @@ public class AnswerActivity extends AppCompatActivity {
 
         String bookName = getIntent().getStringExtra("bookName");
         int bookTimes = getIntent().getIntExtra("bookTimes", 5);
-        Log.d(TAG, "onCreate: \nbook:" + appFolderPath + bookName + "\nTimes: " + bookTimes);
+        int bookIndex = getIntent().getIntExtra("bookIndex", 1);
+        Log.d(TAG, "onCreate: \nbook:" + appFolderPath + bookName + "\nTimes: " + bookTimes + "\nIndex:" + bookIndex);
+
         File bookFile = new File(getExternalStorageDirectory() + appFolderPath + bookName);
 
         try {
             HSSFWorkbook wb = BookAccessor.openAndValidateBook(bookFile, 5);
+
+
+
             // TODO: 2017/5/12 add a lot of things here
-            BookAccessor.closeBookAndSave(wb, bookFile);
+//            switch (BookAccessor.rowCheck(wb,bookIndex)){
+//                case BookAccessor.ROW_END:
+//                    // TODO: 2017/5/17   a method to process finished book needed
+//                    break;
+//                case BookAccessor.ROW_INVALID:
+//                    // TODO: 2017/5/17    another method needed
+//                    break;
+//                case BookAccessor.ROW_VALID:
+//
+//                    break;
+//            }
+            BookAccessor.closeAndSaveBook(wb, bookFile);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -62,6 +79,11 @@ public class AnswerActivity extends AppCompatActivity {
         answerTextView = (TextView) findViewById(R.id.tv_ans_answer);
 
         // TODO: 2017/5/15 (IUV) find a chart api,add it
+    }
+
+    //used to show the row now at the screen
+    void showCurrentRow(){
+
     }
 
     @Override

@@ -49,12 +49,14 @@ public class BookAccessor {
         Log.d(TAG, "openAndValidateBook: sheet.getPhysicalNumberOfRows(): " + sheet.getPhysicalNumberOfRows());
 
         //This loop is used to remove all the empty rows in the sheet
-        for (int i = 0; i < sheet.getLastRowNum(); i++) {
+        for (int i = 1; i < sheet.getLastRowNum(); i++) {
             if (sheet.getRow(i) == null) {
+                Log.d(TAG, "openAndValidateBook: NULL:" + i);
                 sheet.shiftRows(i + 1, sheet.getLastRowNum(), -1);
                 i--;
                 continue;
             }
+
             if (sheet.getRow(i).getLastCellNum() == -1) {
                 sheet.shiftRows(i + 1, sheet.getLastRowNum(), -1);
                 i--;
@@ -93,10 +95,7 @@ public class BookAccessor {
                 }
             } else if (c2.getCellTypeEnum() != NUMERIC) {
                 c2.setCellValue(maxTimes);
-            }
-//            else {
-//                c2.setCellValue((int) c2.getNumericCellValue());
-//            }
+            } //else c2.setCellValue((int) c2.getNumericCellValue());
         }
 
 //        Log.d(TAG, "openAndValidateBook: sheet.getLastRowNum(): " + sheet.getLastRowNum());
@@ -147,7 +146,7 @@ public class BookAccessor {
         }
     }
 
-    static void closeBookAndSave(HSSFWorkbook usedWorkbook, File bookFileToUpdate) throws IOException {
+    static void closeAndSaveBook(HSSFWorkbook usedWorkbook, File bookFileToUpdate) throws IOException {
         FileOutputStream out = new FileOutputStream(bookFileToUpdate);
         usedWorkbook.write(out);
         out.close();

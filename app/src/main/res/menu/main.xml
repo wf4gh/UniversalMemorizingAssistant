@@ -5,13 +5,14 @@
         android:id="@+id/menu_add"
         android:icon="@mipmap/ic_add_black_48dp"
         android:orderInCategory="100"
-        android:title="add"
+        android:title="Quick Add"
         app:showAsAction="ifRoom" />
     <item
+
         android:id="@+id/menu_options"
         android:icon="@mipmap/ic_more_vert_black_48dp"
         android:orderInCategory="200"
-        android:title="options"
+        android:title="Options"
         app:showAsAction="ifRoom">
         <menu>
             <item
