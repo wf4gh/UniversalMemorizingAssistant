@@ -37,8 +37,8 @@ public class AnswerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_answer);
 
         String bookName = getIntent().getStringExtra("bookName");
-        int boookTimes = getIntent().getIntExtra("bookTimes", 5);
-        Log.d(TAG, "onCreate: \nbook:" + appFolderPath + bookName + "\nTimes: " + boookTimes);
+        int bookTimes = getIntent().getIntExtra("bookTimes", 5);
+        Log.d(TAG, "onCreate: \nbook:" + appFolderPath + bookName + "\nTimes: " + bookTimes);
         File bookFile = new File(getExternalStorageDirectory() + appFolderPath + bookName);
 
         try {
