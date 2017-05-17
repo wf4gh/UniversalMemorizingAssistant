@@ -1,5 +1,7 @@
 package fl.wf.universalmemorizingassistant;
 
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -92,21 +94,65 @@ public class AnswerActivity extends AppCompatActivity {
 
     //used to show the row now at the screen
     void showCurrentRowValue(HSSFWorkbook wb) {
+        //This chip of code is moved below.hope it will work well
+//        if (BookAccessor.rowCheck(wb, bookIndex) == BookAccessor.ROW_END) {
+//            bookIndex = 1;
+//            while (BookAccessor.rowCheck(wb, bookIndex) == BookAccessor.ROW_INVALID) {
+//                bookIndex++;
+//                if (BookAccessor.rowCheck(wb, bookIndex) == BookAccessor.ROW_END) {
+//                    Log.d(TAG, "showCurrentRowValue: IIIIIIIIIIIIIIIIIFFFFFFFFFFF");
+//                    new AlertDialog.Builder(this)
+//                            .setTitle("ThisFinished")
+//                            .setMessage("One more time?")
+//                            .setPositiveButton("OK,one more time", new DialogInterface.OnClickListener() {
+//                                @Override
+//                                public void onClick(DialogInterface dialog, int which) {
+//                                    Log.d(TAG, "onClick: 111111111111111");
+//                                }
+//                            })
+//                            .setNegativeButton("Back to start", new DialogInterface.OnClickListener() {
+//                                @Override
+//                                public void onClick(DialogInterface dialog, int which) {
+//                                    Log.d(TAG, "onClick: 22222222222222222222");
+//                                }
+//                            })
+//                            .show();
+//                    return;
+//                }
+//            }
+//        }
+
+        while (BookAccessor.rowCheck(wb, bookIndex) == BookAccessor.ROW_INVALID) {
+            bookIndex++;
+        }
+
         if (BookAccessor.rowCheck(wb, bookIndex) == BookAccessor.ROW_END) {
             bookIndex = 1;
             while (BookAccessor.rowCheck(wb, bookIndex) == BookAccessor.ROW_INVALID) {
                 bookIndex++;
                 if (BookAccessor.rowCheck(wb, bookIndex) == BookAccessor.ROW_END) {
                     // TODO: 2017/5/17   do a end this book method here
-                    Toast.makeText(this, "EndNow!!!!!!", Toast.LENGTH_SHORT).show();
-                    finish();
+                    new AlertDialog.Builder(this)
+                            .setTitle("ThisFinished")
+                            .setMessage("One more time?")
+                            .setPositiveButton("OK,one more time", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Log.d(TAG, "onClick: some code needed here");
+                                }
+                            })
+                            .setNegativeButton("Back to start", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    finish();
+                                }
+                            })
+                            .show();
                     return;
                 }
             }
         }
-        while (BookAccessor.rowCheck(wb, bookIndex) == BookAccessor.ROW_INVALID) {
-            bookIndex++;
-        }
+
 
         HSSFRow row = wb.getSheetAt(0).getRow(bookIndex);
         String hint = row.getCell(0).getStringCellValue();
@@ -126,7 +172,7 @@ public class AnswerActivity extends AppCompatActivity {
     }
 
     public void onYesClicked(View view) {
-        answerState=BookAccessor.ANSWER_RIGHT;
+        answerState = BookAccessor.ANSWER_RIGHT;
         BookAccessor.updateTimes(wb, bookIndex, maxTimes, answerState);
         UIShowNext();
         bookIndex++;
@@ -137,7 +183,7 @@ public class AnswerActivity extends AppCompatActivity {
         if (!answerShowed) {
             UIShowThis();
         } else {
-            answerState=BookAccessor.ANSWER_WRONG;
+            answerState = BookAccessor.ANSWER_WRONG;
             BookAccessor.updateTimes(wb, bookIndex, maxTimes, answerState);
             UIShowNext();
             bookIndex++;
