@@ -75,6 +75,11 @@ public class MainActivity extends AppCompatActivity {
         File workBookFileToRead = new File(getExternalStorageDirectory() + appFolderPath + "/读取测试用表.xls");
         File aNewFileToWriteTo = new File(getExternalStorageDirectory() + appFolderPath + "/写入新表.xls");
         createNewFile(aNewFileToWriteTo);
+
+
+
+
+
     }
 
     @Override
@@ -192,9 +197,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void onStartClicked(View view) {
         Intent intent = new Intent(this, AnswerActivity.class);
-        intent.putExtra("bookName", "/" + "UT55.xls");
-        intent.putExtra("bookTimes",5);
-        intent.putExtra("bookIndex",1);
         startActivity(intent);
     }
 

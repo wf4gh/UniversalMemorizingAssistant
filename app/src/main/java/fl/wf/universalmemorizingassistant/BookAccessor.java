@@ -64,7 +64,7 @@ public class BookAccessor {
         }
 
         //This part is used to set the dataType and staff the blank cells
-        for (int i = 1; i <= sheet.getLastRowNum(); i++) {
+        for (int i = 1; i < sheet.getLastRowNum(); i++) {
             HSSFRow r = sheet.getRow(i);
             HSSFCell c0 = r.getCell(0);
             if (c0 == null) {
@@ -72,6 +72,8 @@ public class BookAccessor {
                 c0.setCellValue("NoData");
             } else {
                 c0.setCellType(STRING);
+                if (c0.getStringCellValue().equals(""))
+                    c0.setCellValue("NoData");
             }
 
             HSSFCell c1 = sheet.getRow(i).getCell(1);
@@ -80,6 +82,8 @@ public class BookAccessor {
                 c1.setCellValue("NoData");
             } else {
                 c1.setCellType(STRING);
+                if (c0.getStringCellValue().equals(""))
+                    c0.setCellValue("NoData");
             }
 
             HSSFCell c2 = sheet.getRow(i).getCell(2);
@@ -109,6 +113,8 @@ public class BookAccessor {
         HSSFRow row = workbookToUse.getSheetAt(0).getRow(indexOfRow);
         if (row == null) return ROW_END;
         HSSFCell cell = row.getCell(2);
+        // FIXME: 2017/5/17 if the row==null can correctly know that the row is null, this line is unnecessary. But this makes it work......
+        if (cell == null) return ROW_END;
         if (cell.getNumericCellValue() == 0) return ROW_INVALID;
         else return ROW_VALID;
     }
