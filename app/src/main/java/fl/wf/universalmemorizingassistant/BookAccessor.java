@@ -152,6 +152,21 @@ public class BookAccessor {
         }
     }
 
+    static void setAllRowsToMaxTimes(HSSFWorkbook usedWorkbook, int maxTimes) {
+        HSSFSheet sheet = usedWorkbook.getSheetAt(0);
+
+        for (int i = 1; i < sheet.getLastRowNum(); i++) {
+            HSSFRow r = sheet.getRow(i);
+            HSSFCell c2 = sheet.getRow(i).getCell(2);
+            if (c2 == null) {
+                c2 = r.createCell(2);
+                c2.setCellValue(maxTimes);
+            } else {
+                c2.setCellValue(maxTimes);
+            }
+        }
+    }
+
     static void closeAndSaveBook(HSSFWorkbook usedWorkbook, File bookFileToUpdate) throws IOException {
         FileOutputStream out = new FileOutputStream(bookFileToUpdate);
         usedWorkbook.write(out);

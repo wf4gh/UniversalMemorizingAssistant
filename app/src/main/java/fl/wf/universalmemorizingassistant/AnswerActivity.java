@@ -73,12 +73,12 @@ public class AnswerActivity extends AppCompatActivity {
         bookFile = new File(getExternalStorageDirectory() + appFolderPath + bookName);
 
         try {
-            wb = BookAccessor.openAndValidateBook(bookFile, 5);
+            wb = BookAccessor.openAndValidateBook(bookFile, maxTimes);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        showCurrentRowValue(wb);
+        showCurrentRowValue();
     }
 
     @Override
@@ -93,34 +93,7 @@ public class AnswerActivity extends AppCompatActivity {
     }
 
     //used to show the row now at the screen
-    void showCurrentRowValue(HSSFWorkbook wb) {
-        //This chip of code is moved below.hope it will work well
-//        if (BookAccessor.rowCheck(wb, bookIndex) == BookAccessor.ROW_END) {
-//            bookIndex = 1;
-//            while (BookAccessor.rowCheck(wb, bookIndex) == BookAccessor.ROW_INVALID) {
-//                bookIndex++;
-//                if (BookAccessor.rowCheck(wb, bookIndex) == BookAccessor.ROW_END) {
-//                    Log.d(TAG, "showCurrentRowValue: IIIIIIIIIIIIIIIIIFFFFFFFFFFF");
-//                    new AlertDialog.Builder(this)
-//                            .setTitle("ThisFinished")
-//                            .setMessage("One more time?")
-//                            .setPositiveButton("OK,one more time", new DialogInterface.OnClickListener() {
-//                                @Override
-//                                public void onClick(DialogInterface dialog, int which) {
-//                                    Log.d(TAG, "onClick: 111111111111111");
-//                                }
-//                            })
-//                            .setNegativeButton("Back to start", new DialogInterface.OnClickListener() {
-//                                @Override
-//                                public void onClick(DialogInterface dialog, int which) {
-//                                    Log.d(TAG, "onClick: 22222222222222222222");
-//                                }
-//                            })
-//                            .show();
-//                    return;
-//                }
-//            }
-//        }
+    void showCurrentRowValue() {
 
         while (BookAccessor.rowCheck(wb, bookIndex) == BookAccessor.ROW_INVALID) {
             bookIndex++;
@@ -139,6 +112,15 @@ public class AnswerActivity extends AppCompatActivity {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     Log.d(TAG, "onClick: some code needed here");
+                                    BookAccessor.setAllRowsToMaxTimes(wb, maxTimes);
+                                    try {
+                                        BookAccessor.closeAndSaveBook(wb, bookFile);
+                                        wb = BookAccessor.openAndValidateBook(bookFile, maxTimes);
+                                        bookIndex=1;
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                    showCurrentRowValue();
                                 }
                             })
                             .setNegativeButton("Back to start", new DialogInterface.OnClickListener() {
@@ -147,6 +129,7 @@ public class AnswerActivity extends AppCompatActivity {
                                     finish();
                                 }
                             })
+                            .setCancelable(false)
                             .show();
                     return;
                 }
@@ -176,7 +159,7 @@ public class AnswerActivity extends AppCompatActivity {
         BookAccessor.updateTimes(wb, bookIndex, maxTimes, answerState);
         UIShowNext();
         bookIndex++;
-        showCurrentRowValue(wb);
+        showCurrentRowValue();
     }
 
     public void onNoClicked(View view) {
@@ -187,7 +170,7 @@ public class AnswerActivity extends AppCompatActivity {
             BookAccessor.updateTimes(wb, bookIndex, maxTimes, answerState);
             UIShowNext();
             bookIndex++;
-            showCurrentRowValue(wb);
+            showCurrentRowValue();
         }
     }
 
