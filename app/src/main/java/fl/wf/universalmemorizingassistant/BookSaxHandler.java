@@ -12,7 +12,7 @@ import java.util.ArrayList;
  */
 
 class BookSaxHandler extends DefaultHandler {
-    public static int idIndex;
+    public static String presentBookName;
     private ArrayList<Book> bookArrayList;
     private Book book;
     private String content;
@@ -37,7 +37,7 @@ class BookSaxHandler extends DefaultHandler {
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
         super.startElement(uri, localName, qName, attributes);
         if ("Books".equals(localName)) {
-            idIndex = Integer.parseInt(attributes.getValue(0));
+            presentBookName = attributes.getValue(0);
         }
         if ("Book".equals(localName)) {
             book = new Book();
@@ -50,8 +50,12 @@ class BookSaxHandler extends DefaultHandler {
         super.endElement(uri, localName, qName);
         if ("Name".equals(localName)) {
             book.setName(content);
-        } else if ("Rank".equals(localName)) {
+        } else if ("MaxTimes".equals(localName)) {
             book.setMaxTimes(Integer.parseInt(content));
+        } else if ("Index".equals(localName)) {
+            book.setIndex(Integer.parseInt(content));
+        } else if ("RecitedTimes".equals(localName)) {
+            book.setRecitedTimes(Integer.parseInt(content));
         } else if ("Book".equals(localName)) {
             bookArrayList.add(book);
         }

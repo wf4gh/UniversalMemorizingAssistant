@@ -34,11 +34,8 @@ import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
 import static android.os.Environment.getExternalStorageDirectory;
-import static fl.wf.universalmemorizingassistant.BasicFile.appendStringToFile;
 import static fl.wf.universalmemorizingassistant.BasicFile.createNewFile;
 import static fl.wf.universalmemorizingassistant.BasicFile.createNewFolder;
-import static fl.wf.universalmemorizingassistant.BasicFile.readStringFromFile;
-import static fl.wf.universalmemorizingassistant.BasicFile.writeStringToFile;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -49,12 +46,13 @@ public class MainActivity extends AppCompatActivity {
     private String appFolder = BasicStaticData.appFolder;
     private String appBookDataFileName = BasicStaticData.appBookDataFileName;
     File appBookDataFile;
-    File[] books;
+    File[] bookFiles;
 
-    private ArrayList<Book> bookList;
+    private ArrayList<Book> bookListFromScanner;
 
     //identify the book using now
-    int idIndex = 0;
+//    int idIndex = 0;
+    String presentBookName;
     //send these four variables to AnswerActivity using intent
     String bookName;
     int bookMaxTimes;
@@ -76,15 +74,6 @@ public class MainActivity extends AppCompatActivity {
         }
         getRuntimePermission();
         initializingUserData();
-
-
-//        File userDataFile = new File(getExternalStorageDirectory() + appFolder + appBookDataFileName);
-//        bookList = readFromUserDataFile(userDataFile);
-//        File workBookFileToRead = new File(getExternalStorageDirectory() + appFolder + "/读取测试用表.xls");
-//        File aNewFileToWriteTo = new File(getExternalStorageDirectory() + appFolder + "/写入新表.xls");
-//        createNewFile(aNewFileToWriteTo);
-
-
     }
 
     @Override
@@ -101,10 +90,10 @@ public class MainActivity extends AppCompatActivity {
             xmlSerializer.setOutput(fileOutputStream, "UTF-8");
             xmlSerializer.startDocument("UTF-8", true);
             xmlSerializer.startTag(null, "Books");
-            xmlSerializer.attribute(null, "idIndex", String.valueOf(idIndex));
+            xmlSerializer.attribute(null, "presentBookName", presentBookName);
             for (Book book : bookListToWrite) {
                 xmlSerializer.startTag(null, "Book");
-                xmlSerializer.attribute(null, "id", String.valueOf(book.getId()));
+//                xmlSerializer.attribute(null, "id", String.valueOf(book.getId()));
                 xmlSerializer.startTag(null, "Name");
                 xmlSerializer.text(book.getName());
                 xmlSerializer.endTag(null, "Name");
@@ -136,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
             xmlSerializer.setOutput(fileOutputStream, "UTF-8");
             xmlSerializer.startDocument("UTF-8", true);
             xmlSerializer.startTag(null, "Books");
-            xmlSerializer.attribute(null, "idIndex", String.valueOf(idIndex));
+            xmlSerializer.attribute(null, "presentBookName", presentBookName);
             for (Book book : bookListToWrite) {
                 xmlSerializer.startTag(null, "Book");
                 xmlSerializer.attribute(null, "id", String.valueOf(book.getId()));
@@ -170,7 +159,7 @@ public class MainActivity extends AppCompatActivity {
             SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
             SAXParser saxParser = saxParserFactory.newSAXParser();
             XMLReader xmlReader = saxParser.getXMLReader();
-            BookSaxHandler bookSaxHandler = new BookSaxHandler(bookList);
+            BookSaxHandler bookSaxHandler = new BookSaxHandler(bookListFromScanner);
             xmlReader.setContentHandler(bookSaxHandler);
             xmlReader.parse(inputSource);
         } catch (ParserConfigurationException | SAXException | IOException e) {
@@ -178,11 +167,11 @@ public class MainActivity extends AppCompatActivity {
         }
 
         String result = "";
-        for (Book b : bookList) {
+        for (Book b : bookListFromScanner) {
             result += b.toString();
         }
         Log.d(TAG, "onCreate: " + result);
-        return bookList;
+        return bookListFromScanner;
     }
 
     //try to create user data folder and file.If already created,this will not create new file
@@ -198,28 +187,39 @@ public class MainActivity extends AppCompatActivity {
 
         // TODO: 2017/5/18 add an example .xls file here
 
-        bookList = new ArrayList<>();
+        bookListFromScanner = new ArrayList<>();
         BasicFile.ExtensionFilter xlsFilter = new BasicFile.ExtensionFilter(".xls");
-        books = appFolderFile.listFiles(xlsFilter);
+        bookFiles = appFolderFile.listFiles(xlsFilter);
 
         if (bookDataFileCreateState == BasicFile.CREATE_SUCCESS) {
             //Create: when the book data file is firstly created, do this
-
-            if (books != null) {
-                for (int i = 0; i < books.length; i++) {
+            if (bookFiles != null) {
+                for (int i = 0; i < bookFiles.length; i++) {
                     Book book = new Book();
-                    book.setId(i + 1);
+                    // TODO: 2017/5/18   try using name as id ,cus name naturally diffs from each other
+//                    book.setId(i + 1);
+                    book.setName("/" + bookFiles[i].getName());
                     book.setIndex(1);
                     book.setMaxTimes(5);
-                    book.setName("/" + books[i].getName());
                     book.setRecitedTimes(0);
-                    bookList.add(book);
+                    bookListFromScanner.add(book);
                 }
-            } else Log.d(TAG, "onCreate: NULL books");
-            writeNewBookDataFile(bookList, bookDataFile);
+            } else Log.d(TAG, "onCreate: NULL bookFiles");
+            writeNewBookDataFile(bookListFromScanner, bookDataFile);
         } else if (bookDataFileCreateState == BasicFile.CREATE_ALREADY_EXISTS) {
             //Update: when book data file already exists, do this
-
+            if (bookFiles != null) {
+                for (int i = 0; i < bookFiles.length; i++) {
+                    Book book = new Book();
+//                    book.setId(i + 1);
+                    book.setName("/" + bookFiles[i].getName());
+                    book.setIndex(1);
+                    book.setMaxTimes(5);
+                    book.setRecitedTimes(0);
+                    bookListFromScanner.add(book);
+                }
+            } else Log.d(TAG, "onCreate: NULL bookFiles");
+            // TODO: 2017/5/18 get a bookListFromDataFile and compare, process
         }
 
     }
