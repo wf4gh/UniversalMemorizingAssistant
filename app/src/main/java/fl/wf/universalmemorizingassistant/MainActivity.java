@@ -46,13 +46,15 @@ public class MainActivity extends AppCompatActivity {
 
     private static final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 4289;
 
-    private String appFolderPath = BasicStaticData.appFolderPath;
+    private String appFolder = BasicStaticData.appFolder;
     private String appBookDataFileName = BasicStaticData.appBookDataFileName;
     File appBookDataFile;
     File[] books;
 
     private ArrayList<Book> bookList;
 
+    //identify the book using now
+    int idIndex = 0;
     //send these four variables to AnswerActivity using intent
     String bookName;
     int bookMaxTimes;
@@ -73,26 +75,14 @@ public class MainActivity extends AppCompatActivity {
             finish();
         }
         getRuntimePermission();
-        initializingUserData(appFolderPath, appBookDataFileName);
-
-        File appFolder = new File(getExternalStorageDirectory() + appFolderPath);
-        BasicFile.ExtensionFilter xlsFilter = new BasicFile.ExtensionFilter(".xls");
-        books = appFolder.listFiles(xlsFilter);
-        if (books != null) {
-            for (File book : books) {
-                Log.d(TAG, "onCreate: " + book.getAbsolutePath());
-            }
-        } else Log.d(TAG, "onCreate: NULL books");
+        initializingUserData();
 
 
-        File userDataFile = new File(getExternalStorageDirectory() + appFolderPath + appBookDataFileName);
-        File userDataFileShower = new File(getExternalStorageDirectory() + appFolderPath + "/显示测试文件.xml");
-        bookList = new ArrayList<>();
-        bookList = readFromUserDataFile(userDataFile);
-        writeToUserDataFile(bookList, userDataFileShower);
-        File workBookFileToRead = new File(getExternalStorageDirectory() + appFolderPath + "/读取测试用表.xls");
-        File aNewFileToWriteTo = new File(getExternalStorageDirectory() + appFolderPath + "/写入新表.xls");
-        createNewFile(aNewFileToWriteTo);
+//        File userDataFile = new File(getExternalStorageDirectory() + appFolder + appBookDataFileName);
+//        bookList = readFromUserDataFile(userDataFile);
+//        File workBookFileToRead = new File(getExternalStorageDirectory() + appFolder + "/读取测试用表.xls");
+//        File aNewFileToWriteTo = new File(getExternalStorageDirectory() + appFolder + "/写入新表.xls");
+//        createNewFile(aNewFileToWriteTo);
 
 
     }
@@ -103,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    void writeToUserDataFile(ArrayList<Book> bookListToWrite, File userDataFileToWrite) {
+    void writeNewBookDataFile(ArrayList<Book> bookListToWrite, File userDataFileToWrite) {
         try {
             FileOutputStream fileOutputStream = new FileOutputStream(userDataFileToWrite);
             XmlPullParserFactory xmlPullParserFactory = XmlPullParserFactory.newInstance();
@@ -111,15 +101,57 @@ public class MainActivity extends AppCompatActivity {
             xmlSerializer.setOutput(fileOutputStream, "UTF-8");
             xmlSerializer.startDocument("UTF-8", true);
             xmlSerializer.startTag(null, "Books");
+            xmlSerializer.attribute(null, "idIndex", String.valueOf(idIndex));
             for (Book book : bookListToWrite) {
                 xmlSerializer.startTag(null, "Book");
                 xmlSerializer.attribute(null, "id", String.valueOf(book.getId()));
                 xmlSerializer.startTag(null, "Name");
                 xmlSerializer.text(book.getName());
                 xmlSerializer.endTag(null, "Name");
-                xmlSerializer.startTag(null, "Rank");
-                xmlSerializer.text(String.valueOf(book.getRank()));
-                xmlSerializer.endTag(null, "Rank");
+                xmlSerializer.startTag(null, "MaxTimes");
+                xmlSerializer.text(String.valueOf(book.getMaxTimes()));
+                xmlSerializer.endTag(null, "MaxTimes");
+                xmlSerializer.startTag(null, "Index");
+                xmlSerializer.text(String.valueOf(book.getIndex()));
+                xmlSerializer.endTag(null, "Index");
+                xmlSerializer.startTag(null, "RecitedTimes");
+                xmlSerializer.text(String.valueOf(book.getRecitedTimes()));
+                xmlSerializer.endTag(null, "RecitedTimes");
+                xmlSerializer.endTag(null, "Book");
+            }
+            xmlSerializer.endTag(null, "Books");
+            xmlSerializer.endDocument();
+            fileOutputStream.flush();
+            fileOutputStream.close();
+        } catch (XmlPullParserException | IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    void writeToBookDataFile(ArrayList<Book> bookListToWrite, File userDataFileToWrite) {
+        try {
+            FileOutputStream fileOutputStream = new FileOutputStream(userDataFileToWrite);
+            XmlPullParserFactory xmlPullParserFactory = XmlPullParserFactory.newInstance();
+            XmlSerializer xmlSerializer = xmlPullParserFactory.newSerializer();
+            xmlSerializer.setOutput(fileOutputStream, "UTF-8");
+            xmlSerializer.startDocument("UTF-8", true);
+            xmlSerializer.startTag(null, "Books");
+            xmlSerializer.attribute(null, "idIndex", String.valueOf(idIndex));
+            for (Book book : bookListToWrite) {
+                xmlSerializer.startTag(null, "Book");
+                xmlSerializer.attribute(null, "id", String.valueOf(book.getId()));
+                xmlSerializer.startTag(null, "Name");
+                xmlSerializer.text(book.getName());
+                xmlSerializer.endTag(null, "Name");
+                xmlSerializer.startTag(null, "MaxTimes");
+                xmlSerializer.text(String.valueOf(book.getMaxTimes()));
+                xmlSerializer.endTag(null, "MaxTimes");
+                xmlSerializer.startTag(null, "Index");
+                xmlSerializer.text(String.valueOf(book.getIndex()));
+                xmlSerializer.endTag(null, "Index");
+                xmlSerializer.startTag(null, "RecitedTimes");
+                xmlSerializer.text(String.valueOf(book.getRecitedTimes()));
+                xmlSerializer.endTag(null, "RecitedTimes");
                 xmlSerializer.endTag(null, "Book");
             }
             xmlSerializer.endTag(null, "Books");
@@ -153,23 +185,43 @@ public class MainActivity extends AppCompatActivity {
         return bookList;
     }
 
-    void testCommonFileManipulation(File file) {
-        writeStringToFile(file, "Here is another string to write.\n");
-        appendStringToFile(file, "Here is a test content to append");
-        Log.d(TAG, "onCreate: Read from file:\n" + readStringFromFile(file));
-    }
-
     //try to create user data folder and file.If already created,this will not create new file
-    void initializingUserData(String appDataFolder, String userDataFileName) {
-        File appDataFolderPath = new File(getExternalStorageDirectory() + appDataFolder);
-        createNewFolder(appDataFolderPath);
+    void initializingUserData() {
+        //create app folder
+        File appFolderFile = new File(getExternalStorageDirectory() + appFolder);
+        createNewFolder(appFolderFile);
 
-        File userDataFile = new File(getExternalStorageDirectory() + appDataFolder + userDataFileName);
-        createNewFile(userDataFile);
 
-        // TODO: 2017/5/9 when all done,this file will be no longer needed  
-        File userDataFileShower = new File(getExternalStorageDirectory() + appDataFolder + "/显示测试文件.xml");
-        createNewFile(userDataFileShower);
+        //create or update app book data file
+        File bookDataFile = new File(getExternalStorageDirectory() + appFolder + appBookDataFileName);
+        int bookDataFileCreateState = createNewFile(bookDataFile);
+
+        // TODO: 2017/5/18 add an example .xls file here
+
+        bookList = new ArrayList<>();
+        BasicFile.ExtensionFilter xlsFilter = new BasicFile.ExtensionFilter(".xls");
+        books = appFolderFile.listFiles(xlsFilter);
+
+        if (bookDataFileCreateState == BasicFile.CREATE_SUCCESS) {
+            //Create: when the book data file is firstly created, do this
+
+            if (books != null) {
+                for (int i = 0; i < books.length; i++) {
+                    Book book = new Book();
+                    book.setId(i + 1);
+                    book.setIndex(1);
+                    book.setMaxTimes(5);
+                    book.setName("/" + books[i].getName());
+                    book.setRecitedTimes(0);
+                    bookList.add(book);
+                }
+            } else Log.d(TAG, "onCreate: NULL books");
+            writeNewBookDataFile(bookList, bookDataFile);
+        } else if (bookDataFileCreateState == BasicFile.CREATE_ALREADY_EXISTS) {
+            //Update: when book data file already exists, do this
+
+        }
+
     }
 
     void getRuntimePermission() {
@@ -201,7 +253,7 @@ public class MainActivity extends AppCompatActivity {
         switch (requestCode) {
             case MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE: {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    initializingUserData(appFolderPath, appBookDataFileName);
+                    initializingUserData();
                 } else {
                     Toast.makeText(this, "Need Permission", Toast.LENGTH_LONG).show();
                     finish();
@@ -209,6 +261,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+
 
     public void onStartClicked(View view) {
         Intent intent = new Intent(this, AnswerActivity.class);

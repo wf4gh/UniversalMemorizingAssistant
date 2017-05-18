@@ -6,6 +6,6 @@ package fl.wf.universalmemorizingassistant;
  */
 
 final class BasicStaticData {
-    static final String appFolderPath = "/U_Memorizing";
+    static final String appFolder = "/U_Memorizing";
     static final String appBookDataFileName="/BookData.xml";
 }

@@ -23,7 +23,7 @@ import static android.os.Environment.getExternalStorageDirectory;
 public class AnswerActivity extends AppCompatActivity {
     private static final String TAG = "FLWFAnswerActivity";
 
-    String appFolderPath = BasicStaticData.appFolderPath;
+    String appFolderPath = BasicStaticData.appFolder;
 
     boolean answerShowed = false;
     int answerState = 0;

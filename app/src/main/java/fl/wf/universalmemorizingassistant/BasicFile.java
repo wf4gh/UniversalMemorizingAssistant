@@ -20,9 +20,9 @@ class BasicFile {
 
     private static final String TAG = "FLWFBasicFile";
 
-    private static final int CREATE_FAILED = 0;
-    private static final int CREATE_SUCCESS = 1;
-    private static final int CREATE_ALREADY_EXISTS = 2;
+    static final int CREATE_FAILED = 0;
+    static final int CREATE_SUCCESS = 1;
+    static final int CREATE_ALREADY_EXISTS = 2;
 
     //create a file
     static int createNewFile(File file) {
