@@ -5,6 +5,7 @@ import android.util.Log;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
@@ -123,5 +124,19 @@ class BasicFile {
             e.printStackTrace();
         }
         return null;
+    }
+
+    //i like this.an universal extension file filter!
+    public static class ExtensionFilter implements FilenameFilter {
+        private String extension;
+
+        public ExtensionFilter(String extension) {
+            this.extension = extension;
+        }
+
+        @Override
+        public boolean accept(File dir, String name) {
+            return name.endsWith(extension);
+        }
     }
 }

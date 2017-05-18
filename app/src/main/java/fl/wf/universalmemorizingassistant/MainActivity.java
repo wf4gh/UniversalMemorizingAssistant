@@ -33,7 +33,6 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
-import static android.R.attr.name;
 import static android.os.Environment.getExternalStorageDirectory;
 import static fl.wf.universalmemorizingassistant.BasicFile.appendStringToFile;
 import static fl.wf.universalmemorizingassistant.BasicFile.createNewFile;
@@ -48,9 +47,17 @@ public class MainActivity extends AppCompatActivity {
     private static final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 4289;
 
     private String appFolderPath = BasicStaticData.appFolderPath;
-    private String myUserDataFileName = "/测试文件.xml";
+    private String appBookDataFileName = BasicStaticData.appBookDataFileName;
+    File appBookDataFile;
+    File[] books;
 
     private ArrayList<Book> bookList;
+
+    //send these four variables to AnswerActivity using intent
+    String bookName;
+    int bookMaxTimes;
+    int bookIndex;
+    int bookRecitedTimes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,8 +73,19 @@ public class MainActivity extends AppCompatActivity {
             finish();
         }
         getRuntimePermission();
-        initializingUserData(appFolderPath, myUserDataFileName);
-        File userDataFile = new File(getExternalStorageDirectory() + appFolderPath + myUserDataFileName);
+        initializingUserData(appFolderPath, appBookDataFileName);
+
+        File appFolder = new File(getExternalStorageDirectory() + appFolderPath);
+        BasicFile.ExtensionFilter xlsFilter = new BasicFile.ExtensionFilter(".xls");
+        books = appFolder.listFiles(xlsFilter);
+        if (books != null) {
+            for (File book : books) {
+                Log.d(TAG, "onCreate: " + book.getAbsolutePath());
+            }
+        } else Log.d(TAG, "onCreate: NULL books");
+
+
+        File userDataFile = new File(getExternalStorageDirectory() + appFolderPath + appBookDataFileName);
         File userDataFileShower = new File(getExternalStorageDirectory() + appFolderPath + "/显示测试文件.xml");
         bookList = new ArrayList<>();
         bookList = readFromUserDataFile(userDataFile);
@@ -75,9 +93,6 @@ public class MainActivity extends AppCompatActivity {
         File workBookFileToRead = new File(getExternalStorageDirectory() + appFolderPath + "/读取测试用表.xls");
         File aNewFileToWriteTo = new File(getExternalStorageDirectory() + appFolderPath + "/写入新表.xls");
         createNewFile(aNewFileToWriteTo);
-
-
-
 
 
     }
@@ -186,7 +201,7 @@ public class MainActivity extends AppCompatActivity {
         switch (requestCode) {
             case MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE: {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    initializingUserData(appFolderPath, myUserDataFileName);
+                    initializingUserData(appFolderPath, appBookDataFileName);
                 } else {
                     Toast.makeText(this, "Need Permission", Toast.LENGTH_LONG).show();
                     finish();
@@ -197,6 +212,10 @@ public class MainActivity extends AppCompatActivity {
 
     public void onStartClicked(View view) {
         Intent intent = new Intent(this, AnswerActivity.class);
+        intent.putExtra("bookName", bookName);
+        intent.putExtra("bookMaxTimes", bookMaxTimes);
+        intent.putExtra("bookIndex", bookIndex);
+        intent.putExtra("bookRecitedTimes", bookRecitedTimes);
         startActivity(intent);
     }
 

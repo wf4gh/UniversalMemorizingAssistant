@@ -11,7 +11,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -30,8 +29,9 @@ public class AnswerActivity extends AppCompatActivity {
     int answerState = 0;
 
     String bookName;
-    int maxTimes;
+    int bookMaxTimes;
     int bookIndex;
+    int bookRecitedTimes;
     File bookFile;
     HSSFWorkbook wb;
 
@@ -46,6 +46,11 @@ public class AnswerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_answer);
+
+        bookName = getIntent().getStringExtra("bookName");
+        bookMaxTimes = getIntent().getIntExtra("bookMaxTimes", 5);
+        bookIndex = getIntent().getIntExtra("bookIndex", 1);
+        bookRecitedTimes = getIntent().getIntExtra("bookRecitedTimes", 0);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.tb_answer);
         setSupportActionBar(toolbar);
@@ -67,13 +72,13 @@ public class AnswerActivity extends AppCompatActivity {
         super.onResume();
         // TODO: 2017/5/17 get these three values by reading user data file(.xml)
         bookName = "/UTest.xls";
-        maxTimes = 5;
+        bookMaxTimes = 5;
         bookIndex = 1;
-        Log.d(TAG, "onCreate: \nbook:" + appFolderPath + bookName + "\nTimes: " + maxTimes + "\nIndex:" + bookIndex);
+        Log.d(TAG, "onCreate: \nbook:" + appFolderPath + bookName + "\nTimes: " + bookMaxTimes + "\nIndex:" + bookIndex);
         bookFile = new File(getExternalStorageDirectory() + appFolderPath + bookName);
 
         try {
-            wb = BookAccessor.openAndValidateBook(bookFile, maxTimes);
+            wb = BookAccessor.openAndValidateBook(bookFile, bookMaxTimes);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -104,7 +109,6 @@ public class AnswerActivity extends AppCompatActivity {
             while (BookAccessor.rowCheck(wb, bookIndex) == BookAccessor.ROW_INVALID) {
                 bookIndex++;
                 if (BookAccessor.rowCheck(wb, bookIndex) == BookAccessor.ROW_END) {
-                    // TODO: 2017/5/17   do a end this book method here
                     new AlertDialog.Builder(this)
                             .setTitle("ThisFinished")
                             .setMessage("One more time?")
@@ -112,14 +116,14 @@ public class AnswerActivity extends AppCompatActivity {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     Log.d(TAG, "onClick: some code needed here");
-                                    BookAccessor.setAllRowsToMaxTimes(wb, maxTimes);
+                                    BookAccessor.setAllRowsToMaxTimes(wb, bookMaxTimes);
                                     try {
                                         BookAccessor.closeAndSaveBook(wb, bookFile);
-                                        wb = BookAccessor.openAndValidateBook(bookFile, maxTimes);
-                                        bookIndex=1;
+                                        wb = BookAccessor.openAndValidateBook(bookFile, bookMaxTimes);
                                     } catch (IOException e) {
                                         e.printStackTrace();
                                     }
+                                    bookIndex = 1;
                                     showCurrentRowValue();
                                 }
                             })
@@ -135,7 +139,6 @@ public class AnswerActivity extends AppCompatActivity {
                 }
             }
         }
-
 
         HSSFRow row = wb.getSheetAt(0).getRow(bookIndex);
         String hint = row.getCell(0).getStringCellValue();
@@ -156,7 +159,7 @@ public class AnswerActivity extends AppCompatActivity {
 
     public void onYesClicked(View view) {
         answerState = BookAccessor.ANSWER_RIGHT;
-        BookAccessor.updateTimes(wb, bookIndex, maxTimes, answerState);
+        BookAccessor.updateTimes(wb, bookIndex, bookMaxTimes, answerState);
         UIShowNext();
         bookIndex++;
         showCurrentRowValue();
@@ -167,7 +170,7 @@ public class AnswerActivity extends AppCompatActivity {
             UIShowThis();
         } else {
             answerState = BookAccessor.ANSWER_WRONG;
-            BookAccessor.updateTimes(wb, bookIndex, maxTimes, answerState);
+            BookAccessor.updateTimes(wb, bookIndex, bookMaxTimes, answerState);
             UIShowNext();
             bookIndex++;
             showCurrentRowValue();
