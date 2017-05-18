@@ -1,16 +1,19 @@
 package fl.wf.universalmemorizingassistant;
 
+
 /**
  * Created by WF on 2017/5/8.
  * Represents the book created by user
  */
 
 class Book {
-    private int id;
+    //    private int id;
     private String name;
     private int maxTimes;
     private int index;
     private int recitedTimes;
+
+    public boolean tag=false;
 
     public int getIndex() {
         return index;
@@ -36,13 +39,13 @@ class Book {
         this.maxTimes = maxTimes;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
+//    public int getId() {
+//        return id;
+//    }
+//
+//    public void setId(int id) {
+//        this.id = id;
+//    }
 
     public String getName() {
         return name;
@@ -54,6 +57,6 @@ class Book {
 
     @Override
     public String toString() {
-        return "\nBookID: " + id + "\nBookName: " + name + "\nBookRank: " + maxTimes;
+        return "\nBookName: " + name + "\nmaxTimes: " + maxTimes + "\nIndex: " + index + "\nRecitedTimes: " + recitedTimes;
     }
 }

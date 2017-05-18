@@ -49,10 +49,12 @@ public class MainActivity extends AppCompatActivity {
     File[] bookFiles;
 
     private ArrayList<Book> bookListFromScanner;
+    private ArrayList<Book> bookListFromFile;
+    private ArrayList<Book> bookListToWrite;
 
     //identify the book using now
 //    int idIndex = 0;
-    String presentBookName;
+    String presentBookName="";
     //send these four variables to AnswerActivity using intent
     String bookName;
     int bookMaxTimes;
@@ -128,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
             xmlSerializer.attribute(null, "presentBookName", presentBookName);
             for (Book book : bookListToWrite) {
                 xmlSerializer.startTag(null, "Book");
-                xmlSerializer.attribute(null, "id", String.valueOf(book.getId()));
+//                xmlSerializer.attribute(null, "id", String.valueOf(book.getId()));
                 xmlSerializer.startTag(null, "Name");
                 xmlSerializer.text(book.getName());
                 xmlSerializer.endTag(null, "Name");
@@ -152,26 +154,31 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    ArrayList<Book> readFromUserDataFile(File file) {
+    ArrayList<Book> readFromBookDataFile(File file) {
         try {
             InputStream inputStream = new FileInputStream(file);
             InputSource inputSource = new InputSource(inputStream);
             SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
             SAXParser saxParser = saxParserFactory.newSAXParser();
             XMLReader xmlReader = saxParser.getXMLReader();
-            BookSaxHandler bookSaxHandler = new BookSaxHandler(bookListFromScanner);
+            BookSaxHandler bookSaxHandler = new BookSaxHandler();
             xmlReader.setContentHandler(bookSaxHandler);
             xmlReader.parse(inputSource);
+
+            bookListFromFile=bookSaxHandler.bookArrayList;
+
         } catch (ParserConfigurationException | SAXException | IOException e) {
+            Log.d(TAG, "readFromBookDataFile: Exception");
             e.printStackTrace();
         }
 
+        //This clip of code is just used to show bookInfo to the log
         String result = "";
-        for (Book b : bookListFromScanner) {
+        for (Book b : bookListFromFile) {
             result += b.toString();
         }
         Log.d(TAG, "onCreate: " + result);
-        return bookListFromScanner;
+        return bookListFromFile;
     }
 
     //try to create user data folder and file.If already created,this will not create new file
@@ -208,6 +215,8 @@ public class MainActivity extends AppCompatActivity {
             writeNewBookDataFile(bookListFromScanner, bookDataFile);
         } else if (bookDataFileCreateState == BasicFile.CREATE_ALREADY_EXISTS) {
             //Update: when book data file already exists, do this
+            Log.d(TAG, "initializingUserData: 1");
+            bookListToWrite=new ArrayList<>();
             if (bookFiles != null) {
                 for (int i = 0; i < bookFiles.length; i++) {
                     Book book = new Book();
@@ -220,6 +229,22 @@ public class MainActivity extends AppCompatActivity {
                 }
             } else Log.d(TAG, "onCreate: NULL bookFiles");
             // TODO: 2017/5/18 get a bookListFromDataFile and compare, process
+            bookListFromFile=new ArrayList<>();
+            Log.d(TAG, "initializingUserData: 2");
+            bookListFromFile = readFromBookDataFile(bookDataFile);
+            Log.d(TAG, "initializingUserData: 3");
+            for (Book book : bookListFromScanner) {
+                book.tag = true;
+                for (Book savedBook : bookListFromFile) {
+                    if (book.getName().equals(savedBook.getName())) {
+                        book.tag = false;
+                        bookListToWrite.add(savedBook);
+                    }
+                }
+                if (book.tag)
+                    bookListToWrite.add(book);
+            }
+            writeNewBookDataFile(bookListToWrite, bookDataFile);
         }
 
     }

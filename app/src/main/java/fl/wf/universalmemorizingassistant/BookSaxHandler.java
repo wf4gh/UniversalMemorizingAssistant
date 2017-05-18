@@ -13,13 +13,13 @@ import java.util.ArrayList;
 
 class BookSaxHandler extends DefaultHandler {
     public static String presentBookName;
-    private ArrayList<Book> bookArrayList;
+    public ArrayList<Book> bookArrayList;
     private Book book;
     private String content;
-
-    BookSaxHandler(ArrayList<Book> bookArrayList) {
-        this.bookArrayList = bookArrayList;
-    }
+//
+//    BookSaxHandler(ArrayList<Book> bookArrayList) {
+//        this.bookArrayList = bookArrayList;
+//    }
 
     @Override
     public void startDocument() throws SAXException {
@@ -37,11 +37,12 @@ class BookSaxHandler extends DefaultHandler {
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
         super.startElement(uri, localName, qName, attributes);
         if ("Books".equals(localName)) {
+            bookArrayList=new ArrayList<>();
             presentBookName = attributes.getValue(0);
         }
         if ("Book".equals(localName)) {
             book = new Book();
-            book.setId(Integer.parseInt(attributes.getValue(0)));
+//            book.setId(Integer.parseInt(attributes.getValue(0)));
         }
     }
 
