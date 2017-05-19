@@ -21,7 +21,8 @@
         </activity>
         <activity android:name=".AnswerActivity" />
         <activity android:name=".SettingsActivity" />
-        <activity android:name=".DangiAndroidHistogram"></activity>
+        <activity android:name=".DangiAndroidHistogram" />
+        <activity android:name=".EditActivity"></activity>
     </application>
 
 </manifest>
