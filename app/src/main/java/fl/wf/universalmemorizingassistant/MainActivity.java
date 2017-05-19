@@ -1,6 +1,7 @@
 package fl.wf.universalmemorizingassistant;
 
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -28,6 +29,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Objects;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
@@ -54,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
 
     //identify the book using now
 //    int idIndex = 0;
-    String presentBookName="";
+    String presentBookName = "";
     //send these four variables to AnswerActivity using intent
     String bookName;
     int bookMaxTimes;
@@ -119,41 +121,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    void writeToBookDataFile(ArrayList<Book> bookListToWrite, File userDataFileToWrite) {
-        try {
-            FileOutputStream fileOutputStream = new FileOutputStream(userDataFileToWrite);
-            XmlPullParserFactory xmlPullParserFactory = XmlPullParserFactory.newInstance();
-            XmlSerializer xmlSerializer = xmlPullParserFactory.newSerializer();
-            xmlSerializer.setOutput(fileOutputStream, "UTF-8");
-            xmlSerializer.startDocument("UTF-8", true);
-            xmlSerializer.startTag(null, "Books");
-            xmlSerializer.attribute(null, "presentBookName", presentBookName);
-            for (Book book : bookListToWrite) {
-                xmlSerializer.startTag(null, "Book");
-//                xmlSerializer.attribute(null, "id", String.valueOf(book.getId()));
-                xmlSerializer.startTag(null, "Name");
-                xmlSerializer.text(book.getName());
-                xmlSerializer.endTag(null, "Name");
-                xmlSerializer.startTag(null, "MaxTimes");
-                xmlSerializer.text(String.valueOf(book.getMaxTimes()));
-                xmlSerializer.endTag(null, "MaxTimes");
-                xmlSerializer.startTag(null, "Index");
-                xmlSerializer.text(String.valueOf(book.getIndex()));
-                xmlSerializer.endTag(null, "Index");
-                xmlSerializer.startTag(null, "RecitedTimes");
-                xmlSerializer.text(String.valueOf(book.getRecitedTimes()));
-                xmlSerializer.endTag(null, "RecitedTimes");
-                xmlSerializer.endTag(null, "Book");
-            }
-            xmlSerializer.endTag(null, "Books");
-            xmlSerializer.endDocument();
-            fileOutputStream.flush();
-            fileOutputStream.close();
-        } catch (XmlPullParserException | IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     ArrayList<Book> readFromBookDataFile(File file) {
         try {
             InputStream inputStream = new FileInputStream(file);
@@ -165,7 +132,8 @@ public class MainActivity extends AppCompatActivity {
             xmlReader.setContentHandler(bookSaxHandler);
             xmlReader.parse(inputSource);
 
-            bookListFromFile=bookSaxHandler.bookArrayList;
+            bookListFromFile = bookSaxHandler.bookArrayList;
+            presentBookName = BookSaxHandler.presentBookName;
 
         } catch (ParserConfigurationException | SAXException | IOException e) {
             Log.d(TAG, "readFromBookDataFile: Exception");
@@ -216,7 +184,7 @@ public class MainActivity extends AppCompatActivity {
         } else if (bookDataFileCreateState == BasicFile.CREATE_ALREADY_EXISTS) {
             //Update: when book data file already exists, do this
             Log.d(TAG, "initializingUserData: 1");
-            bookListToWrite=new ArrayList<>();
+            bookListToWrite = new ArrayList<>();
             if (bookFiles != null) {
                 for (int i = 0; i < bookFiles.length; i++) {
                     Book book = new Book();
@@ -229,7 +197,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             } else Log.d(TAG, "onCreate: NULL bookFiles");
             // TODO: 2017/5/18 get a bookListFromDataFile and compare, process
-            bookListFromFile=new ArrayList<>();
+            bookListFromFile = new ArrayList<>();
             Log.d(TAG, "initializingUserData: 2");
             bookListFromFile = readFromBookDataFile(bookDataFile);
             Log.d(TAG, "initializingUserData: 3");
@@ -246,7 +214,6 @@ public class MainActivity extends AppCompatActivity {
             }
             writeNewBookDataFile(bookListToWrite, bookDataFile);
         }
-
     }
 
     void getRuntimePermission() {
@@ -287,8 +254,23 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
     public void onStartClicked(View view) {
+        File presentBookFile = new File(getExternalStorageDirectory() + appFolder + presentBookName);
+        if (presentBookName.equals("") | !presentBookFile.exists()) {
+            // TODO: 2017/5/19   ask the user to choose a book as current book
+            // TODO: 2017/5/19   process the condition when the presentBookName-file is not existing (when File=...==null)
+            new AlertDialog.Builder(this)
+                    .setTitle("TitleHere")
+                    .setMessage("book not chosen or present book invalid.Choose a book")
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    })
+                    .show();
+            return;
+        }
         Intent intent = new Intent(this, AnswerActivity.class);
         intent.putExtra("bookName", bookName);
         intent.putExtra("bookMaxTimes", bookMaxTimes);
@@ -297,7 +279,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void onEditClicked(View view) {
+    public void onSettingsClicked(View view) {
         Intent intent = new Intent(this, EditActivity.class);
         startActivity(intent);
     }
