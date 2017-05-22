@@ -63,6 +63,9 @@ public class MainActivity extends AppCompatActivity {
     int bookIndex;
     int bookRecitedTimes;
 
+
+    Intent settingsActivityIntent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,12 +80,14 @@ public class MainActivity extends AppCompatActivity {
             finish();
         }
         getRuntimePermission();
+        presentBookName = getPresentBook();
+        settingsActivityIntent = new Intent(this, SettingsActivity.class);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         initializingUserData();
-
-        SharedPreferences presentBook = getSharedPreferences("presentBook", MODE_PRIVATE);
-        String presentBookName = presentBook.getString("presentBook", "default");
-        Log.d(TAG, "onCreate: PresentBookName: " + presentBookName);
-
     }
 
     @Override
@@ -163,19 +168,21 @@ public class MainActivity extends AppCompatActivity {
         File bookDataFile = new File(getExternalStorageDirectory() + appFolder + appBookDataFileName);
         int bookDataFileCreateState = createNewFile(bookDataFile);
 
-        // TODO: 2017/5/18 add an example .xls file here
-
         bookListFromScanner = new ArrayList<>();
         BasicFile.ExtensionFilter xlsFilter = new BasicFile.ExtensionFilter(".xls");
         bookFiles = appFolderFile.listFiles(xlsFilter);
+
+        //make bookFiles not null;
+        if (bookFiles == null) {
+            // TODO: 2017/5/22 create an example xls file
+            bookFiles = appFolderFile.listFiles(xlsFilter);
+        }
 
         if (bookDataFileCreateState == BasicFile.CREATE_SUCCESS) {
             //Create: when the book data file is firstly created, do this
             if (bookFiles != null) {
                 for (int i = 0; i < bookFiles.length; i++) {
                     Book book = new Book();
-                    // TODO: 2017/5/18   try using name as id ,cus name naturally diffs from each other
-//                    book.setId(i + 1);
                     book.setName("/" + bookFiles[i].getName());
                     book.setIndex(1);
                     book.setMaxTimes(5);
@@ -186,7 +193,6 @@ public class MainActivity extends AppCompatActivity {
             writeNewBookDataFile(bookListFromScanner, bookDataFile);
         } else if (bookDataFileCreateState == BasicFile.CREATE_ALREADY_EXISTS) {
             //Update: when book data file already exists, do this
-            Log.d(TAG, "initializingUserData: 1");
             bookListToWrite = new ArrayList<>();
             if (bookFiles != null) {
                 for (int i = 0; i < bookFiles.length; i++) {
@@ -199,11 +205,8 @@ public class MainActivity extends AppCompatActivity {
                     bookListFromScanner.add(book);
                 }
             } else Log.d(TAG, "onCreate: NULL bookFiles");
-            // TODO: 2017/5/18 get a bookListFromDataFile and compare, process
             bookListFromFile = new ArrayList<>();
-            Log.d(TAG, "initializingUserData: 2");
             bookListFromFile = readFromBookDataFile(bookDataFile);
-            Log.d(TAG, "initializingUserData: 3");
             for (Book book : bookListFromScanner) {
                 book.tag = true;
                 for (Book savedBook : bookListFromFile) {
@@ -217,7 +220,6 @@ public class MainActivity extends AppCompatActivity {
             }
             writeNewBookDataFile(bookListToWrite, bookDataFile);
         }
-//        changePresentBook(bookDataFile,"testName");
     }
 
     void getRuntimePermission() {
@@ -260,16 +262,14 @@ public class MainActivity extends AppCompatActivity {
 
     public void onStartClicked(View view) {
         File presentBookFile = new File(getExternalStorageDirectory() + appFolder + presentBookName);
-        if (presentBookName.equals("") | !presentBookFile.exists()) {
-            // TODO: 2017/5/19   ask the user to choose a book as current book
-            // TODO: 2017/5/19   process the condition when the presentBookName-file is not existing (when File=...==null)
+        if (presentBookName.equals("choose one!") | presentBookName.equals("") | !presentBookFile.exists()) {
             new AlertDialog.Builder(this)
                     .setTitle("TitleHere")
                     .setMessage("book not chosen or present book invalid.Choose a book")
                     .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-
+                            startActivity(settingsActivityIntent);
                         }
                     })
                     .show();
@@ -284,9 +284,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onSettingsClicked(View view) {
-        Intent intent = new Intent(this, SettingsActivity.class);
-        String[] fileNames = BasicFile.filesToStrings(bookFiles);
-        intent.putExtra("bookNames", fileNames);
-        startActivity(intent);
+        startActivity(settingsActivityIntent);
+    }
+
+    String getPresentBook() {
+        SharedPreferences presentBook = getSharedPreferences("presentBook", MODE_PRIVATE);
+        return presentBook.getString("presentBook", "default");
     }
 }
