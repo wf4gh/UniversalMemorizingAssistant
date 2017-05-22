@@ -139,4 +139,16 @@ class BasicFile {
             return name.endsWith(extension);
         }
     }
+
+    static String[] filesToStrings(File[] files) {
+        String[] fileNames = null;
+        if (files != null) {
+            fileNames = new String[files.length];
+            for (int i = 0; i < files.length; i++) {
+                fileNames[i] = files[i].getName();
+                Log.d(TAG, "filesToStrings: "+fileNames[i]);
+            }
+        }
+        return fileNames;
+    }
 }

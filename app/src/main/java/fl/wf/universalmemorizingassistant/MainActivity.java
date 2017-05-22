@@ -39,7 +39,7 @@ import static fl.wf.universalmemorizingassistant.BasicFile.createNewFile;
 import static fl.wf.universalmemorizingassistant.BasicFile.createNewFolder;
 
 public class MainActivity extends AppCompatActivity {
-
+    // TODO: 2017/5/22   use sharedPreferences to save presentBook
     private static final String TAG = "FLWFMainActivity";
 
     private static final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 4289;
@@ -77,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
         }
         getRuntimePermission();
         initializingUserData();
+
     }
 
     @Override
@@ -111,6 +112,24 @@ public class MainActivity extends AppCompatActivity {
                 xmlSerializer.endTag(null, "RecitedTimes");
                 xmlSerializer.endTag(null, "Book");
             }
+            xmlSerializer.endTag(null, "Books");
+            xmlSerializer.endDocument();
+            fileOutputStream.flush();
+            fileOutputStream.close();
+        } catch (XmlPullParserException | IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    void changePresentBook(File userDataFileToWrite,String presentBookName) {
+        try {
+            FileOutputStream fileOutputStream = new FileOutputStream(userDataFileToWrite);
+            XmlPullParserFactory xmlPullParserFactory = XmlPullParserFactory.newInstance();
+            XmlSerializer xmlSerializer = xmlPullParserFactory.newSerializer();
+            xmlSerializer.setOutput(fileOutputStream, "UTF-8");
+            xmlSerializer.startDocument("UTF-8", true);
+            xmlSerializer.startTag(null, "Books");
+            xmlSerializer.attribute(null, "presentBookName", presentBookName);
             xmlSerializer.endTag(null, "Books");
             xmlSerializer.endDocument();
             fileOutputStream.flush();
@@ -213,6 +232,7 @@ public class MainActivity extends AppCompatActivity {
             }
             writeNewBookDataFile(bookListToWrite, bookDataFile);
         }
+//        changePresentBook(bookDataFile,"testName");
     }
 
     void getRuntimePermission() {
@@ -280,6 +300,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void onSettingsClicked(View view) {
         Intent intent = new Intent(this, SettingsActivity.class);
+        String[] fileNames=BasicFile.filesToStrings(bookFiles);
+        intent.putExtra("bookNames",fileNames);
         startActivity(intent);
     }
 }

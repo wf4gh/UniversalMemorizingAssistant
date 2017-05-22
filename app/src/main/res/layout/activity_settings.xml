@@ -10,7 +10,7 @@
         android:id="@+id/tv_settings_present_book"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="PresentBook:"
+        android:text="PresentBook: ---\nBooks available:"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -18,6 +18,7 @@
         android:id="@+id/bt_settings_set_present"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:onClick="onSetThisClicked"
         android:text="Use"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_settings_present_book" />
@@ -55,23 +56,18 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toRightOf="@id/bt_settings_add_book" />
 
-    <ScrollView
+    <ListView
+        android:id="@+id/lv_settings_books"
+        android:choiceMode="singleChoice"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@android:color/black"
-        android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@id/bt_settings_add_book"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/bt_settings_set_present"
         app:layout_constraintTop_toBottomOf="@id/tv_settings_present_book">
 
-        <ListView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-        </ListView>
-
-    </ScrollView>
+    </ListView>
 
 
 </android.support.constraint.ConstraintLayout>
