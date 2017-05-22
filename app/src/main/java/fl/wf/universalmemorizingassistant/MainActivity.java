@@ -3,6 +3,7 @@ package fl.wf.universalmemorizingassistant;
 import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -78,6 +79,10 @@ public class MainActivity extends AppCompatActivity {
         getRuntimePermission();
         initializingUserData();
 
+        SharedPreferences presentBook = getSharedPreferences("presentBook", MODE_PRIVATE);
+        String presentBookName = presentBook.getString("presentBook", "default");
+        Log.d(TAG, "onCreate: PresentBookName: " + presentBookName);
+
     }
 
     @Override
@@ -94,7 +99,6 @@ public class MainActivity extends AppCompatActivity {
             xmlSerializer.setOutput(fileOutputStream, "UTF-8");
             xmlSerializer.startDocument("UTF-8", true);
             xmlSerializer.startTag(null, "Books");
-            xmlSerializer.attribute(null, "presentBookName", presentBookName);
             for (Book book : bookListToWrite) {
                 xmlSerializer.startTag(null, "Book");
 //                xmlSerializer.attribute(null, "id", String.valueOf(book.getId()));
@@ -121,24 +125,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    void changePresentBook(File userDataFileToWrite,String presentBookName) {
-        try {
-            FileOutputStream fileOutputStream = new FileOutputStream(userDataFileToWrite);
-            XmlPullParserFactory xmlPullParserFactory = XmlPullParserFactory.newInstance();
-            XmlSerializer xmlSerializer = xmlPullParserFactory.newSerializer();
-            xmlSerializer.setOutput(fileOutputStream, "UTF-8");
-            xmlSerializer.startDocument("UTF-8", true);
-            xmlSerializer.startTag(null, "Books");
-            xmlSerializer.attribute(null, "presentBookName", presentBookName);
-            xmlSerializer.endTag(null, "Books");
-            xmlSerializer.endDocument();
-            fileOutputStream.flush();
-            fileOutputStream.close();
-        } catch (XmlPullParserException | IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     ArrayList<Book> readFromBookDataFile(File file) {
         try {
             InputStream inputStream = new FileInputStream(file);
@@ -151,7 +137,6 @@ public class MainActivity extends AppCompatActivity {
             xmlReader.parse(inputSource);
 
             bookListFromFile = bookSaxHandler.bookArrayList;
-            presentBookName = BookSaxHandler.presentBookName;
 
         } catch (ParserConfigurationException | SAXException | IOException e) {
             Log.d(TAG, "readFromBookDataFile: Exception");
@@ -300,8 +285,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void onSettingsClicked(View view) {
         Intent intent = new Intent(this, SettingsActivity.class);
-        String[] fileNames=BasicFile.filesToStrings(bookFiles);
-        intent.putExtra("bookNames",fileNames);
+        String[] fileNames = BasicFile.filesToStrings(bookFiles);
+        intent.putExtra("bookNames", fileNames);
         startActivity(intent);
     }
 }

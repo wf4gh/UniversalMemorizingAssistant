@@ -12,7 +12,6 @@ import java.util.ArrayList;
  */
 
 class BookSaxHandler extends DefaultHandler {
-    public static String presentBookName;
     public ArrayList<Book> bookArrayList;
     private Book book;
     private String content;
@@ -38,7 +37,6 @@ class BookSaxHandler extends DefaultHandler {
         super.startElement(uri, localName, qName, attributes);
         if ("Books".equals(localName)) {
             bookArrayList=new ArrayList<>();
-            presentBookName = attributes.getValue(0);
         }
         if ("Book".equals(localName)) {
             book = new Book();
