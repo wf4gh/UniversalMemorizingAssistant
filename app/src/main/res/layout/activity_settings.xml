@@ -32,6 +32,7 @@
         app:layout_constraintTop_toBottomOf="@id/bt_settings_set_present" />
 
     <Button
+        android:onClick="onEditClicked"
         android:id="@+id/bt_settings_edit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

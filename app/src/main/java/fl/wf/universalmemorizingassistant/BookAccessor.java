@@ -117,7 +117,6 @@ public class BookAccessor {
     static HSSFWorkbook createWorkbook() {
         HSSFWorkbook wb = new HSSFWorkbook();
         wb.createSheet("SheetName");
-        Log.d(TAG, "openAndValidateBook: sheetCreated");
         return wb;
     }
 

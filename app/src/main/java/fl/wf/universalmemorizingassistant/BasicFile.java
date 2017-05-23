@@ -1,5 +1,9 @@
 package fl.wf.universalmemorizingassistant;
 
+import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
+import android.support.v4.content.FileProvider;
 import android.util.Log;
 
 import java.io.File;
@@ -146,9 +150,19 @@ class BasicFile {
             fileNames = new String[files.length];
             for (int i = 0; i < files.length; i++) {
                 fileNames[i] = files[i].getName();
-                Log.d(TAG, "filesToStrings: "+fileNames[i]);
+                Log.d(TAG, "filesToStrings: " + fileNames[i]);
             }
         }
         return fileNames;
+    }
+
+    public static Intent getExcelFileIntent(File file, Context context) {
+        Intent intent = new Intent("android.intent.action.VIEW");
+        intent.addCategory("android.intent.category.DEFAULT");
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        Uri uri = FileProvider.getUriForFile(context, context.getApplicationContext().getPackageName() + ".provider", file);
+        intent.setDataAndType(uri, "application/vnd.ms-excel");
+        return intent;
     }
 }

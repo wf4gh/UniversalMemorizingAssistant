@@ -1,6 +1,8 @@
 package fl.wf.universalmemorizingassistant;
 
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -26,6 +28,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
+import static android.R.attr.contextClickable;
 import static android.R.attr.name;
 import static android.R.attr.start;
 import static android.os.Environment.getExternalStorageDirectory;
@@ -41,6 +44,7 @@ public class SettingsActivity extends AppCompatActivity {
     TextView presentBookTextView;
 
     ListView booksListView;
+    Intent editIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +54,7 @@ public class SettingsActivity extends AppCompatActivity {
         presentBookTextView = (TextView) findViewById(R.id.tv_settings_present_book);
         booksListView = (ListView) findViewById(R.id.lv_settings_books);
 
-
+        editIntent = new Intent();
     }
 
     @Override
@@ -99,7 +103,9 @@ public class SettingsActivity extends AppCompatActivity {
                         String name = addBookEditText.getText().toString();
                         if (!name.equals("")) {
                             for (int i = 0; i < name.length(); i++) {
-                                if (!Character.isLetterOrDigit(name.charAt(i)) && !Character.toString(name.charAt(i)).equals("_") && !Character.toString(name.charAt(i)).equals("-")) {
+                                if (!Character.isLetterOrDigit(name.charAt(i)) &&
+                                        !Character.toString(name.charAt(i)).equals("_") &&
+                                        !Character.toString(name.charAt(i)).equals("-")) {
                                     Toast.makeText(SettingsActivity.this, "Illegal Character", Toast.LENGTH_SHORT).show();
                                     onAddBookClicked(view);
                                     return;
@@ -162,5 +168,15 @@ public class SettingsActivity extends AppCompatActivity {
                 })
                 .setNegativeButton("Cancel", null)
                 .show();
+    }
+
+    public void onEditClicked(View view) {
+        if (booksListView.getCheckedItemPosition() == -1) {
+            Toast.makeText(this, "Choose a book first", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        editIntent = BasicFile.getExcelFileIntent(bookFiles[booksListView.getCheckedItemPosition()], this);
+        startActivity(editIntent);
     }
 }
