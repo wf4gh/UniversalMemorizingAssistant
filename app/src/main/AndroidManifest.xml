@@ -19,8 +19,9 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/provider_paths"/>
+                android:resource="@xml/provider_paths" />
         </provider>
+
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -30,8 +31,7 @@
         </activity>
         <activity android:name=".AnswerActivity" />
         <activity android:name=".SettingsActivity" />
-        <activity android:name=".DangiAndroidHistogram" />
-        <activity android:name=".EditActivity"></activity>
+        <activity android:name=".EditActivity" />
     </application>
 
 </manifest>

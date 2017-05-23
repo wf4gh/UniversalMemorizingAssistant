@@ -66,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
 
     Intent settingsActivityIntent;
 
+    // TODO: 2017/5/23   add viewer page as help
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

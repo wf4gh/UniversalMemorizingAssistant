@@ -179,4 +179,8 @@ public class SettingsActivity extends AppCompatActivity {
         editIntent = BasicFile.getExcelFileIntent(bookFiles[booksListView.getCheckedItemPosition()], this);
         startActivity(editIntent);
     }
+
+    public void onConfigClicked(View view) {
+        // TODO: 2017/5/23  config here!
+    }
 }
