@@ -44,6 +44,12 @@ public class BookAccessor {
         fis.close();
 
         HSSFSheet sheet = wb.getSheetAt(0);
+        if (sheet == null) {
+            // TODO: 2017/5/23  change this name
+            wb.createSheet("SheetName");
+            Log.d(TAG, "openAndValidateBook: sheetnull");
+        } else
+            Log.d(TAG, "openAndValidateBook: sheetnotnull");
 
         Log.d(TAG, "openAndValidateBook: sheet.getLastRowNum(): " + sheet.getLastRowNum());
         Log.d(TAG, "openAndValidateBook: sheet.getPhysicalNumberOfRows(): " + sheet.getPhysicalNumberOfRows());
@@ -105,6 +111,13 @@ public class BookAccessor {
 //        Log.d(TAG, "openAndValidateBook: sheet.getLastRowNum(): " + sheet.getLastRowNum());
 //        Log.d(TAG, "openAndValidateBook: sheet.getPhysicalNumberOfRows(): " + sheet.getPhysicalNumberOfRows());
 
+        return wb;
+    }
+
+    static HSSFWorkbook createWorkbook() {
+        HSSFWorkbook wb = new HSSFWorkbook();
+        wb.createSheet("SheetName");
+        Log.d(TAG, "openAndValidateBook: sheetCreated");
         return wb;
     }
 
