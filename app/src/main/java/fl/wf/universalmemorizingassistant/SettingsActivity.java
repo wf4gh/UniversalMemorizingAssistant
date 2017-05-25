@@ -87,6 +87,7 @@ public class SettingsActivity extends AppCompatActivity {
 
         final Spinner timesSpinner = (Spinner) addBookView.findViewById(R.id.sp_dialog_add_target_times);
         timesSpinner.setSelection(4, true);
+
 //        SpinnerAdapter timesSpinnerAdapter = timesSpinner.getAdapter();
 
         new AlertDialog.Builder(this)
@@ -188,12 +189,21 @@ public class SettingsActivity extends AppCompatActivity {
             Toast.makeText(this, "Choose a book first", Toast.LENGTH_SHORT).show();
             return;
         }
-
-
         final View setBookView = getLayoutInflater().inflate(R.layout.dialog_config_book, null);
-
         final Spinner timesSpinner = (Spinner) setBookView.findViewById(R.id.sp_dialog_set_target_times);
-        timesSpinner.setSelection(4, true);
+        final EditText setBookEditText = (EditText) setBookView.findViewById(R.id.et_dialog_config_book);
+
+        File fileToUpdate = bookFiles[booksListView.getCheckedItemPosition()];
+        String bookName = "/" + fileToUpdate.getName();
+        setBookEditText.setHint(MyFileHandler.getFileNameNoEx(fileToUpdate.getName()));
+        ArrayList<Book> bookList = MyFileHandler.readFromBookDataFile(bookListFile);
+
+        int times = 5;
+        for (Book b : bookList) {
+            if (b.getName().equals(bookName))
+                times = b.getMaxTimes() - 1;
+        }
+        timesSpinner.setSelection(times, true);
 
         new AlertDialog.Builder(this)
                 .setTitle("Config book")
@@ -201,7 +211,6 @@ public class SettingsActivity extends AppCompatActivity {
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        EditText setBookEditText = (EditText) setBookView.findViewById(R.id.et_dialog_config_book);
                         String name = setBookEditText.getText().toString();
                         if (!name.equals("")) {
                             for (int i = 0; i < name.length(); i++) {
@@ -213,14 +222,8 @@ public class SettingsActivity extends AppCompatActivity {
                                     return;
                                 }
                             }
-                            // TODO: 2017/5/25 change here
-
-                            updateBookNamesAndUI();
-                        } else {
-                            Toast.makeText(SettingsActivity.this, "Enter the name of book", Toast.LENGTH_SHORT).show();
-                            // TODO: 2017/5/23  i'm not sure if this FINAL VIEW will cause any problems...
-                            onConfigClicked(view);
-                        }
+                        } else name = null;
+                        // TODO: 2017/5/25 change here
                     }
                 })
                 .setNegativeButton("Cancel", null)
