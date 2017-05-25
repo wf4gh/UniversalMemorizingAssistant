@@ -204,6 +204,8 @@ class MyFileHandler {
             for (Book b : bookListFromFile) {
                 Log.d(TAG, "readFromBookDataFile: BookRead:" + b.toString());
             }
+        else
+            Log.d(TAG, "readFromBookDataFile: bookListNull!!!!!!!!!!!!");
 
         return bookListFromFile;
     }

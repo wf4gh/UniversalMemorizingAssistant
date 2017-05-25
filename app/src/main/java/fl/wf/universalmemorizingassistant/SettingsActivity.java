@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
@@ -33,7 +34,6 @@ public class SettingsActivity extends AppCompatActivity {
     MyFileHandler.ExtensionFilter xlsFilter;
 
     TextView presentBookTextView;
-
     ListView booksListView;
     Intent editIntent;
 
@@ -44,9 +44,7 @@ public class SettingsActivity extends AppCompatActivity {
 
         presentBookTextView = (TextView) findViewById(R.id.tv_settings_present_book);
         booksListView = (ListView) findViewById(R.id.lv_settings_books);
-
         editIntent = new Intent();
-
         bookListFile = new File(getExternalStorageDirectory() + BasicStaticData.appFolder + BasicStaticData.appBookDataFileName);
     }
 
@@ -195,15 +193,20 @@ public class SettingsActivity extends AppCompatActivity {
         final Spinner timesSpinner = (Spinner) setBookView.findViewById(R.id.sp_dialog_set_target_times);
         final EditText setBookEditText = (EditText) setBookView.findViewById(R.id.et_dialog_config_book);
 
+
+        Log.d(TAG, "onClick: length of bookFiles: " + bookFiles.length);
+        Log.d(TAG, "onClick: checked position:" + booksListView.getCheckedItemPosition());
+
         File fileToUpdate = bookFiles[booksListView.getCheckedItemPosition()];
         String bookName = "/" + fileToUpdate.getName();
         setBookEditText.setText(MyFileHandler.getFileNameNoEx(fileToUpdate.getName()));
         ArrayList<Book> bookList = MyFileHandler.readFromBookDataFile(bookListFile);
-// FIXME: 2017/5/25 maxTime show still have a bug.
-        int times = 5;
+
+        int times = 4;
         for (Book b : bookList) {
-            if (b.getName().equals(bookName))
+            if (b.getName().equals(bookName)) {
                 times = b.getMaxTimes() - 1;
+            }
         }
         timesSpinner.setSelection(times, true);
 
@@ -226,19 +229,17 @@ public class SettingsActivity extends AppCompatActivity {
                                     return;
                                 }
                             }
-                            for (File f : bookFiles) {
-                                if (f.getName().equals(name)) {
-                                    Toast.makeText(SettingsActivity.this, "Name Already Used!", Toast.LENGTH_SHORT).show();
+                            name = "/" + name + ".xls";
+                            if (name.equals(oldName))
+                                name = null;
+                            else {
+                                //rename bookFile here
+                                boolean renamed = fileToUpdate.renameTo(new File(getExternalStorageDirectory() + BasicStaticData.appFolder + name));
+                                if (!renamed) {
+                                    Toast.makeText(SettingsActivity.this, "Rename Failed", Toast.LENGTH_SHORT).show();
                                     onConfigClicked(view);
                                     return;
                                 }
-                            }
-                            //rename bookFile here
-                            boolean renamed = fileToUpdate.renameTo(new File(getExternalStorageDirectory() + BasicStaticData.appFolder + "/" + name + ".xls"));
-                            if (!renamed) {
-                                Toast.makeText(SettingsActivity.this, "Rename Failed", Toast.LENGTH_SHORT).show();
-                                onConfigClicked(view);
-                                return;
                             }
                         } else name = null;
 
@@ -247,17 +248,13 @@ public class SettingsActivity extends AppCompatActivity {
                         CheckBox resetCheckBox = (CheckBox) setBookView.findViewById(R.id.cb_dialog_set_reset);
                         boolean reset = resetCheckBox.isChecked();
 
-                        MyFileHandler.updateBookFromList(bookList, oldName, name, newTimes, reset);
+                        bookList = MyFileHandler.updateBookFromList(bookList, oldName, name, newTimes, reset);
                         MyFileHandler.writeToBookDataFile(bookList, bookListFile);
 
                         updateBookNamesAndUI();
-                        //rename bookFileName in the dataFile here
-                        // TODO: 2017/5/25 change here
                     }
                 })
                 .setNegativeButton("Cancel", null)
                 .show();
-
-        File bookFileToConfig = bookFiles[booksListView.getCheckedItemPosition()];
     }
 }
