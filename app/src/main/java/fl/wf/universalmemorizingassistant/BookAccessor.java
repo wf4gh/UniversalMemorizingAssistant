@@ -52,6 +52,12 @@ public class BookAccessor {
             Log.d(TAG, "openAndValidateBook: sheetnotnull");
 
         Log.d(TAG, "openAndValidateBook: sheet.getLastRowNum(): " + sheet.getLastRowNum());
+
+        if (sheet.getLastRowNum() <= 1) {
+            // TODO: 2017/5/25   when the sheet is blank,do sth here
+            return null;
+        }
+
         Log.d(TAG, "openAndValidateBook: sheet.getPhysicalNumberOfRows(): " + sheet.getPhysicalNumberOfRows());
 
         //This loop is used to remove all the empty rows in the sheet

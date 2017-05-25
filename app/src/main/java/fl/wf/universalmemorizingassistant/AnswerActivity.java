@@ -1,6 +1,7 @@
 package fl.wf.universalmemorizingassistant;
 
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -71,17 +73,23 @@ public class AnswerActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         // TODO: 2017/5/17 get these three values by reading user data file(.xml)
-        bookName = "/UTest.xls";
-        bookMaxTimes = 5;
-        bookIndex = 1;
+        bookName = "/" + getPresentBook();
+        Book presentBook = MyFileHandler.getBook(BasicStaticData.appBookDataFile, bookName);
+        if (presentBook != null) {
+            bookMaxTimes = presentBook.getMaxTimes();
+            bookIndex = presentBook.getIndex();
+        } else {
+            Log.d(TAG, "onResume: Present book null!!!!!!!!!!!!11");
+            finish();
+        }
         Log.d(TAG, "onCreate: \nbook:" + appFolderPath + bookName + "\nTimes: " + bookMaxTimes + "\nIndex:" + bookIndex);
         bookFile = new File(getExternalStorageDirectory() + appFolderPath + bookName);
-
-        try {
-            wb = BookAccessor.openAndValidateBook(bookFile, bookMaxTimes);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//
+//        try {
+//            wb = BookAccessor.openAndValidateBook(bookFile, bookMaxTimes);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
 
         showCurrentRowValue();
     }
@@ -120,6 +128,11 @@ public class AnswerActivity extends AppCompatActivity {
                                     try {
                                         BookAccessor.closeAndSaveBook(wb, bookFile);
                                         wb = BookAccessor.openAndValidateBook(bookFile, bookMaxTimes);
+                                        // TODO: 2017/5/25 this need optimization
+                                        if (wb == null) {
+                                            Toast.makeText(AnswerActivity.this, "book empty!!!!!", Toast.LENGTH_SHORT).show();
+                                            finish();
+                                        }
                                     } catch (IOException e) {
                                         e.printStackTrace();
                                     }
@@ -194,5 +207,10 @@ public class AnswerActivity extends AppCompatActivity {
         answerShowed = false;
         answerEditText.setText("");
         answerEditText.setEnabled(true);
+    }
+
+    String getPresentBook() {
+        SharedPreferences presentBook = getSharedPreferences("presentBook", MODE_PRIVATE);
+        return presentBook.getString("presentBook", "choose one!");
     }
 }

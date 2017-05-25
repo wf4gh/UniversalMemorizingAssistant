@@ -189,7 +189,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onStartClicked(View view) {
-        File presentBookFile = new File(getExternalStorageDirectory() + appFolder + presentBookName);
+        presentBookName = getPresentBook();
+        Log.d(TAG, "onStartClicked: presentBookName: " + presentBookName);
+        File presentBookFile = new File(getExternalStorageDirectory() + appFolder + "/" + presentBookName);
         if (presentBookName.equals("choose one!") | presentBookName.equals("") | !presentBookFile.exists()) {
             new AlertDialog.Builder(this)
                     .setTitle("TitleHere")
@@ -217,6 +219,6 @@ public class MainActivity extends AppCompatActivity {
 
     String getPresentBook() {
         SharedPreferences presentBook = getSharedPreferences("presentBook", MODE_PRIVATE);
-        return presentBook.getString("presentBook", "default");
+        return presentBook.getString("presentBook", "choose one!");
     }
 }

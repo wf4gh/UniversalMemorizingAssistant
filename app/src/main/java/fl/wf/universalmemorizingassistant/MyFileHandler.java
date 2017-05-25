@@ -243,8 +243,13 @@ class MyFileHandler {
         return bookList;
     }
 
-    public static Book updateBook(Book bookToUpdate, String newName) {
-        return bookToUpdate;
+    public static Book getBook(File bookDataFile, String bookName) {
+        ArrayList<Book> books = readFromBookDataFile(bookDataFile);
+        for (Book b : books) {
+            if (b.getName().equals(bookName))
+                return b;
+        }
+        return null;
     }
 
     public static void writeToBookDataFile(ArrayList<Book> bookListToWrite, File userDataFileToWrite) {
