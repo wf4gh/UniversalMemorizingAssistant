@@ -17,27 +17,14 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.Toast;
 
-import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
-import org.xml.sax.XMLReader;
-import org.xmlpull.v1.XmlPullParserException;
-import org.xmlpull.v1.XmlPullParserFactory;
-import org.xmlpull.v1.XmlSerializer;
-
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
-
 import static android.os.Environment.getExternalStorageDirectory;
-import static fl.wf.universalmemorizingassistant.BasicFile.createNewFile;
-import static fl.wf.universalmemorizingassistant.BasicFile.createNewFolder;
+import static fl.wf.universalmemorizingassistant.MyFileHandler.createNewFile;
+import static fl.wf.universalmemorizingassistant.MyFileHandler.createNewFolder;
+import static fl.wf.universalmemorizingassistant.MyFileHandler.readFromBookDataFile;
+import static fl.wf.universalmemorizingassistant.MyFileHandler.writeToBookDataFile;
 
 public class MainActivity extends AppCompatActivity {
     // TODO: 2017/5/22   use sharedPreferences to save presentBook
@@ -97,66 +84,6 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    void writeNewBookDataFile(ArrayList<Book> bookListToWrite, File userDataFileToWrite) {
-        try {
-            FileOutputStream fileOutputStream = new FileOutputStream(userDataFileToWrite);
-            XmlPullParserFactory xmlPullParserFactory = XmlPullParserFactory.newInstance();
-            XmlSerializer xmlSerializer = xmlPullParserFactory.newSerializer();
-            xmlSerializer.setOutput(fileOutputStream, "UTF-8");
-            xmlSerializer.startDocument("UTF-8", true);
-            xmlSerializer.startTag(null, "Books");
-            for (Book book : bookListToWrite) {
-                xmlSerializer.startTag(null, "Book");
-//                xmlSerializer.attribute(null, "id", String.valueOf(book.getId()));
-                xmlSerializer.startTag(null, "Name");
-                xmlSerializer.text(book.getName());
-                xmlSerializer.endTag(null, "Name");
-                xmlSerializer.startTag(null, "MaxTimes");
-                xmlSerializer.text(String.valueOf(book.getMaxTimes()));
-                xmlSerializer.endTag(null, "MaxTimes");
-                xmlSerializer.startTag(null, "Index");
-                xmlSerializer.text(String.valueOf(book.getIndex()));
-                xmlSerializer.endTag(null, "Index");
-                xmlSerializer.startTag(null, "RecitedTimes");
-                xmlSerializer.text(String.valueOf(book.getRecitedTimes()));
-                xmlSerializer.endTag(null, "RecitedTimes");
-                xmlSerializer.endTag(null, "Book");
-            }
-            xmlSerializer.endTag(null, "Books");
-            xmlSerializer.endDocument();
-            fileOutputStream.flush();
-            fileOutputStream.close();
-        } catch (XmlPullParserException | IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    ArrayList<Book> readFromBookDataFile(File file) {
-        try {
-            InputStream inputStream = new FileInputStream(file);
-            InputSource inputSource = new InputSource(inputStream);
-            SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
-            SAXParser saxParser = saxParserFactory.newSAXParser();
-            XMLReader xmlReader = saxParser.getXMLReader();
-            BookSaxHandler bookSaxHandler = new BookSaxHandler();
-            xmlReader.setContentHandler(bookSaxHandler);
-            xmlReader.parse(inputSource);
-
-            bookListFromFile = bookSaxHandler.bookArrayList;
-
-        } catch (ParserConfigurationException | SAXException | IOException e) {
-            Log.d(TAG, "readFromBookDataFile: Exception");
-            e.printStackTrace();
-        }
-
-        //This clip of code is just used to show bookInfo to the log
-        String result = "";
-        for (Book b : bookListFromFile) {
-            result += b.toString();
-        }
-        Log.d(TAG, "onCreate: " + result);
-        return bookListFromFile;
-    }
 
     //try to create user data folder and file.If already created,this will not create new file
     void initializingUserData() {
@@ -170,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
         int bookDataFileCreateState = createNewFile(bookDataFile);
 
         bookListFromScanner = new ArrayList<>();
-        BasicFile.ExtensionFilter xlsFilter = new BasicFile.ExtensionFilter(".xls");
+        MyFileHandler.ExtensionFilter xlsFilter = new MyFileHandler.ExtensionFilter(".xls");
         bookFiles = appFolderFile.listFiles(xlsFilter);
 
         //make bookFiles not null;
@@ -179,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
             bookFiles = appFolderFile.listFiles(xlsFilter);
         }
 
-        if (bookDataFileCreateState == BasicFile.CREATE_SUCCESS) {
+        if (bookDataFileCreateState == MyFileHandler.CREATE_SUCCESS) {
             //Create: when the book data file is firstly created, do this
             if (bookFiles != null) {
                 for (int i = 0; i < bookFiles.length; i++) {
@@ -191,8 +118,8 @@ public class MainActivity extends AppCompatActivity {
                     bookListFromScanner.add(book);
                 }
             } else Log.d(TAG, "onCreate: NULL bookFiles");
-            writeNewBookDataFile(bookListFromScanner, bookDataFile);
-        } else if (bookDataFileCreateState == BasicFile.CREATE_ALREADY_EXISTS) {
+            writeToBookDataFile(bookListFromScanner, bookDataFile);
+        } else if (bookDataFileCreateState == MyFileHandler.CREATE_ALREADY_EXISTS) {
             //Update: when book data file already exists, do this
             bookListToWrite = new ArrayList<>();
             if (bookFiles != null) {
@@ -219,7 +146,7 @@ public class MainActivity extends AppCompatActivity {
                 if (book.tag)
                     bookListToWrite.add(book);
             }
-            writeNewBookDataFile(bookListToWrite, bookDataFile);
+            writeToBookDataFile(bookListToWrite, bookDataFile);
         }
     }
 

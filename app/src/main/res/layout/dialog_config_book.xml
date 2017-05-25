@@ -8,8 +8,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
-        android:text="bookNameToAdd:" />
+        android:text="Rename this book::" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,10 +16,9 @@
         android:orientation="horizontal">
 
         <EditText
-            android:id="@+id/et_dialog_add_book"
+            android:id="@+id/et_dialog_config_book"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="Enter name here"
             android:maxLength="16" />
 
         <TextView
@@ -38,16 +36,21 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
             android:background="@android:color/white"
             android:text="Times: " />
 
         <Spinner
-            android:id="@+id/sp_dialog_add_target_times"
+            android:id="@+id/sp_dialog_set_target_times"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:background="@android:color/white"
             android:entries="@array/target_times" />
     </LinearLayout>
+
+    <CheckBox
+        android:id="@+id/cb_dialog_set_reset"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ResetProgress" />
 
 </LinearLayout>

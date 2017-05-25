@@ -1,21 +1,16 @@
 package fl.wf.universalmemorizingassistant;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.InputFilter;
-import android.text.Spanned;
-import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,23 +18,17 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Objects;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import java.util.regex.PatternSyntaxException;
+import java.util.ArrayList;
 
-import static android.R.attr.contextClickable;
-import static android.R.attr.name;
-import static android.R.attr.start;
 import static android.os.Environment.getExternalStorageDirectory;
-import static fl.wf.universalmemorizingassistant.BasicFile.createNewFile;
 
 public class SettingsActivity extends AppCompatActivity {
     private static final String TAG = "FLWFSettingsActivity";
     private String[] bookNames;
     private File[] bookFiles;
     File appFolderFile;
-    BasicFile.ExtensionFilter xlsFilter;
+    File bookListFile;
+    MyFileHandler.ExtensionFilter xlsFilter;
 
     TextView presentBookTextView;
 
@@ -55,19 +44,21 @@ public class SettingsActivity extends AppCompatActivity {
         booksListView = (ListView) findViewById(R.id.lv_settings_books);
 
         editIntent = new Intent();
+
+        bookListFile = new File(getExternalStorageDirectory() + BasicStaticData.appFolder + BasicStaticData.appBookDataFileName);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         appFolderFile = new File(getExternalStorageDirectory() + BasicStaticData.appFolder);
-        xlsFilter = new BasicFile.ExtensionFilter(".xls");
+        xlsFilter = new MyFileHandler.ExtensionFilter(".xls");
         updateBookNamesAndUI();
     }
 
     void updateBookNamesAndUI() {
         bookFiles = appFolderFile.listFiles(xlsFilter);
-        bookNames = BasicFile.filesToStrings(bookFiles);
+        bookNames = MyFileHandler.filesToStrings(bookFiles);
 
         booksListView.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_single_choice, bookNames));
         presentBookTextView.setText("PresentBook:" + getPresentBook() + "\nBooks available:");
@@ -93,6 +84,11 @@ public class SettingsActivity extends AppCompatActivity {
 
     public void onAddBookClicked(final View view) {
         final View addBookView = getLayoutInflater().inflate(R.layout.dialog_add_book, null);
+
+        final Spinner timesSpinner = (Spinner) addBookView.findViewById(R.id.sp_dialog_add_target_times);
+        timesSpinner.setSelection(4, true);
+//        SpinnerAdapter timesSpinnerAdapter = timesSpinner.getAdapter();
+
         new AlertDialog.Builder(this)
                 .setTitle("Add a new book")
                 .setView(addBookView)
@@ -112,21 +108,24 @@ public class SettingsActivity extends AppCompatActivity {
                                 }
                             }
                             File newBookFile = new File(getExternalStorageDirectory() + BasicStaticData.appFolder + "/" + name + ".xls");
-                            int createResult = BasicFile.createNewFile(newBookFile);
+                            int createResult = MyFileHandler.createNewFile(newBookFile);
                             switch (createResult) {
-                                case BasicFile.CREATE_ALREADY_EXISTS:
+                                case MyFileHandler.CREATE_ALREADY_EXISTS:
                                     Toast.makeText(SettingsActivity.this, "Already exists", Toast.LENGTH_SHORT).show();
                                     onAddBookClicked(view);
                                     break;
-                                case BasicFile.CREATE_FAILED:
+                                case MyFileHandler.CREATE_FAILED:
                                     Toast.makeText(SettingsActivity.this, "Failed,try again", Toast.LENGTH_SHORT).show();
                                     onAddBookClicked(view);
                                     break;
-                                case BasicFile.CREATE_SUCCESS:
+                                case MyFileHandler.CREATE_SUCCESS:
                                     HSSFWorkbook wb;
                                     try {
                                         wb = BookAccessor.createWorkbook();
                                         BookAccessor.closeAndSaveBook(wb, newBookFile);
+                                        int times = timesSpinner.getSelectedItemPosition() + 1;
+                                        ArrayList<Book> bookList = MyFileHandler.addBookToList(MyFileHandler.readFromBookDataFile(bookListFile), "/" + newBookFile.getName(), times);
+                                        MyFileHandler.writeToBookDataFile(bookList, bookListFile);
                                     } catch (IOException e) {
                                         e.printStackTrace();
                                     }
@@ -162,8 +161,11 @@ public class SettingsActivity extends AppCompatActivity {
                         boolean deleted = fileToDelete.delete();
                         if (!deleted)
                             Toast.makeText(SettingsActivity.this, "Delete Failed", Toast.LENGTH_SHORT).show();
-                        else
+                        else {
                             updateBookNamesAndUI();
+                            ArrayList<Book> bookList = MyFileHandler.deleteBookFromList(MyFileHandler.readFromBookDataFile(bookListFile), "/" + fileToDelete.getName());
+                            MyFileHandler.writeToBookDataFile(bookList, bookListFile);
+                        }
                     }
                 })
                 .setNegativeButton("Cancel", null)
@@ -176,11 +178,54 @@ public class SettingsActivity extends AppCompatActivity {
             return;
         }
 
-        editIntent = BasicFile.getExcelFileIntent(bookFiles[booksListView.getCheckedItemPosition()], this);
+        editIntent = MyFileHandler.getExcelFileIntent(bookFiles[booksListView.getCheckedItemPosition()], this);
         startActivity(editIntent);
     }
 
-    public void onConfigClicked(View view) {
+    public void onConfigClicked(final View view) {
         // TODO: 2017/5/23  config here!
+        if (booksListView.getCheckedItemPosition() == -1) {
+            Toast.makeText(this, "Choose a book first", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+
+        final View setBookView = getLayoutInflater().inflate(R.layout.dialog_config_book, null);
+
+        final Spinner timesSpinner = (Spinner) setBookView.findViewById(R.id.sp_dialog_set_target_times);
+        timesSpinner.setSelection(4, true);
+
+        new AlertDialog.Builder(this)
+                .setTitle("Config book")
+                .setView(setBookView)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        EditText setBookEditText = (EditText) setBookView.findViewById(R.id.et_dialog_config_book);
+                        String name = setBookEditText.getText().toString();
+                        if (!name.equals("")) {
+                            for (int i = 0; i < name.length(); i++) {
+                                if (!Character.isLetterOrDigit(name.charAt(i)) &&
+                                        !Character.toString(name.charAt(i)).equals("_") &&
+                                        !Character.toString(name.charAt(i)).equals("-")) {
+                                    Toast.makeText(SettingsActivity.this, "Illegal Character", Toast.LENGTH_SHORT).show();
+                                    onConfigClicked(view);
+                                    return;
+                                }
+                            }
+                            // TODO: 2017/5/25 change here
+
+                            updateBookNamesAndUI();
+                        } else {
+                            Toast.makeText(SettingsActivity.this, "Enter the name of book", Toast.LENGTH_SHORT).show();
+                            // TODO: 2017/5/23  i'm not sure if this FINAL VIEW will cause any problems...
+                            onConfigClicked(view);
+                        }
+                    }
+                })
+                .setNegativeButton("Cancel", null)
+                .show();
+
+        File bookFileToConfig = bookFiles[booksListView.getCheckedItemPosition()];
     }
 }

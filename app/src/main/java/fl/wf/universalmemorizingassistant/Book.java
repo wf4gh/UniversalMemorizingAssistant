@@ -9,11 +9,11 @@ package fl.wf.universalmemorizingassistant;
 class Book {
     //    private int id;
     private String name;
-    private int maxTimes;
-    private int index;
-    private int recitedTimes;
+    private int maxTimes = 5;
+    private int index = 1;
+    private int recitedTimes = 0;
 
-    public boolean tag=false;
+    public boolean tag = false;
 
     public int getIndex() {
         return index;

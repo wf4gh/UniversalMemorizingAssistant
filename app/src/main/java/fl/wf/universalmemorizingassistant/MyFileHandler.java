@@ -6,13 +6,27 @@ import android.net.Uri;
 import android.support.v4.content.FileProvider;
 import android.util.Log;
 
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
+import org.xml.sax.XMLReader;
+import org.xmlpull.v1.XmlPullParserException;
+import org.xmlpull.v1.XmlPullParserFactory;
+import org.xmlpull.v1.XmlSerializer;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FilenameFilter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.util.ArrayList;
+import java.util.Objects;
+
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
 
 
 /**
@@ -20,7 +34,7 @@ import java.io.OutputStreamWriter;
  * Used to read and write user data
  */
 
-class BasicFile {
+class MyFileHandler {
 
     private static final String TAG = "FLWFBasicFile";
 
@@ -165,4 +179,104 @@ class BasicFile {
         intent.setDataAndType(uri, "application/vnd.ms-excel");
         return intent;
     }
+
+
+    public static ArrayList<Book> readFromBookDataFile(File file) {
+        ArrayList<Book> bookListFromFile = null;
+        try {
+            InputStream inputStream = new FileInputStream(file);
+            InputSource inputSource = new InputSource(inputStream);
+            SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
+            SAXParser saxParser = saxParserFactory.newSAXParser();
+            XMLReader xmlReader = saxParser.getXMLReader();
+            BookSaxHandler bookSaxHandler = new BookSaxHandler();
+            xmlReader.setContentHandler(bookSaxHandler);
+            xmlReader.parse(inputSource);
+
+            bookListFromFile = bookSaxHandler.bookArrayList;
+
+        } catch (ParserConfigurationException | SAXException | IOException e) {
+            e.printStackTrace();
+        }
+
+
+        if (bookListFromFile != null)
+            for (Book b : bookListFromFile) {
+                Log.d(TAG, "readFromBookDataFile: BookRead:" + b.toString());
+            }
+
+        return bookListFromFile;
+    }
+
+    public static ArrayList<Book> addBookToList(ArrayList<Book> bookList, String bookName, int maxTimes) {
+        Book bookToAdd = new Book();
+        bookToAdd.setName(bookName);
+        bookToAdd.setMaxTimes(maxTimes);
+        bookList.add(bookToAdd);
+        return bookList;
+    }
+
+    public static ArrayList<Book> deleteBookFromList(ArrayList<Book> bookList, String bookName) {
+        for (Book b : bookList)
+            if (b.getName().equals(bookName)) {
+                bookList.remove(b);
+                return bookList;
+            }
+        return bookList;
+    }
+
+    public static ArrayList<Book> updateBookFromList(ArrayList<Book> bookList, String bookNameToUpdate, String newName, int newMaxTimes, boolean resetProgress) {
+        if (bookList == null)
+            return null;
+
+        for (Book b : bookList)
+            if (b.getName().equals(bookNameToUpdate)) {
+                if (newName != null) b.setName(newName);
+                if (newMaxTimes != 0) b.setMaxTimes(newMaxTimes);
+                if (resetProgress) {
+                    b.setIndex(1);
+                    b.setRecitedTimes(0);
+                }
+            }
+        return bookList;
+    }
+
+    public static Book updateBook(Book bookToUpdate, String newName) {
+        return bookToUpdate;
+    }
+
+    public static void writeToBookDataFile(ArrayList<Book> bookListToWrite, File userDataFileToWrite) {
+        try {
+            FileOutputStream fileOutputStream = new FileOutputStream(userDataFileToWrite);
+            XmlPullParserFactory xmlPullParserFactory = XmlPullParserFactory.newInstance();
+            XmlSerializer xmlSerializer = xmlPullParserFactory.newSerializer();
+            xmlSerializer.setOutput(fileOutputStream, "UTF-8");
+            xmlSerializer.startDocument("UTF-8", true);
+            xmlSerializer.startTag(null, "Books");
+            for (Book book : bookListToWrite) {
+                xmlSerializer.startTag(null, "Book");
+//                xmlSerializer.attribute(null, "id", String.valueOf(book.getId()));
+                xmlSerializer.startTag(null, "Name");
+                xmlSerializer.text(book.getName());
+                xmlSerializer.endTag(null, "Name");
+                xmlSerializer.startTag(null, "MaxTimes");
+                xmlSerializer.text(String.valueOf(book.getMaxTimes()));
+                xmlSerializer.endTag(null, "MaxTimes");
+                xmlSerializer.startTag(null, "Index");
+                xmlSerializer.text(String.valueOf(book.getIndex()));
+                xmlSerializer.endTag(null, "Index");
+                xmlSerializer.startTag(null, "RecitedTimes");
+                xmlSerializer.text(String.valueOf(book.getRecitedTimes()));
+                xmlSerializer.endTag(null, "RecitedTimes");
+                xmlSerializer.endTag(null, "Book");
+            }
+            xmlSerializer.endTag(null, "Books");
+            xmlSerializer.endDocument();
+            fileOutputStream.flush();
+            fileOutputStream.close();
+        } catch (XmlPullParserException | IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
