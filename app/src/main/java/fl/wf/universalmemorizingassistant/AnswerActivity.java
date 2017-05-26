@@ -53,10 +53,6 @@ public class AnswerActivity extends AppCompatActivity {
 
         settingsActivityIntent = new Intent(this, SettingsActivity.class);
 
-        bookName = getIntent().getStringExtra("bookName");
-        bookMaxTimes = getIntent().getIntExtra("bookMaxTimes", 5);
-        bookIndex = getIntent().getIntExtra("bookIndex", 1);
-        bookRecitedTimes = getIntent().getIntExtra("bookRecitedTimes", 0);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.tb_answer);
         setSupportActionBar(toolbar);
@@ -64,6 +60,7 @@ public class AnswerActivity extends AppCompatActivity {
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
+
         yesButton = (Button) findViewById(R.id.bt_ans_yes);
         noButton = (Button) findViewById(R.id.bt_ans_no);
         hintTextView = (TextView) findViewById(R.id.tv_ans_hint);
@@ -76,17 +73,18 @@ public class AnswerActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        // TODO: 2017/5/17 get these three values by reading user data file(.xml)
         bookName = "/" + getPresentBook();
         Book presentBook = MyFileHandler.getBook(BasicStaticData.appBookDataFile, bookName);
         if (presentBook != null) {
             bookMaxTimes = presentBook.getMaxTimes();
             bookIndex = presentBook.getIndex();
+            bookRecitedTimes = presentBook.getRecitedTimes();
         } else {
             Log.d(TAG, "onResume: Present book null!!!!!!!!!!!!11");
             finish();
         }
-        Log.d(TAG, "onCreate: \nbook:" + appFolderPath + bookName + "\nTimes: " + bookMaxTimes + "\nIndex:" + bookIndex);
+        Log.d(TAG, "onCreate: \nbook: " + appFolderPath + bookName + "\nTimes: "
+                + bookMaxTimes + "\nIndex: " + bookIndex + "\nRecitedTimes: " + bookRecitedTimes);
         bookFile = new File(getExternalStorageDirectory() + appFolderPath + bookName);
 
         try {
@@ -118,6 +116,7 @@ public class AnswerActivity extends AppCompatActivity {
             try {
                 BookAccessor.closeAndSaveBook(wb, bookFile);
                 // TODO: 2017/5/17   update user data file here
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -142,7 +141,7 @@ public class AnswerActivity extends AppCompatActivity {
                             .setPositiveButton("OK,one more time", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    Log.d(TAG, "onClick: some code needed here");
+                                    // TODO: 2017/5/26  update RecitedTimes here
                                     BookAccessor.setAllRowsToMaxTimes(wb, bookMaxTimes);
                                     try {
                                         BookAccessor.closeAndSaveBook(wb, bookFile);

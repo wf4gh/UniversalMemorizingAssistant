@@ -6,7 +6,9 @@ import android.content.SharedPreferences;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
@@ -21,8 +23,6 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-
-import static android.os.Environment.getExternalStorageDirectory;
 
 public class SettingsActivity extends AppCompatActivity {
     private static final String TAG = "FLWFSettingsActivity";
@@ -41,16 +41,23 @@ public class SettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
+        Toolbar toolbar = (Toolbar) findViewById(R.id.tb_settings);
+        setSupportActionBar(toolbar);
+
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+
         presentBookTextView = (TextView) findViewById(R.id.tv_settings_present_book);
         booksListView = (ListView) findViewById(R.id.lv_settings_books);
         editIntent = new Intent();
-        bookListFile = new File(getExternalStorageDirectory() + BasicStaticData.appFolder + BasicStaticData.appBookDataFileName);
+        bookListFile = BasicStaticData.appBookDataFile;
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        appFolderFile = new File(getExternalStorageDirectory() + BasicStaticData.appFolder);
+        appFolderFile = BasicStaticData.appFolderFile;
         xlsFilter = new MyFileHandler.ExtensionFilter(".xls");
         updateBookNamesAndUI();
     }
@@ -107,7 +114,7 @@ public class SettingsActivity extends AppCompatActivity {
                                     return;
                                 }
                             }
-                            File newBookFile = new File(getExternalStorageDirectory() + BasicStaticData.appFolder + "/" + name + ".xls");
+                            File newBookFile = new File(BasicStaticData.absAppFolderPath + "/" + name + ".xls");
                             int createResult = MyFileHandler.createNewFile(newBookFile);
                             switch (createResult) {
                                 case MyFileHandler.CREATE_ALREADY_EXISTS:
@@ -233,7 +240,7 @@ public class SettingsActivity extends AppCompatActivity {
                                 name = null;
                             else {
                                 //rename bookFile here
-                                boolean renamed = fileToUpdate.renameTo(new File(getExternalStorageDirectory() + BasicStaticData.appFolder + name));
+                                boolean renamed = fileToUpdate.renameTo(new File(BasicStaticData.absAppFolderPath + name));
                                 if (!renamed) {
                                     Toast.makeText(SettingsActivity.this, "Rename Failed", Toast.LENGTH_SHORT).show();
                                     onConfigClicked(view);
@@ -255,5 +262,15 @@ public class SettingsActivity extends AppCompatActivity {
                 })
                 .setNegativeButton("Cancel", null)
                 .show();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

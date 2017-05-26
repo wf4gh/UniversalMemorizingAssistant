@@ -16,15 +16,21 @@
         app:showAsAction="ifRoom">
         <menu>
             <item
-                android:id="@+id/menu_books"
-                android:orderInCategory="100"
-                android:title="books"
-                app:showAsAction="ifRoom" />
-            <item
-                android:id="@+id/menu_settings"
+                android:id="@+id/menu_help"
                 android:orderInCategory="200"
-                android:title="settings"
+                android:title="help"
                 app:showAsAction="ifRoom" />
+
+            <!--<item-->
+            <!--android:id="@+id/menu_books"-->
+            <!--android:orderInCategory="100"-->
+            <!--android:title="books"-->
+            <!--app:showAsAction="ifRoom" />-->
+            <!--<item-->
+            <!--android:id="@+id/menu_settings"-->
+            <!--android:orderInCategory="200"-->
+            <!--android:title="settings"-->
+            <!--app:showAsAction="ifRoom" />-->
             <item
                 android:id="@+id/menu_about"
                 android:orderInCategory="300"

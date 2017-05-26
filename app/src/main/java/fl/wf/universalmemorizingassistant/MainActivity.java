@@ -14,13 +14,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
 import java.io.File;
 import java.util.ArrayList;
 
-import static android.os.Environment.getExternalStorageDirectory;
 import static fl.wf.universalmemorizingassistant.MyFileHandler.createNewFile;
 import static fl.wf.universalmemorizingassistant.MyFileHandler.createNewFolder;
 import static fl.wf.universalmemorizingassistant.MyFileHandler.readFromBookDataFile;
@@ -32,24 +32,16 @@ public class MainActivity extends AppCompatActivity {
 
     private static final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 4289;
 
-    private String appFolder = BasicStaticData.appFolder;
-    private String appBookDataFileName = BasicStaticData.appBookDataFileName;
-    File appBookDataFile;
+//    private String appFolder = BasicStaticData.appFolder;
+//    private String appBookDataFileName = BasicStaticData.appBookDataFileName;
+//    File appBookDataFile;
     File[] bookFiles;
 
     private ArrayList<Book> bookListFromScanner;
     private ArrayList<Book> bookListFromFile;
     private ArrayList<Book> bookListToWrite;
 
-    //identify the book using now
-//    int idIndex = 0;
     String presentBookName = "";
-    //send these four variables to AnswerActivity using intent
-    String bookName;
-    int bookMaxTimes;
-    int bookIndex;
-    int bookRecitedTimes;
-
 
     Intent settingsActivityIntent;
 
@@ -68,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
             finish();
         }
         getRuntimePermission();
-        presentBookName = getPresentBook();
+//        presentBookName = getPresentBook();
         settingsActivityIntent = new Intent(this, SettingsActivity.class);
     }
 
@@ -84,16 +76,29 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_add:
+                Toast.makeText(this, "ADD!", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.menu_about:
+                Toast.makeText(this, "About!", Toast.LENGTH_SHORT).show();
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 
     //try to create user data folder and file.If already created,this will not create new file
     void initializingUserData() {
         //create app folder
-        File appFolderFile = new File(getExternalStorageDirectory() + appFolder);
+        File appFolderFile = BasicStaticData.appFolderFile;
         createNewFolder(appFolderFile);
 
 
         //create or update app book data file
-        File bookDataFile = new File(getExternalStorageDirectory() + appFolder + appBookDataFileName);
+        File bookDataFile = BasicStaticData.appBookDataFile;
         int bookDataFileCreateState = createNewFile(bookDataFile);
 
         bookListFromScanner = new ArrayList<>();
@@ -191,7 +196,7 @@ public class MainActivity extends AppCompatActivity {
     public void onStartClicked(View view) {
         presentBookName = getPresentBook();
         Log.d(TAG, "onStartClicked: presentBookName: " + presentBookName);
-        File presentBookFile = new File(getExternalStorageDirectory() + appFolder + "/" + presentBookName);
+        File presentBookFile = new File(BasicStaticData.absAppFolderPath + "/" + presentBookName);
         if (presentBookName.equals("choose one!") | presentBookName.equals("") | !presentBookFile.exists()) {
             new AlertDialog.Builder(this)
                     .setTitle("TitleHere")
@@ -206,10 +211,6 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
         Intent intent = new Intent(this, AnswerActivity.class);
-        intent.putExtra("bookName", bookName);
-        intent.putExtra("bookMaxTimes", bookMaxTimes);
-        intent.putExtra("bookIndex", bookIndex);
-        intent.putExtra("bookRecitedTimes", bookRecitedTimes);
         startActivity(intent);
     }
 
