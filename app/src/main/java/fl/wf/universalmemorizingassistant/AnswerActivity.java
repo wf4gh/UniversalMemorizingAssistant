@@ -20,6 +20,7 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import static android.os.Environment.getExternalStorageDirectory;
 
@@ -115,8 +116,10 @@ public class AnswerActivity extends AppCompatActivity {
         if (wb != null) {
             try {
                 BookAccessor.closeAndSaveBook(wb, bookFile);
-                // TODO: 2017/5/17   update user data file here
-
+                //update user book data file here
+                ArrayList<Book> bookArrayList = MyFileHandler.readFromBookDataFile(BasicStaticData.appBookDataFile);
+                bookArrayList = MyFileHandler.updateBookFromList(bookArrayList, bookName, bookIndex, false);
+                MyFileHandler.writeToBookDataFile(bookArrayList, BasicStaticData.appBookDataFile);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -129,7 +132,7 @@ public class AnswerActivity extends AppCompatActivity {
         while (BookAccessor.rowCheck(wb, bookIndex) == BookAccessor.ROW_INVALID) {
             bookIndex++;
         }
-
+        // TODO: 2017/5/25 this may need optimization
         if (BookAccessor.rowCheck(wb, bookIndex) == BookAccessor.ROW_END) {
             bookIndex = 1;
             while (BookAccessor.rowCheck(wb, bookIndex) == BookAccessor.ROW_INVALID) {
@@ -141,12 +144,15 @@ public class AnswerActivity extends AppCompatActivity {
                             .setPositiveButton("OK,one more time", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    // TODO: 2017/5/26  update RecitedTimes here
+                                    //update user book data file here
+                                    ArrayList<Book> bookArrayList = MyFileHandler.readFromBookDataFile(BasicStaticData.appBookDataFile);
+                                    bookArrayList = MyFileHandler.updateBookFromList(bookArrayList, bookName, 1, true);
+                                    MyFileHandler.writeToBookDataFile(bookArrayList, BasicStaticData.appBookDataFile);
+
                                     BookAccessor.setAllRowsToMaxTimes(wb, bookMaxTimes);
                                     try {
                                         BookAccessor.closeAndSaveBook(wb, bookFile);
                                         wb = BookAccessor.openAndValidateBook(bookFile, bookMaxTimes);
-                                        // TODO: 2017/5/25 this need optimization
                                         if (wb == null) {
                                             Toast.makeText(AnswerActivity.this, "book empty!!!!!", Toast.LENGTH_SHORT).show();
                                             finish();

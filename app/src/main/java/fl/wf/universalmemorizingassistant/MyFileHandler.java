@@ -39,6 +39,8 @@ class MyFileHandler {
     static final int CREATE_SUCCESS = 1;
     static final int CREATE_ALREADY_EXISTS = 2;
 
+    static final int UPDATE_NO_CHANGE = -1;
+
     //create a file
     static int createNewFile(File file) {
 
@@ -231,11 +233,23 @@ class MyFileHandler {
         for (Book b : bookList)
             if (b.getName().equals(bookNameToUpdate)) {
                 if (newName != null) b.setName(newName);
-                if (newMaxTimes != 0) b.setMaxTimes(newMaxTimes);
+                if (newMaxTimes != UPDATE_NO_CHANGE) b.setMaxTimes(newMaxTimes);
                 if (resetProgress) {
                     b.setIndex(1);
                     b.setRecitedTimes(0);
                 }
+            }
+        return bookList;
+    }
+
+    static ArrayList<Book> updateBookFromList(ArrayList<Book> bookList, String bookNameToUpdate, int index, boolean increaseRecitedTimes) {
+        if (bookList == null)
+            return null;
+
+        for (Book b : bookList)
+            if (b.getName().equals(bookNameToUpdate)) {
+                if (index != UPDATE_NO_CHANGE) b.setIndex(index);
+                if (increaseRecitedTimes) b.setRecitedTimes(b.getRecitedTimes() + 1);
             }
         return bookList;
     }
