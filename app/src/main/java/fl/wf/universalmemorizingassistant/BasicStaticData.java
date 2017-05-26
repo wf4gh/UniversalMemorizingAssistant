@@ -13,7 +13,6 @@ final class BasicStaticData {
     static final String appFolder = "/U_Memorizing";
     static final String appBookDataFileName = "/BookData.xml";
     static final String absAppFolderPath = getExternalStorageDirectory() + BasicStaticData.appFolder;
-    // TODO: 2017/5/25  use this two static file to replace many things......
     static final File appFolderFile = new File(getExternalStorageDirectory() + appFolder);
     static final File appBookDataFile = new File(getExternalStorageDirectory() + appFolder + appBookDataFileName);
 }

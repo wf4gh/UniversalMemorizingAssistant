@@ -27,7 +27,6 @@ import static fl.wf.universalmemorizingassistant.MyFileHandler.readFromBookDataF
 import static fl.wf.universalmemorizingassistant.MyFileHandler.writeToBookDataFile;
 
 public class MainActivity extends AppCompatActivity {
-    // TODO: 2017/5/22   use sharedPreferences to save presentBook
     private static final String TAG = "FLWFMainActivity";
 
     private static final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 4289;
@@ -48,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         //Check if the storage is writable
-        if (!DataChecker.isExternalStorageWritable()) {
+        if (!MyFileHandler.isExternalStorageWritable()) {
             Toast.makeText(this, "ExternalStorageUnavailable", Toast.LENGTH_LONG).show();
             finish();
         }

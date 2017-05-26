@@ -3,6 +3,7 @@ package fl.wf.universalmemorizingassistant;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Environment;
 import android.support.v4.content.FileProvider;
 import android.util.Log;
 
@@ -40,6 +41,12 @@ class MyFileHandler {
     static final int CREATE_ALREADY_EXISTS = 2;
 
     static final int UPDATE_NO_CHANGE = -1;
+
+    //Checks if external storage is available for read and write
+    static boolean isExternalStorageWritable() {
+        String state = Environment.getExternalStorageState();
+        return (Environment.MEDIA_MOUNTED.equals(state));
+    }
 
     //create a file
     static int createNewFile(File file) {

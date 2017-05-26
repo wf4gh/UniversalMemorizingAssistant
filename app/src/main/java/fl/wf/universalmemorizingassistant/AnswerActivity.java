@@ -132,7 +132,7 @@ public class AnswerActivity extends AppCompatActivity {
         while (BookAccessor.rowCheck(wb, bookIndex) == BookAccessor.ROW_INVALID) {
             bookIndex++;
         }
-        // TODO: 2017/5/25 this may need optimization
+        //this does look redundant...
         if (BookAccessor.rowCheck(wb, bookIndex) == BookAccessor.ROW_END) {
             bookIndex = 1;
             while (BookAccessor.rowCheck(wb, bookIndex) == BookAccessor.ROW_INVALID) {

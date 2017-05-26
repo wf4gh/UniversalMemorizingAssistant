@@ -163,7 +163,6 @@ class BookAccessor {
         HSSFRow row = workbookToUse.getSheetAt(0).getRow(indexOfRow);
         if (row == null) return ROW_END;
         HSSFCell cell = row.getCell(2);
-        // FIXME: 2017/5/17 if the row==null can correctly know that the row is null, this line is unnecessary. But this makes it work......
         if (cell == null) return ROW_END;
         if (cell.getNumericCellValue() == 0) return ROW_INVALID;
         else return 1;//else return ROW_VALID;

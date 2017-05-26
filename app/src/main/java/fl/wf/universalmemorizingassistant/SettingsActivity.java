@@ -145,7 +145,7 @@ public class SettingsActivity extends AppCompatActivity {
                             updateBookNamesAndUI();
                         } else {
                             Toast.makeText(SettingsActivity.this, "Enter the name of book", Toast.LENGTH_SHORT).show();
-                            // TODO: 2017/5/23  i'm not sure if this FINAL VIEW will cause any problems...
+                            // i'm not sure if this FINAL VIEW will cause any problems...
                             onAddBookClicked(view);
                         }
                     }
@@ -192,7 +192,6 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     public void onConfigClicked(final View view) {
-        // TODO: 2017/5/23  config here!
         if (booksListView.getCheckedItemPosition() == -1) {
             Toast.makeText(this, "Choose a book first", Toast.LENGTH_SHORT).show();
             return;
