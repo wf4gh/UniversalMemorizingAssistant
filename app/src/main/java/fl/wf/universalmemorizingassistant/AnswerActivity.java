@@ -1,6 +1,7 @@
 package fl.wf.universalmemorizingassistant;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -42,12 +43,15 @@ public class AnswerActivity extends AppCompatActivity {
     TextView hintTextView;
     TextView answerTextView;
     EditText answerEditText;
+    Intent settingsActivityIntent;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_answer);
+
+        settingsActivityIntent = new Intent(this, SettingsActivity.class);
 
         bookName = getIntent().getStringExtra("bookName");
         bookMaxTimes = getIntent().getIntExtra("bookMaxTimes", 5);
@@ -84,24 +88,39 @@ public class AnswerActivity extends AppCompatActivity {
         }
         Log.d(TAG, "onCreate: \nbook:" + appFolderPath + bookName + "\nTimes: " + bookMaxTimes + "\nIndex:" + bookIndex);
         bookFile = new File(getExternalStorageDirectory() + appFolderPath + bookName);
-//
-//        try {
-//            wb = BookAccessor.openAndValidateBook(bookFile, bookMaxTimes);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
 
-        showCurrentRowValue();
+        try {
+            wb = BookAccessor.openAndValidateBook(bookFile, bookMaxTimes);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if (wb == null) {
+            new AlertDialog.Builder(this)
+                    .setTitle("TitleHere")
+                    .setMessage("This book is empty of Invalid,add rows of choose another!")
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            startActivity(settingsActivityIntent);
+                            finish();
+                        }
+                    })
+                    .show();
+        } else {
+            showCurrentRowValue();
+        }
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        try {
-            BookAccessor.closeAndSaveBook(wb, bookFile);
-            // TODO: 2017/5/17   update user data file here
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (wb != null) {
+            try {
+                BookAccessor.closeAndSaveBook(wb, bookFile);
+                // TODO: 2017/5/17   update user data file here
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
