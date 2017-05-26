@@ -1,6 +1,7 @@
 package fl.wf.universalmemorizingassistant;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -16,9 +17,13 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import static fl.wf.universalmemorizingassistant.MyFileHandler.createNewFile;
@@ -32,9 +37,8 @@ public class MainActivity extends AppCompatActivity {
     private static final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 4289;
 
     File[] bookFiles;
-
+    File presentBookFile;
     String presentBookName = "";
-
     Intent settingsActivityIntent;
 
     // TODO: 2017/5/23   add viewer page as help
@@ -71,13 +75,57 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_add:
-                Toast.makeText(this, "ADD!", Toast.LENGTH_SHORT).show();
+                presentBookName = getPresentBook();
+                presentBookFile = new File(BasicStaticData.absAppFolderPath + "/" + presentBookName);
+                if (presentBookName.equals("choose one!") | presentBookName.equals("") | !presentBookFile.exists()) {
+                    new AlertDialog.Builder(this)
+                            .setTitle("TitleHere")
+                            .setMessage("book not chosen or present book invalid.Choose a book")
+                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    startActivity(settingsActivityIntent);
+                                }
+                            })
+                            .show();
+                    break;
+                }
+                @SuppressLint("InflateParams") final View quickAddView = getLayoutInflater().inflate(R.layout.dialog_quick_add, null);
+                new AlertDialog.Builder(this)
+                        .setTitle("Quick add a row to this book")
+                        .setView(quickAddView)
+                        .setPositiveButton("Add", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                EditText hintEditText = (EditText) quickAddView.findViewById(R.id.et_dialog_quick_add_hint);
+                                String hint = hintEditText.getText().toString();
+                                EditText answerEditText = (EditText) quickAddView.findViewById(R.id.et_dialog_quick_add_answer);
+                                String answer = answerEditText.getText().toString();
+//                                Log.d(TAG, "onClick: \nhint:" + hint + "\nans:" + answer);
+                                Book book = MyFileHandler.getBook(BasicStaticData.appBookDataFile, "/" + presentBookName);
+
+                                //think this is not likely to happen now...
+                                if (book == null) {
+                                    Toast.makeText(MainActivity.this, "book Null!", Toast.LENGTH_SHORT).show();
+                                    return;
+                                }
+
+                                try {
+                                    HSSFWorkbook wb = BookHandler.openAndValidateBook(presentBookFile, book.getMaxTimes());
+                                    wb = BookHandler.addNewLineToWorkbook(wb, hint, answer);
+                                    BookHandler.closeAndSaveBook(wb, presentBookFile);
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        })
+                        .setNegativeButton("Cancel", null)
+                        .show();
                 break;
             case R.id.menu_about:
                 Toast.makeText(this, "About!", Toast.LENGTH_SHORT).show();
                 break;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -145,6 +193,8 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /* TODO: 2017/5/26   can enter the app even the permission is not granted, in app explain why the permission is needed.
+     ------Before request of permission accepted, the user can't actually use this app */
     void getRuntimePermission() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
@@ -177,7 +227,23 @@ public class MainActivity extends AppCompatActivity {
                     initializingUserData();
                 } else {
                     Toast.makeText(this, "Need Permission", Toast.LENGTH_LONG).show();
-                    finish();
+
+//                    new AlertDialog.Builder(this)
+//                            .setTitle("TitleHere")
+//                            .setMessage("Need Permission")
+//                            .setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
+//                                @Override
+//                                public void onClick(DialogInterface dialog, int which) {
+//                                    finish();
+//                                }
+//                            })
+//                            .setNegativeButton("Set", new DialogInterface.OnClickListener() {
+//                                @Override
+//                                public void onClick(DialogInterface dialog, int which) {
+//                                    // : 2017/5/26 jump to setting here
+//                                }
+//                            })
+//                            .show();
                 }
             }
         }
@@ -185,8 +251,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void onStartClicked(View view) {
         presentBookName = getPresentBook();
-        Log.d(TAG, "onStartClicked: presentBookName: " + presentBookName);
-        File presentBookFile = new File(BasicStaticData.absAppFolderPath + "/" + presentBookName);
+        presentBookFile = new File(BasicStaticData.absAppFolderPath + "/" + presentBookName);
         if (presentBookName.equals("choose one!") | presentBookName.equals("") | !presentBookFile.exists()) {
             new AlertDialog.Builder(this)
                     .setTitle("TitleHere")

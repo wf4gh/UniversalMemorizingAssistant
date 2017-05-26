@@ -22,7 +22,7 @@ import static org.apache.poi.ss.usermodel.CellType.STRING;
  * Usually invoked when the user is reciting
  */
 
-class BookAccessor {
+class BookHandler {
     private static final String TAG = "FLWFBookAccessor";
 
     static final int ANSWER_RIGHT = 1;
@@ -49,8 +49,14 @@ class BookAccessor {
             Log.d(TAG, "openAndValidateBook: sheet not null");
 
         Log.d(TAG, "openAndValidateBook: sheet.getLastRowNum(): " + sheet.getLastRowNum());
-
+// TODO: 2017/5/26  add title line to workbook here
         if (sheet.getLastRowNum() <= 1) {
+            if (sheet.getLastRowNum() < 1) {
+                addNewLineToWorkbook(wb, "hint", "answer");
+                closeAndSaveBook(wb,bookFileToOpen);
+            }
+            Log.d(TAG, "openAndValidateBook: null returned!!!!!!!11");
+            // FIXME: 2017/5/26 a bug here!
             return null;
         }
 
@@ -221,5 +227,14 @@ class BookAccessor {
         usedWorkbook.write(out);
         out.close();
         usedWorkbook.close();
+    }
+
+    static HSSFWorkbook addNewLineToWorkbook(HSSFWorkbook workbook, String hint, String answer) {
+        HSSFSheet sheet = workbook.getSheetAt(0);
+        int rowCount = sheet.getLastRowNum();
+        HSSFRow row = sheet.createRow(rowCount);
+        row.createCell(0).setCellValue(hint);
+        row.createCell(1).setCellValue(answer);
+        return workbook;
     }
 }

@@ -89,7 +89,7 @@ public class AnswerActivity extends AppCompatActivity {
         bookFile = new File(getExternalStorageDirectory() + appFolderPath + bookName);
 
         try {
-            wb = BookAccessor.openAndValidateBook(bookFile, bookMaxTimes);
+            wb = BookHandler.openAndValidateBook(bookFile, bookMaxTimes);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -115,7 +115,7 @@ public class AnswerActivity extends AppCompatActivity {
         super.onPause();
         if (wb != null) {
             try {
-                BookAccessor.closeAndSaveBook(wb, bookFile);
+                BookHandler.closeAndSaveBook(wb, bookFile);
                 //update user book data file here
                 ArrayList<Book> bookArrayList = MyFileHandler.readFromBookDataFile(BasicStaticData.appBookDataFile);
                 bookArrayList = MyFileHandler.updateBookFromList(bookArrayList, bookName, bookIndex, false);
@@ -129,15 +129,15 @@ public class AnswerActivity extends AppCompatActivity {
     //used to show the row now at the screen
     void showCurrentRowValue() {
 
-        while (BookAccessor.rowCheck(wb, bookIndex) == BookAccessor.ROW_INVALID) {
+        while (BookHandler.rowCheck(wb, bookIndex) == BookHandler.ROW_INVALID) {
             bookIndex++;
         }
         //this does look redundant...
-        if (BookAccessor.rowCheck(wb, bookIndex) == BookAccessor.ROW_END) {
+        if (BookHandler.rowCheck(wb, bookIndex) == BookHandler.ROW_END) {
             bookIndex = 1;
-            while (BookAccessor.rowCheck(wb, bookIndex) == BookAccessor.ROW_INVALID) {
+            while (BookHandler.rowCheck(wb, bookIndex) == BookHandler.ROW_INVALID) {
                 bookIndex++;
-                if (BookAccessor.rowCheck(wb, bookIndex) == BookAccessor.ROW_END) {
+                if (BookHandler.rowCheck(wb, bookIndex) == BookHandler.ROW_END) {
                     new AlertDialog.Builder(this)
                             .setTitle("ThisFinished")
                             .setMessage("One more time?")
@@ -149,10 +149,10 @@ public class AnswerActivity extends AppCompatActivity {
                                     bookArrayList = MyFileHandler.updateBookFromList(bookArrayList, bookName, 1, true);
                                     MyFileHandler.writeToBookDataFile(bookArrayList, BasicStaticData.appBookDataFile);
 
-                                    BookAccessor.setAllRowsToMaxTimes(wb, bookMaxTimes);
+                                    BookHandler.setAllRowsToMaxTimes(wb, bookMaxTimes);
                                     try {
-                                        BookAccessor.closeAndSaveBook(wb, bookFile);
-                                        wb = BookAccessor.openAndValidateBook(bookFile, bookMaxTimes);
+                                        BookHandler.closeAndSaveBook(wb, bookFile);
+                                        wb = BookHandler.openAndValidateBook(bookFile, bookMaxTimes);
                                         if (wb == null) {
                                             Toast.makeText(AnswerActivity.this, "book empty!!!!!", Toast.LENGTH_SHORT).show();
                                             finish();
@@ -195,8 +195,8 @@ public class AnswerActivity extends AppCompatActivity {
     }
 
     public void onYesClicked(View view) {
-        answerState = BookAccessor.ANSWER_RIGHT;
-        BookAccessor.updateTimes(wb, bookIndex, bookMaxTimes, answerState);
+        answerState = BookHandler.ANSWER_RIGHT;
+        BookHandler.updateTimes(wb, bookIndex, bookMaxTimes, answerState);
         UIShowNext();
         bookIndex++;
         showCurrentRowValue();
@@ -206,8 +206,8 @@ public class AnswerActivity extends AppCompatActivity {
         if (!answerShowed) {
             UIShowThis();
         } else {
-            answerState = BookAccessor.ANSWER_WRONG;
-            BookAccessor.updateTimes(wb, bookIndex, bookMaxTimes, answerState);
+            answerState = BookHandler.ANSWER_WRONG;
+            BookHandler.updateTimes(wb, bookIndex, bookMaxTimes, answerState);
             UIShowNext();
             bookIndex++;
             showCurrentRowValue();
