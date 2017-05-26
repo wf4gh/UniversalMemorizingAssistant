@@ -97,7 +97,7 @@ public class AnswerActivity extends AppCompatActivity {
         if (wb == null) {
             new AlertDialog.Builder(this)
                     .setTitle("TitleHere")
-                    .setMessage("This book is empty of Invalid,add rows of choose another!")
+                    .setMessage("This book is empty or Invalid,add rows or choose another!")
                     .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {

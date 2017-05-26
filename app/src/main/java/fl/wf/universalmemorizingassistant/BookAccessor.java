@@ -47,9 +47,9 @@ public class BookAccessor {
         if (sheet == null) {
             // TODO: 2017/5/23  change this name
             wb.createSheet("SheetName");
-            Log.d(TAG, "openAndValidateBook: sheetnull");
+            Log.d(TAG, "openAndValidateBook: sheet null");
         } else
-            Log.d(TAG, "openAndValidateBook: sheetnotnull");
+            Log.d(TAG, "openAndValidateBook: sheet not null");
 
         Log.d(TAG, "openAndValidateBook: sheet.getLastRowNum(): " + sheet.getLastRowNum());
 
@@ -120,9 +120,17 @@ public class BookAccessor {
         return wb;
     }
 
-    static HSSFWorkbook createWorkbook() {
+    static HSSFWorkbook createWorkbookWithTitle() {
         HSSFWorkbook wb = new HSSFWorkbook();
         wb.createSheet("SheetName");
+        HSSFSheet sheet = wb.getSheetAt(0);
+        HSSFRow row = sheet.createRow(0);
+        HSSFCell c0 = row.createCell(0);
+        c0.setCellValue("hint");
+        HSSFCell c1 = row.createCell(1);
+        c1.setCellValue("answer");
+        HSSFCell c2 = row.createCell(2);
+        c2.setCellValue("times");
         return wb;
     }
 

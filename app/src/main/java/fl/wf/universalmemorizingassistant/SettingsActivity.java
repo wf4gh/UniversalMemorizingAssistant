@@ -22,7 +22,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import static android.R.attr.name;
 import static android.os.Environment.getExternalStorageDirectory;
 
 public class SettingsActivity extends AppCompatActivity {
@@ -122,7 +121,7 @@ public class SettingsActivity extends AppCompatActivity {
                                 case MyFileHandler.CREATE_SUCCESS:
                                     HSSFWorkbook wb;
                                     try {
-                                        wb = BookAccessor.createWorkbook();
+                                        wb = BookAccessor.createWorkbookWithTitle();
                                         BookAccessor.closeAndSaveBook(wb, newBookFile);
                                         int times = timesSpinner.getSelectedItemPosition() + 1;
                                         ArrayList<Book> bookList = MyFileHandler.addBookToList(MyFileHandler.readFromBookDataFile(bookListFile), "/" + newBookFile.getName(), times);
