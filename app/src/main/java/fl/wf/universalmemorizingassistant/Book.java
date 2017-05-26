@@ -13,29 +13,29 @@ class Book {
     private int index = 1;
     private int recitedTimes = 0;
 
-    public boolean tag = false;
+    boolean tag = false;
 
-    public int getIndex() {
+    int getIndex() {
         return index;
     }
 
-    public void setIndex(int index) {
+    void setIndex(int index) {
         this.index = index;
     }
 
-    public int getRecitedTimes() {
+    int getRecitedTimes() {
         return recitedTimes;
     }
 
-    public void setRecitedTimes(int recitedTimes) {
+    void setRecitedTimes(int recitedTimes) {
         this.recitedTimes = recitedTimes;
     }
 
-    public int getMaxTimes() {
+    int getMaxTimes() {
         return maxTimes;
     }
 
-    public void setMaxTimes(int maxTimes) {
+    void setMaxTimes(int maxTimes) {
         this.maxTimes = maxTimes;
     }
 

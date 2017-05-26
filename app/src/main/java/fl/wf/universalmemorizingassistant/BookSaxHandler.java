@@ -12,7 +12,7 @@ import java.util.ArrayList;
  */
 
 class BookSaxHandler extends DefaultHandler {
-    public ArrayList<Book> bookArrayList;
+    ArrayList<Book> bookArrayList;
     private Book book;
     private String content;
 //

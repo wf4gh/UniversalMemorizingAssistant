@@ -19,10 +19,7 @@ import java.io.FileOutputStream;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.util.ArrayList;
-import java.util.Objects;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
@@ -82,33 +79,33 @@ class MyFileHandler {
         }
     }
 
-    //This does work.But i can't see this using PC,only through the phone client can i see the file already be written
-    static void writeStringToFile(File fileToWrite, String contentToWrite) {
-        try {
-            FileOutputStream fileOutputStream = new FileOutputStream(fileToWrite);
-            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(fileOutputStream, "UTF-8");
-            outputStreamWriter.write(contentToWrite);
-            outputStreamWriter.flush();
-            outputStreamWriter.close();
-            fileOutputStream.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    static void appendStringToFile(File fileToWrite, String contentToWrite) {
-        try {
-            FileOutputStream fileOutputStream = new FileOutputStream(fileToWrite, true);
-            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(fileOutputStream, "UTF-8");
-            outputStreamWriter.write(contentToWrite);
-            outputStreamWriter.flush();
-            outputStreamWriter.close();
-            fileOutputStream.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        //These may also work ,but seems on way to set the encoding
+//    //This does work.But i can't see this using PC,only through the phone client can i see the file already be written
+//    static void writeStringToFile(File fileToWrite, String contentToWrite) {
+//        try {
+//            FileOutputStream fileOutputStream = new FileOutputStream(fileToWrite);
+//            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(fileOutputStream, "UTF-8");
+//            outputStreamWriter.write(contentToWrite);
+//            outputStreamWriter.flush();
+//            outputStreamWriter.close();
+//            fileOutputStream.close();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
+//
+//    static void appendStringToFile(File fileToWrite, String contentToWrite) {
+//        try {
+//            FileOutputStream fileOutputStream = new FileOutputStream(fileToWrite, true);
+//            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(fileOutputStream, "UTF-8");
+//            outputStreamWriter.write(contentToWrite);
+//            outputStreamWriter.flush();
+//            outputStreamWriter.close();
+//            fileOutputStream.close();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
+////        These may also work ,but seems on way to set the encoding
 //          //Here is one way
 //        try {
 //            FileWriter fileWriter = new FileWriter(fileToWrite, true);
@@ -126,29 +123,29 @@ class MyFileHandler {
 //        } catch (IOException e) {
 //            e.printStackTrace();
 //        }
+//
+//    }
 
-    }
-
-    static String readStringFromFile(File fileToRead) {
-        try {
-            FileInputStream fileInputStream = new FileInputStream(fileToRead);
-            InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream, "UTF-8");
-            char[] input = new char[fileInputStream.available()];
-            inputStreamReader.read(input);
-            inputStreamReader.close();
-            fileInputStream.close();
-            return new String(input);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
+//    static String readStringFromFile(File fileToRead) {
+//        try {
+//            FileInputStream fileInputStream = new FileInputStream(fileToRead);
+//            InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream, "UTF-8");
+//            char[] input = new char[fileInputStream.available()];
+//            inputStreamReader.read(input);
+//            inputStreamReader.close();
+//            fileInputStream.close();
+//            return new String(input);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        return null;
+//    }
 
     //i like this.an universal extension file filter!
-    public static class ExtensionFilter implements FilenameFilter {
+    static class ExtensionFilter implements FilenameFilter {
         private String extension;
 
-        public ExtensionFilter(String extension) {
+        ExtensionFilter(String extension) {
             this.extension = extension;
         }
 
@@ -170,7 +167,7 @@ class MyFileHandler {
         return fileNames;
     }
 
-    public static Intent getExcelFileIntent(File file, Context context) {
+    static Intent getExcelFileIntent(File file, Context context) {
         Intent intent = new Intent("android.intent.action.VIEW");
         intent.addCategory("android.intent.category.DEFAULT");
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -181,7 +178,7 @@ class MyFileHandler {
     }
 
 
-    public static ArrayList<Book> readFromBookDataFile(File file) {
+    static ArrayList<Book> readFromBookDataFile(File file) {
         ArrayList<Book> bookListFromFile = null;
         try {
             InputStream inputStream = new FileInputStream(file);
@@ -210,7 +207,7 @@ class MyFileHandler {
         return bookListFromFile;
     }
 
-    public static ArrayList<Book> addBookToList(ArrayList<Book> bookList, String bookName, int maxTimes) {
+    static ArrayList<Book> addBookToList(ArrayList<Book> bookList, String bookName, int maxTimes) {
         Book bookToAdd = new Book();
         bookToAdd.setName(bookName);
         bookToAdd.setMaxTimes(maxTimes);
@@ -218,7 +215,7 @@ class MyFileHandler {
         return bookList;
     }
 
-    public static ArrayList<Book> deleteBookFromList(ArrayList<Book> bookList, String bookName) {
+    static ArrayList<Book> deleteBookFromList(ArrayList<Book> bookList, String bookName) {
         for (Book b : bookList)
             if (b.getName().equals(bookName)) {
                 bookList.remove(b);
@@ -227,7 +224,7 @@ class MyFileHandler {
         return bookList;
     }
 
-    public static ArrayList<Book> updateBookFromList(ArrayList<Book> bookList, String bookNameToUpdate, String newName, int newMaxTimes, boolean resetProgress) {
+    static ArrayList<Book> updateBookFromList(ArrayList<Book> bookList, String bookNameToUpdate, String newName, int newMaxTimes, boolean resetProgress) {
         if (bookList == null)
             return null;
 
@@ -243,7 +240,7 @@ class MyFileHandler {
         return bookList;
     }
 
-    public static Book getBook(File bookDataFile, String bookName) {
+    static Book getBook(File bookDataFile, String bookName) {
         ArrayList<Book> books = readFromBookDataFile(bookDataFile);
         for (Book b : books) {
             if (b.getName().equals(bookName))
@@ -252,7 +249,7 @@ class MyFileHandler {
         return null;
     }
 
-    public static void writeToBookDataFile(ArrayList<Book> bookListToWrite, File userDataFileToWrite) {
+    static void writeToBookDataFile(ArrayList<Book> bookListToWrite, File userDataFileToWrite) {
         try {
             FileOutputStream fileOutputStream = new FileOutputStream(userDataFileToWrite);
             XmlPullParserFactory xmlPullParserFactory = XmlPullParserFactory.newInstance();
@@ -286,7 +283,7 @@ class MyFileHandler {
         }
     }
 
-    public static String getFileNameNoEx(String fileName) {
+    static String getFileNameNoEx(String fileName) {
         if ((fileName != null) && (fileName.length() > 0)) {
             int dot = fileName.lastIndexOf('.');
             if ((dot > -1) && (dot < (fileName.length()))) {

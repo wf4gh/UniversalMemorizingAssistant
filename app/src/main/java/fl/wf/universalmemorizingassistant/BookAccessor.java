@@ -6,9 +6,6 @@ import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.CellStyle;
-import org.apache.poi.ss.usermodel.CellType;
-import org.apache.poi.ss.usermodel.Sheet;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -25,15 +22,15 @@ import static org.apache.poi.ss.usermodel.CellType.STRING;
  * Usually invoked when the user is reciting
  */
 
-public class BookAccessor {
+class BookAccessor {
     private static final String TAG = "FLWFBookAccessor";
 
     static final int ANSWER_RIGHT = 1;
     static final int ANSWER_WRONG = -1;
-    static final int ANSWER_TOO_EASY = -10;
-    static final int ANSWER_NOT_ANSWER = 0;
+//    static final int ANSWER_TOO_EASY = -10;
+//    static final int ANSWER_NOT_ANSWER = 0;
 
-    static final int ROW_VALID = 1;
+    //    static final int ROW_VALID = 1;
     static final int ROW_INVALID = 0;
     static final int ROW_END = -1;
 
@@ -169,13 +166,13 @@ public class BookAccessor {
         // FIXME: 2017/5/17 if the row==null can correctly know that the row is null, this line is unnecessary. But this makes it work......
         if (cell == null) return ROW_END;
         if (cell.getNumericCellValue() == 0) return ROW_INVALID;
-        else return ROW_VALID;
+        else return 1;//else return ROW_VALID;
     }
 
-    //after getting answer from the user,call this to compare it(if needed)
-    static boolean compareAnswer(String userAnswer, HSSFWorkbook workbookToUse, int indexOfRow) {
-        return workbookToUse.getSheetAt(0).getRow(indexOfRow).getCell(1).getStringCellValue().equals(userAnswer);
-    }
+//    //after getting answer from the user,call this to compare it(if needed)
+//    static boolean compareAnswer(String userAnswer, HSSFWorkbook workbookToUse, int indexOfRow) {
+//        return workbookToUse.getSheetAt(0).getRow(indexOfRow).getCell(1).getStringCellValue().equals(userAnswer);
+//    }
 
     //after getting the answer state of the user answer,call this
     static void updateTimes(HSSFWorkbook workbookToUse, int indexOfRow, int maxTimes, int answerState) {
@@ -195,11 +192,11 @@ public class BookAccessor {
                 if (timesNow + 1 <= maxTimes)
                     timesCell.setCellValue(timesNow + 1);
                 break;
-            case ANSWER_TOO_EASY:
-                timesCell.setCellValue(0);
-                break;
-            case ANSWER_NOT_ANSWER:
-                break;
+//            case ANSWER_TOO_EASY:
+//                timesCell.setCellValue(0);
+//                break;
+//            case ANSWER_NOT_ANSWER:
+//                break;
             default:
                 break;
         }

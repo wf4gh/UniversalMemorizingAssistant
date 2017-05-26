@@ -1,5 +1,6 @@
 package fl.wf.universalmemorizingassistant;
 
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -74,7 +75,7 @@ public class SettingsActivity extends AppCompatActivity {
         SharedPreferences presentBook = getSharedPreferences("presentBook", MODE_PRIVATE);
         SharedPreferences.Editor editor = presentBook.edit();
         editor.putString("presentBook", bookNameToSet);
-        editor.commit();
+        editor.apply();
     }
 
     String getPresentBook() {
@@ -89,7 +90,7 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     public void onAddBookClicked(final View view) {
-        final View addBookView = getLayoutInflater().inflate(R.layout.dialog_add_book, null);
+        @SuppressLint("InflateParams") final View addBookView = getLayoutInflater().inflate(R.layout.dialog_add_book, null);
 
         final Spinner timesSpinner = (Spinner) addBookView.findViewById(R.id.sp_dialog_add_target_times);
         timesSpinner.setSelection(4, true);
@@ -108,7 +109,8 @@ public class SettingsActivity extends AppCompatActivity {
                             for (int i = 0; i < name.length(); i++) {
                                 if (!Character.isLetterOrDigit(name.charAt(i)) &&
                                         !Character.toString(name.charAt(i)).equals("_") &&
-                                        !Character.toString(name.charAt(i)).equals("-")) {
+                                        !Character.toString(name.charAt(i)).equals("-") &&
+                                        !Character.toString(name.charAt(i)).equals(" ")) {
                                     Toast.makeText(SettingsActivity.this, "Illegal Character", Toast.LENGTH_SHORT).show();
                                     onAddBookClicked(view);
                                     return;
@@ -195,7 +197,7 @@ public class SettingsActivity extends AppCompatActivity {
             Toast.makeText(this, "Choose a book first", Toast.LENGTH_SHORT).show();
             return;
         }
-        final View setBookView = getLayoutInflater().inflate(R.layout.dialog_config_book, null);
+        @SuppressLint("InflateParams") final View setBookView = getLayoutInflater().inflate(R.layout.dialog_config_book, null);
         final Spinner timesSpinner = (Spinner) setBookView.findViewById(R.id.sp_dialog_set_target_times);
         final EditText setBookEditText = (EditText) setBookView.findViewById(R.id.et_dialog_config_book);
 

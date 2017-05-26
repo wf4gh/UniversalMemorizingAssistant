@@ -32,14 +32,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 4289;
 
-//    private String appFolder = BasicStaticData.appFolder;
-//    private String appBookDataFileName = BasicStaticData.appBookDataFileName;
-//    File appBookDataFile;
     File[] bookFiles;
-
-    private ArrayList<Book> bookListFromScanner;
-    private ArrayList<Book> bookListFromFile;
-    private ArrayList<Book> bookListToWrite;
 
     String presentBookName = "";
 
@@ -60,7 +53,6 @@ public class MainActivity extends AppCompatActivity {
             finish();
         }
         getRuntimePermission();
-//        presentBookName = getPresentBook();
         settingsActivityIntent = new Intent(this, SettingsActivity.class);
     }
 
@@ -101,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
         File bookDataFile = BasicStaticData.appBookDataFile;
         int bookDataFileCreateState = createNewFile(bookDataFile);
 
-        bookListFromScanner = new ArrayList<>();
+        ArrayList<Book> bookListFromScanner = new ArrayList<>();
         MyFileHandler.ExtensionFilter xlsFilter = new MyFileHandler.ExtensionFilter(".xls");
         bookFiles = appFolderFile.listFiles(xlsFilter);
 
@@ -114,9 +106,9 @@ public class MainActivity extends AppCompatActivity {
         if (bookDataFileCreateState == MyFileHandler.CREATE_SUCCESS) {
             //Create: when the book data file is firstly created, do this
             if (bookFiles != null) {
-                for (int i = 0; i < bookFiles.length; i++) {
+                for (File bookFile : bookFiles) {
                     Book book = new Book();
-                    book.setName("/" + bookFiles[i].getName());
+                    book.setName("/" + bookFile.getName());
                     book.setIndex(1);
                     book.setMaxTimes(5);
                     book.setRecitedTimes(0);
@@ -126,19 +118,18 @@ public class MainActivity extends AppCompatActivity {
             writeToBookDataFile(bookListFromScanner, bookDataFile);
         } else if (bookDataFileCreateState == MyFileHandler.CREATE_ALREADY_EXISTS) {
             //Update: when book data file already exists, do this
-            bookListToWrite = new ArrayList<>();
+            ArrayList<Book> bookListToWrite = new ArrayList<>();
             if (bookFiles != null) {
-                for (int i = 0; i < bookFiles.length; i++) {
+                for (File bookFile : bookFiles) {
                     Book book = new Book();
-//                    book.setId(i + 1);
-                    book.setName("/" + bookFiles[i].getName());
+                    book.setName("/" + bookFile.getName());
                     book.setIndex(1);
                     book.setMaxTimes(5);
                     book.setRecitedTimes(0);
                     bookListFromScanner.add(book);
                 }
             } else Log.d(TAG, "onCreate: NULL bookFiles");
-            bookListFromFile = new ArrayList<>();
+            ArrayList<Book> bookListFromFile;
             bookListFromFile = readFromBookDataFile(bookDataFile);
             for (Book book : bookListFromScanner) {
                 book.tag = true;
