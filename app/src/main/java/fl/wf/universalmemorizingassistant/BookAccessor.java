@@ -46,7 +46,7 @@ public class BookAccessor {
         HSSFSheet sheet = wb.getSheetAt(0);
         if (sheet == null) {
             // TODO: 2017/5/23  change this name
-            wb.createSheet("SheetName");
+            sheet = wb.createSheet("SheetName");
             Log.d(TAG, "openAndValidateBook: sheet null");
         } else
             Log.d(TAG, "openAndValidateBook: sheet not null");
@@ -54,7 +54,6 @@ public class BookAccessor {
         Log.d(TAG, "openAndValidateBook: sheet.getLastRowNum(): " + sheet.getLastRowNum());
 
         if (sheet.getLastRowNum() <= 1) {
-            // TODO: 2017/5/25   when the sheet is blank,do sth here
             return null;
         }
 
@@ -68,11 +67,39 @@ public class BookAccessor {
                 i--;
                 continue;
             }
-
             if (sheet.getRow(i).getLastCellNum() == -1) {
                 sheet.shiftRows(i + 1, sheet.getLastRowNum(), -1);
                 i--;
+                continue;
             }
+
+            boolean isRowEmpty = true;
+            for (int j = 0; j < sheet.getRow(i).getLastCellNum(); j++) {
+                if (sheet.getRow(i).getCell(j) == null) {
+                    isRowEmpty = true;
+                } else {
+                    if (sheet.getRow(i).getCell(j).toString().trim().equals("")) {
+                        isRowEmpty = true;
+                    } else {
+                        isRowEmpty = false;
+                        break;
+                    }
+                }
+            }
+            if (isRowEmpty) {
+                sheet.shiftRows(i + 1, sheet.getLastRowNum(), -1);
+                i--;
+            }
+//
+//            Log.d(TAG, "openAndValidateBook: Line: " + i + " /getLastCellNum: " + sheet.getRow(i).getLastCellNum());
+//
+//            for (int j = 0; j < sheet.getRow(i).getLastCellNum(); j++) {
+//                if (sheet.getRow(i).getCell(j) == null) {
+//                    Log.d(TAG, "openAndValidateBook: j: " + j + "______");
+//                } else
+//                    Log.d(TAG, "openAndValidateBook: j: " + j + " content:" + sheet.getRow(i).getCell(j).toString() + "END");
+//            }
+
         }
 
         //This part is used to set the dataType and staff the blank cells
