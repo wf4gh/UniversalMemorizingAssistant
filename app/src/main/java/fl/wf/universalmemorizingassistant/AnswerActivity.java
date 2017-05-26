@@ -86,14 +86,14 @@ public class AnswerActivity extends AppCompatActivity {
         }
         Log.d(TAG, "onCreate: \nbook: " + appFolderPath + bookName + "\nTimes: "
                 + bookMaxTimes + "\nIndex: " + bookIndex + "\nRecitedTimes: " + bookRecitedTimes);
-        bookFile = new File(getExternalStorageDirectory() + appFolderPath + bookName);
+        bookFile = new File(BasicStaticData.absAppFolderPath + bookName);
 
         try {
             wb = BookHandler.openAndValidateBook(bookFile, bookMaxTimes);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        if (wb == null) {
+        if (wb == null || wb.getSheetAt(0) == null || wb.getSheetAt(0).getLastRowNum() < 1) {
             new AlertDialog.Builder(this)
                     .setTitle("TitleHere")
                     .setMessage("This book is empty or Invalid,add rows or choose another!")
@@ -153,10 +153,10 @@ public class AnswerActivity extends AppCompatActivity {
                                     try {
                                         BookHandler.closeAndSaveBook(wb, bookFile);
                                         wb = BookHandler.openAndValidateBook(bookFile, bookMaxTimes);
-                                        if (wb == null) {
-                                            Toast.makeText(AnswerActivity.this, "book empty!!!!!", Toast.LENGTH_SHORT).show();
-                                            finish();
-                                        }
+//                                        if (wb == null) {
+//                                            Toast.makeText(AnswerActivity.this, "book empty!!!!!", Toast.LENGTH_SHORT).show();
+//                                            finish();
+//                                        }
                                     } catch (IOException e) {
                                         e.printStackTrace();
                                     }

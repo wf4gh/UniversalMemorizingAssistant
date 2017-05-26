@@ -1,6 +1,7 @@
 package fl.wf.universalmemorizingassistant;
 
 import android.annotation.SuppressLint;
+import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -188,7 +189,12 @@ public class SettingsActivity extends AppCompatActivity {
         }
 
         editIntent = MyFileHandler.getExcelFileIntent(bookFiles[booksListView.getCheckedItemPosition()], this);
-        startActivity(editIntent);
+        try {
+            startActivity(editIntent);
+        } catch (ActivityNotFoundException e) {
+            Toast.makeText(this, "Find no app in your phone to open this file!", Toast.LENGTH_SHORT).show();
+            // TODO: 2017/5/26  maybe there should be a popup here to ask the player to choose an app?
+        }
     }
 
     public void onConfigClicked(final View view) {

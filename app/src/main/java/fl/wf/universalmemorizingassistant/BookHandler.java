@@ -49,17 +49,13 @@ class BookHandler {
             Log.d(TAG, "openAndValidateBook: sheet not null");
 
         Log.d(TAG, "openAndValidateBook: sheet.getLastRowNum(): " + sheet.getLastRowNum());
-// TODO: 2017/5/26  add title line to workbook here
-        if (sheet.getLastRowNum() <= 1) {
-            if (sheet.getLastRowNum() < 1) {
-                addNewLineToWorkbook(wb, "hint", "answer");
-                closeAndSaveBook(wb,bookFileToOpen);
-            }
-            Log.d(TAG, "openAndValidateBook: null returned!!!!!!!11");
-            // FIXME: 2017/5/26 a bug here!
-            return null;
+        // TODO: 2017/5/26  add title line to workbook here
+        if (sheet.getLastRowNum() < 1) {
+            Log.d(TAG, "openAndValidateBook: LastRowNum<1");
+            addNewLineToWorkbook(wb, "hint", "answer");
+            closeAndSaveBook(wb, bookFileToOpen);
+            return wb;
         }
-
         Log.d(TAG, "openAndValidateBook: sheet.getPhysicalNumberOfRows(): " + sheet.getPhysicalNumberOfRows());
 
         //This loop is used to remove all the empty rows in the sheet
@@ -93,23 +89,13 @@ class BookHandler {
                 sheet.shiftRows(i + 1, sheet.getLastRowNum(), -1);
                 i--;
             }
-//
-//            Log.d(TAG, "openAndValidateBook: Line: " + i + " /getLastCellNum: " + sheet.getRow(i).getLastCellNum());
-//
-//            for (int j = 0; j < sheet.getRow(i).getLastCellNum(); j++) {
-//                if (sheet.getRow(i).getCell(j) == null) {
-//                    Log.d(TAG, "openAndValidateBook: j: " + j + "______");
-//                } else
-//                    Log.d(TAG, "openAndValidateBook: j: " + j + " content:" + sheet.getRow(i).getCell(j).toString() + "END");
-//            }
-
         }
 
         //This part is used to set the dataType and staff the blank cells
-        for (int i = 1; i < sheet.getLastRowNum(); i++) {
+        for (int i = 1; i <= sheet.getLastRowNum(); i++) {
             HSSFRow r = sheet.getRow(i);
             HSSFCell c0 = r.getCell(0);
-            if (c0 == null) {
+            if (c0 == null || c0.getStringCellValue().equals("")) {
                 c0 = r.createCell(0);
                 c0.setCellValue("NoData");
             } else {
@@ -119,7 +105,7 @@ class BookHandler {
             }
 
             HSSFCell c1 = sheet.getRow(i).getCell(1);
-            if (c1 == null) {
+            if (c1 == null || c1.getStringCellValue().equals("")) {
                 c1 = r.createCell(1);
                 c1.setCellValue("NoData");
             } else {
