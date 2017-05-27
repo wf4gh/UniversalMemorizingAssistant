@@ -58,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
             finish();
         }
         getRuntimePermission();
+
         settingsActivityIntent = new Intent(this, SettingsActivity.class);
         infoTextView = (TextView) findViewById(R.id.tv_main_info);
     }
@@ -65,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+
         initializingUserData();
         String textToShow = getTextToShow();
         infoTextView.setText(textToShow);
@@ -74,8 +76,13 @@ public class MainActivity extends AppCompatActivity {
         String line1L = getString(R.string.main_info_line1_left);
         String line1R = getString(R.string.main_info_line1_right);
         String line2L = getString(R.string.main_info_line2_left);
+        int length;
+        if (bookFiles != null)
+            length = bookFiles.length;
+        else
+            length = 0;
+        String line1 = line1L + length + line1R;
 
-        String line1 = line1L + bookFiles.length + line1R;
         String line2 = line2L + getPresentBook();
 
         return line1 + "\n\n" + line2;
@@ -93,24 +100,25 @@ public class MainActivity extends AppCompatActivity {
             case R.id.menu_add:
                 presentBookName = getPresentBook();
                 presentBookFile = new File(BasicStaticData.absAppFolderPath + "/" + presentBookName);
-                if (presentBookName.equals("choose one!") | presentBookName.equals("") | !presentBookFile.exists()) {
+                if (presentBookName.equals(getString(R.string.present_book_undefined)) | presentBookName.equals("") | !presentBookFile.exists()) {
                     new AlertDialog.Builder(this)
-                            .setTitle("TitleHere")
-                            .setMessage("book not chosen or present book invalid.Choose a book")
-                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            .setTitle(getString(R.string.dialog_title_no_present_book))
+                            .setMessage(getString(R.string.dialog_message_no_present_book))
+                            .setPositiveButton(getString(R.string.dialog_button_ok), new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     startActivity(settingsActivityIntent);
                                 }
                             })
+                            .setNegativeButton(getString(R.string.dialog_button_cancel), null)
                             .show();
                     break;
                 }
                 @SuppressLint("InflateParams") final View quickAddView = getLayoutInflater().inflate(R.layout.dialog_quick_add, null);
                 new AlertDialog.Builder(this)
-                        .setTitle("Quick add a row to this book")
+                        .setTitle(getString(R.string.dialog_title_quick_add))
                         .setView(quickAddView)
-                        .setPositiveButton("Add", new DialogInterface.OnClickListener() {
+                        .setPositiveButton(getString(R.string.dialog_button_add), new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 EditText hintEditText = (EditText) quickAddView.findViewById(R.id.et_dialog_quick_add_hint);
@@ -122,22 +130,27 @@ public class MainActivity extends AppCompatActivity {
 
                                 //think this is not likely to happen now...
                                 if (book == null) {
-                                    Toast.makeText(MainActivity.this, "book Null!", Toast.LENGTH_SHORT).show();
-                                    return;
+                                    Log.e(TAG, "onClick: book Null!!!");
+                                    book = new Book();
+                                    book.setMaxTimes(5);
                                 }
 
                                 try {
                                     HSSFWorkbook wb = BookHandler.openAndValidateBook(presentBookFile, book.getMaxTimes());
                                     wb = BookHandler.addNewLineToWorkbook(wb, hint, answer, false);
                                     BookHandler.closeAndSaveBook(wb, presentBookFile);
-                                    Toast.makeText(MainActivity.this, "Added!", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(MainActivity.this, getString(R.string.toast_added), Toast.LENGTH_SHORT).show();
                                 } catch (IOException e) {
                                     e.printStackTrace();
                                 }
                             }
                         })
-                        .setNegativeButton("Cancel", null)
+                        .setNegativeButton(getString(R.string.dialog_button_cancel), null)
                         .show();
+                break;
+            // TODO: 2017/5/27   complete these help and about here
+            case R.id.menu_help:
+                Toast.makeText(this, "Help!", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.menu_about:
                 Toast.makeText(this, "About!", Toast.LENGTH_SHORT).show();
@@ -147,6 +160,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //try to create user data folder and file.If already created,this will not create new file
+
     void initializingUserData() {
         //create app folder
         File appFolderFile = BasicStaticData.appFolderFile;
@@ -210,8 +224,25 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    /* TODO: 2017/5/26   can enter the app even the permission is not granted, in app explain why the permission is needed.
+    /* TODO-suspend: 2017/5/26   can enter the app even the permission is not granted, in app explain why the permission is needed.
      ------Before request of permission accepted, the user can't actually use this app */
+
+    //A failed test about getRuntimePermission
+//    void getRuntimePermission() {
+//        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+//                != PackageManager.PERMISSION_GRANTED) {
+//            new AlertDialog.Builder(this)
+//                    .setTitle("TitleHere")
+//                    .setMessage("Need Permission")
+//                    .setPositiveButton("Got it", null)
+//                    .setCancelable(false)
+//                    .show();
+//            ActivityCompat.requestPermissions(this,
+//                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+//                    MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE);
+//        }
+//    }
+
     void getRuntimePermission() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
@@ -220,9 +251,9 @@ public class MainActivity extends AppCompatActivity {
                     Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
 
                 new AlertDialog.Builder(this)
-                        .setTitle("TitleHere")
-                        .setMessage("Need Permission")
-                        .setPositiveButton("OK", null)
+                        .setTitle(getString(R.string.dialog_title_permission))
+                        .setMessage(getString(R.string.dialog_message_permission))
+                        .setPositiveButton(getString(R.string.dialog_button_got_it), null)
                         .show();
 
                 ActivityCompat.requestPermissions(this,
@@ -243,8 +274,8 @@ public class MainActivity extends AppCompatActivity {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     initializingUserData();
                 } else {
-                    Toast.makeText(this, "Need Permission", Toast.LENGTH_LONG).show();
-
+                    Toast.makeText(this, getString(R.string.toast_need_permission), Toast.LENGTH_LONG).show();
+                    finish();
 //                    new AlertDialog.Builder(this)
 //                            .setTitle("TitleHere")
 //                            .setMessage("Need Permission")
@@ -269,16 +300,17 @@ public class MainActivity extends AppCompatActivity {
     public void onStartClicked(View view) {
         presentBookName = getPresentBook();
         presentBookFile = new File(BasicStaticData.absAppFolderPath + "/" + presentBookName);
-        if (presentBookName.equals("choose one!") | presentBookName.equals("") | !presentBookFile.exists()) {
+        if (presentBookName.equals(getString(R.string.present_book_undefined)) | presentBookName.equals("") | !presentBookFile.exists()) {
             new AlertDialog.Builder(this)
-                    .setTitle("TitleHere")
-                    .setMessage("book not chosen or present book invalid.Choose a book")
-                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    .setTitle(getString(R.string.dialog_title_no_present_book))
+                    .setMessage(getString(R.string.dialog_message_no_present_book))
+                    .setPositiveButton(getString(R.string.dialog_button_ok), new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             startActivity(settingsActivityIntent);
                         }
                     })
+                    .setNegativeButton(getString(R.string.dialog_button_cancel), null)
                     .show();
         } else {
             Intent intent = new Intent(this, AnswerActivity.class);
@@ -292,6 +324,6 @@ public class MainActivity extends AppCompatActivity {
 
     String getPresentBook() {
         SharedPreferences presentBook = getSharedPreferences("presentBook", MODE_PRIVATE);
-        return presentBook.getString("presentBook", "choose one!");
+        return presentBook.getString("presentBook", getString(R.string.present_book_undefined));
     }
 }

@@ -81,7 +81,7 @@ public class SettingsActivity extends AppCompatActivity {
 
     String getPresentBook() {
         SharedPreferences presentBook = getSharedPreferences("presentBook", MODE_PRIVATE);
-        return presentBook.getString("presentBook", "choose one!");
+        return presentBook.getString("presentBook", getString(R.string.present_book_undefined));
     }
 
     public void onSetThisClicked(View view) {

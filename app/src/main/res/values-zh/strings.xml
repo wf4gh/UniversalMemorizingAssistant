@@ -6,4 +6,22 @@
     <string name="main_info_line1_left">检测到</string>
     <string name="main_info_line1_right">个可用文件</string>
     <string name="main_info_line2_left">当前正在使用：</string>
+    <string name="present_book_undefined">未选择！</string>
+    <string name="dialog_title_no_present_book">未能获取当前文件</string>
+    <string name="dialog_message_no_present_book">未选择文件或当前文件不可用。是否进行选择？</string>
+    <string name="dialog_button_cancel">取消</string>
+    <string name="dialog_button_ok">确定</string>
+    <string name="dialog_button_add">添加</string>
+    <string name="dialog_title_quick_add">快速添加到当前词句书</string>
+    <string name="toast_added">添加成功！</string>
+    <string name="dialog_title_permission">请求权限</string>
+    <string name="dialog_message_permission">本应用请求的存储权限将用于在您的手机中存储您的词句书文件。</string>
+    <string name="dialog_button_got_it">知道了</string>
+    <string name="toast_need_permission">未能获取存储权限</string>
+    <string name="hint">提示：</string>
+    <string name="answer">答案：</string>
+    <string name="menu_quick_add">快速添加</string>
+    <string name="menu_options">选项</string>
+    <string name="menu_help">说明</string>
+    <string name="menu_about">关于</string>
 </resources>

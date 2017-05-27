@@ -8,7 +8,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hint:" />
+        android:text="@string/hint" />
 
     <EditText
         android:id="@+id/et_dialog_quick_add_hint"
@@ -18,7 +18,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Answer:" />
+        android:text="@string/answer" />
 
     <EditText
         android:id="@+id/et_dialog_quick_add_answer"

@@ -5,4 +5,22 @@
     <string name="main_info_line1_left"></string>
     <string name="main_info_line1_right">book file(s) detected in your book file folder</string>
     <string name="main_info_line2_left">You are now using:</string>
+    <string name="present_book_undefined">Choose one!</string>
+    <string name="dialog_title_no_present_book">Failed to get present book</string>
+    <string name="dialog_message_no_present_book">Book not chosen or present book invalid.Choose a new book!</string>
+    <string name="dialog_button_ok">OK</string>
+    <string name="dialog_button_cancel">Cancel</string>
+    <string name="dialog_button_add">Add</string>
+    <string name="dialog_title_quick_add">Quick add a line to present book</string>
+    <string name="toast_added">Added!</string>
+    <string name="dialog_title_permission">why need the permission?</string>
+    <string name="dialog_message_permission">This app need the permission of \'storage\' to save your book files in your phone.</string>
+    <string name="dialog_button_got_it">Got it</string>
+    <string name="toast_need_permission">Can\'t get the storage permission</string>
+    <string name="hint">Hint:</string>
+    <string name="answer">Answer:</string>
+    <string name="menu_quick_add">Quick add</string>
+    <string name="menu_options">Options</string>
+    <string name="menu_help">Help</string>
+    <string name="menu_about">About</string>
 </resources>
