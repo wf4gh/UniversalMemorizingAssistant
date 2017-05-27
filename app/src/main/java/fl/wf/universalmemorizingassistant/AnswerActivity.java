@@ -39,6 +39,7 @@ public class AnswerActivity extends AppCompatActivity {
     File bookFile;
     HSSFWorkbook wb;
 
+    TextView infoTextView;
     Button yesButton;
     Button noButton;
     TextView hintTextView;
@@ -62,6 +63,7 @@ public class AnswerActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
+        infoTextView = (TextView) findViewById(R.id.tv_ans_info);
         yesButton = (Button) findViewById(R.id.bt_ans_yes);
         noButton = (Button) findViewById(R.id.bt_ans_no);
         hintTextView = (TextView) findViewById(R.id.tv_ans_hint);
@@ -69,6 +71,11 @@ public class AnswerActivity extends AppCompatActivity {
         answerTextView = (TextView) findViewById(R.id.tv_ans_answer);
 
         // TODO: 2017/5/15 (IUV) find a chart api,add it
+    }
+
+    String getTextToShow() {
+        String presentBook = "Present Book: " + getPresentBook();
+        return presentBook;
     }
 
     @Override
@@ -83,6 +90,8 @@ public class AnswerActivity extends AppCompatActivity {
         } else {
             finish();
         }
+        infoTextView.setText(getTextToShow());
+
 //        Log.d(TAG, "onCreate: \nBook: " + appFolderPath + bookName + "\nTimes: "
 //                + bookMaxTimes + "\nIndex: " + bookIndex + "\nRecitedTimes: " + bookRecitedTimes);
         bookFile = new File(BasicStaticData.absAppFolderPath + bookName);
