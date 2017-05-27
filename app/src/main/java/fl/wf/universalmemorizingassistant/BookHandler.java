@@ -52,7 +52,7 @@ class BookHandler {
         // TODO: 2017/5/26  add title line to workbook here
         if (sheet.getLastRowNum() < 1) {
             Log.d(TAG, "openAndValidateBook: LastRowNum<1");
-            wb = addNewLineToWorkbook(wb, "hint", "answer");
+            wb = addNewLineToWorkbook(wb, "hint", "answer", true);
 
             if (wb == null)
                 Log.d(TAG, "openAndValidateBook: wb null");
@@ -198,7 +198,7 @@ class BookHandler {
     static void setAllRowsToMaxTimes(HSSFWorkbook usedWorkbook, int maxTimes) {
         HSSFSheet sheet = usedWorkbook.getSheetAt(0);
 
-        for (int i = 1; i < sheet.getLastRowNum(); i++) {
+        for (int i = 1; i <= sheet.getLastRowNum(); i++) {
             HSSFRow r = sheet.getRow(i);
             HSSFCell c2 = sheet.getRow(i).getCell(2);
             if (c2 == null) {
@@ -220,10 +220,14 @@ class BookHandler {
         usedWorkbook.close();
     }
 
-    static HSSFWorkbook addNewLineToWorkbook(HSSFWorkbook workbook, String hint, String answer) {
+    static HSSFWorkbook addNewLineToWorkbook(HSSFWorkbook workbook, String hint, String answer, boolean forTitle) {
         HSSFSheet sheet = workbook.getSheetAt(0);
         int rowCount = sheet.getLastRowNum();
-        HSSFRow row = sheet.createRow(rowCount);
+        HSSFRow row;
+        if (forTitle)
+            row = sheet.createRow(rowCount);
+        else
+            row = sheet.createRow(rowCount + 1);
         row.createCell(0).setCellValue(hint);
         row.createCell(1).setCellValue(answer);
         return workbook;

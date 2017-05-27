@@ -112,8 +112,9 @@ public class MainActivity extends AppCompatActivity {
 
                                 try {
                                     HSSFWorkbook wb = BookHandler.openAndValidateBook(presentBookFile, book.getMaxTimes());
-                                    wb = BookHandler.addNewLineToWorkbook(wb, hint, answer);
+                                    wb = BookHandler.addNewLineToWorkbook(wb, hint, answer, false);
                                     BookHandler.closeAndSaveBook(wb, presentBookFile);
+                                    Toast.makeText(MainActivity.this, "Added!", Toast.LENGTH_SHORT).show();
                                 } catch (IOException e) {
                                     e.printStackTrace();
                                 }
