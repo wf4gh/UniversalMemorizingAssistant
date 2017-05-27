@@ -88,8 +88,15 @@ public class AnswerActivity extends AppCompatActivity {
                 + bookMaxTimes + "\nIndex: " + bookIndex + "\nRecitedTimes: " + bookRecitedTimes);
         bookFile = new File(BasicStaticData.absAppFolderPath + bookName);
 
+        Log.d(TAG, "onResume: bookFilePath: " + bookFile.getAbsolutePath());
+
         try {
+            Log.d(TAG, "onResume: openAndValidateStart");
             wb = BookHandler.openAndValidateBook(bookFile, bookMaxTimes);
+            if (wb == null) Log.d(TAG, "onResume: wb null here");
+            else Log.d(TAG, "onResume: wb not null here");
+//            BookHandler.closeAndSaveBook(wb, bookFile);
+            Log.d(TAG, "onResume: openAndValidateEnd");
         } catch (IOException e) {
             e.printStackTrace();
         }

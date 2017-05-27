@@ -52,10 +52,15 @@ class BookHandler {
         // TODO: 2017/5/26  add title line to workbook here
         if (sheet.getLastRowNum() < 1) {
             Log.d(TAG, "openAndValidateBook: LastRowNum<1");
-            addNewLineToWorkbook(wb, "hint", "answer");
-            closeAndSaveBook(wb, bookFileToOpen);
+            wb = addNewLineToWorkbook(wb, "hint", "answer");
+
+            if (wb == null)
+                Log.d(TAG, "openAndValidateBook: wb null");
+            else
+                Log.d(TAG, "openAndValidateBook: wb not null");
+
             return wb;
-        }
+        } else Log.d(TAG, "openAndValidateBook: LastRomNum>1");
         Log.d(TAG, "openAndValidateBook: sheet.getPhysicalNumberOfRows(): " + sheet.getPhysicalNumberOfRows());
 
         //This loop is used to remove all the empty rows in the sheet
@@ -129,9 +134,6 @@ class BookHandler {
                 c2.setCellValue(maxTimes);
             } //else c2.setCellValue((int) c2.getNumericCellValue());
         }
-
-//        Log.d(TAG, "openAndValidateBook: sheet.getLastRowNum(): " + sheet.getLastRowNum());
-//        Log.d(TAG, "openAndValidateBook: sheet.getPhysicalNumberOfRows(): " + sheet.getPhysicalNumberOfRows());
 
         return wb;
     }
@@ -210,6 +212,9 @@ class BookHandler {
 
     static void closeAndSaveBook(HSSFWorkbook usedWorkbook, File bookFileToUpdate) throws IOException {
         FileOutputStream out = new FileOutputStream(bookFileToUpdate);
+//        if (usedWorkbook == null)
+//            Log.d(TAG, "closeAndSaveBook: NULL!");
+//        else Log.d(TAG, "closeAndSaveBook: NOTNULL!!!");
         usedWorkbook.write(out);
         out.close();
         usedWorkbook.close();

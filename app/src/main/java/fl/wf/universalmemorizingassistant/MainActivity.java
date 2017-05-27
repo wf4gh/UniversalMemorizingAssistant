@@ -263,10 +263,10 @@ public class MainActivity extends AppCompatActivity {
                         }
                     })
                     .show();
-            return;
+        } else {
+            Intent intent = new Intent(this, AnswerActivity.class);
+            startActivity(intent);
         }
-        Intent intent = new Intent(this, AnswerActivity.class);
-        startActivity(intent);
     }
 
     public void onSettingsClicked(View view) {
