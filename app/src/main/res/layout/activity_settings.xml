@@ -23,7 +23,7 @@
         android:id="@+id/tv_settings_present_book"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="PresentBook: ---\nBooks available:"
+        android:text="@string/text_present_book"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tb_settings" />
 
@@ -32,7 +32,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="onSetThisClicked"
-        android:text="Use"
+        android:text="@string/button_use"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_settings_present_book" />
 
@@ -41,7 +41,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="onConfigClicked"
-        android:text="Config"
+        android:text="@string/button_config"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/bt_settings_set_present" />
 
@@ -50,16 +50,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="onEditClicked"
-        android:text="Edit"
+        android:text="@string/button_edit"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/bt_settings_config" />
 
     <Button
-        android:id="@+id/bt_settings_add_book"
+        android:id="@+id/bt_settings_create_book"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="onAddBookClicked"
-        android:text="AddBook"
+        android:text="@string/button_create_book"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent" />
 
@@ -69,9 +69,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="onDeleteBookClicked"
-        android:text="DeleteBook"
+        android:text="@string/button_delete_book"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toRightOf="@id/bt_settings_add_book" />
+        app:layout_constraintLeft_toRightOf="@id/bt_settings_create_book" />
 
     <ListView
         android:id="@+id/lv_settings_books"
@@ -79,7 +79,7 @@
         android:layout_height="0dp"
         android:background="@android:color/black"
         android:choiceMode="singleChoice"
-        app:layout_constraintBottom_toTopOf="@id/bt_settings_add_book"
+        app:layout_constraintBottom_toTopOf="@id/bt_settings_create_book"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/bt_settings_set_present"
         app:layout_constraintTop_toBottomOf="@id/tv_settings_present_book">
