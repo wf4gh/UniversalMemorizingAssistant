@@ -23,4 +23,9 @@
     <string name="menu_options">Options</string>
     <string name="menu_help">Help</string>
     <string name="menu_about">About</string>
+    <string name="text_present_book">Present book:</string>
+    <string name="text_available_book">Available books:</string>
+    <string name="dialog_title_create_book">Create a new book</string>
+    <string name="dialog_button_create">Create</string>
+    <string name="toast_created">Created!</string>
 </resources>

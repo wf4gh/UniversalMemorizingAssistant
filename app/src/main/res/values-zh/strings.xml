@@ -24,4 +24,9 @@
     <string name="menu_options">选项</string>
     <string name="menu_help">说明</string>
     <string name="menu_about">关于</string>
+    <string name="text_present_book">当前使用词句书：</string>
+    <string name="text_available_book">可用词句书：</string>
+    <string name="dialog_title_create_book">新建词句书</string>
+    <string name="dialog_button_create">新建</string>
+    <string name="toast_created">新建成功！</string>
 </resources>

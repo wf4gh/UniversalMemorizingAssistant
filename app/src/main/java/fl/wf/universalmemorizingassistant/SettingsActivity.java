@@ -69,7 +69,7 @@ public class SettingsActivity extends AppCompatActivity {
         bookNames = MyFileHandler.filesToStrings(bookFiles);
 
         booksListView.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_single_choice, bookNames));
-        presentBookTextView.setText("PresentBook:" + getPresentBook() + "\nBooks available:");
+        presentBookTextView.setText(getString(R.string.text_present_book) + getPresentBook() + "\n" + getString(R.string.text_available_book));
     }
 
     void setPresentBook(String bookNameToSet) {
@@ -85,6 +85,9 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     public void onSetThisClicked(View view) {
+        if (!isBookSelectedWithToast())
+            return;
+
         int position = booksListView.getCheckedItemPosition();
         setPresentBook(bookNames[position]);
         updateBookNamesAndUI();
@@ -97,9 +100,9 @@ public class SettingsActivity extends AppCompatActivity {
         timesSpinner.setSelection(4, true);
 
         new AlertDialog.Builder(this)
-                .setTitle("Add a new book")
+                .setTitle(getString(R.string.dialog_title_create_book))
                 .setView(addBookView)
-                .setPositiveButton("Add", new DialogInterface.OnClickListener() {
+                .setPositiveButton(getString(R.string.dialog_button_create), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         EditText addBookEditText = (EditText) addBookView.findViewById(R.id.et_dialog_add_book);
@@ -138,7 +141,7 @@ public class SettingsActivity extends AppCompatActivity {
                                         e.printStackTrace();
                                     }
 
-                                    Toast.makeText(SettingsActivity.this, "Create succeeded", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(SettingsActivity.this, getString(R.string.toast_created), Toast.LENGTH_SHORT).show();
                                     break;
                             }
                             updateBookNamesAndUI();
@@ -149,15 +152,20 @@ public class SettingsActivity extends AppCompatActivity {
                         }
                     }
                 })
-                .setNegativeButton("Cancel", null)
+                .setNegativeButton(getString(R.string.dialog_button_cancel), null)
                 .show();
     }
 
-    public void onDeleteBookClicked(View view) {
+    boolean isBookSelectedWithToast() {
         if (booksListView.getCheckedItemPosition() == -1) {
             Toast.makeText(this, "Choose a book first", Toast.LENGTH_SHORT).show();
+            return false;
+        } else return true;
+    }
+
+    public void onDeleteBookClicked(View view) {
+        if (!isBookSelectedWithToast())
             return;
-        }
 
         new AlertDialog.Builder(this)
                 .setTitle("Delete Confirmation")
@@ -181,10 +189,8 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     public void onEditClicked(View view) {
-        if (booksListView.getCheckedItemPosition() == -1) {
-            Toast.makeText(this, "Choose a book first", Toast.LENGTH_SHORT).show();
+        if (!isBookSelectedWithToast())
             return;
-        }
 
         editIntent = MyFileHandler.getExcelFileIntent(bookFiles[booksListView.getCheckedItemPosition()], this);
         try {
@@ -196,10 +202,9 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     public void onConfigClicked(final View view) {
-        if (booksListView.getCheckedItemPosition() == -1) {
-            Toast.makeText(this, "Choose a book first", Toast.LENGTH_SHORT).show();
+        if (!isBookSelectedWithToast())
             return;
-        }
+
         @SuppressLint("InflateParams") final View setBookView = getLayoutInflater().inflate(R.layout.dialog_config_book, null);
         final Spinner timesSpinner = (Spinner) setBookView.findViewById(R.id.sp_dialog_set_target_times);
         final EditText setBookEditText = (EditText) setBookView.findViewById(R.id.et_dialog_config_book);
