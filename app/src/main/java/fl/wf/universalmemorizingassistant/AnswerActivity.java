@@ -81,22 +81,14 @@ public class AnswerActivity extends AppCompatActivity {
             bookIndex = presentBook.getIndex();
             bookRecitedTimes = presentBook.getRecitedTimes();
         } else {
-            Log.d(TAG, "onResume: Present book null!!!!!!!!!!!!11");
             finish();
         }
-        Log.d(TAG, "onCreate: \nbook: " + appFolderPath + bookName + "\nTimes: "
-                + bookMaxTimes + "\nIndex: " + bookIndex + "\nRecitedTimes: " + bookRecitedTimes);
+//        Log.d(TAG, "onCreate: \nBook: " + appFolderPath + bookName + "\nTimes: "
+//                + bookMaxTimes + "\nIndex: " + bookIndex + "\nRecitedTimes: " + bookRecitedTimes);
         bookFile = new File(BasicStaticData.absAppFolderPath + bookName);
 
-        Log.d(TAG, "onResume: bookFilePath: " + bookFile.getAbsolutePath());
-
         try {
-            Log.d(TAG, "onResume: openAndValidateStart");
             wb = BookHandler.openAndValidateBook(bookFile, bookMaxTimes);
-            if (wb == null) Log.d(TAG, "onResume: wb null here");
-            else Log.d(TAG, "onResume: wb not null here");
-//            BookHandler.closeAndSaveBook(wb, bookFile);
-            Log.d(TAG, "onResume: openAndValidateEnd");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -160,10 +152,6 @@ public class AnswerActivity extends AppCompatActivity {
                                     try {
                                         BookHandler.closeAndSaveBook(wb, bookFile);
                                         wb = BookHandler.openAndValidateBook(bookFile, bookMaxTimes);
-//                                        if (wb == null) {
-//                                            Toast.makeText(AnswerActivity.this, "book empty!!!!!", Toast.LENGTH_SHORT).show();
-//                                            finish();
-//                                        }
                                     } catch (IOException e) {
                                         e.printStackTrace();
                                     }

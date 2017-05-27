@@ -96,8 +96,6 @@ public class SettingsActivity extends AppCompatActivity {
         final Spinner timesSpinner = (Spinner) addBookView.findViewById(R.id.sp_dialog_add_target_times);
         timesSpinner.setSelection(4, true);
 
-//        SpinnerAdapter timesSpinnerAdapter = timesSpinner.getAdapter();
-
         new AlertDialog.Builder(this)
                 .setTitle("Add a new book")
                 .setView(addBookView)

@@ -224,9 +224,10 @@ class BookHandler {
         HSSFSheet sheet = workbook.getSheetAt(0);
         int rowCount = sheet.getLastRowNum();
         HSSFRow row;
-        if (forTitle)
+        if (forTitle) {
             row = sheet.createRow(rowCount);
-        else
+            row.createCell(2).setCellValue("target times");
+        } else
             row = sheet.createRow(rowCount + 1);
         row.createCell(0).setCellValue(hint);
         row.createCell(1).setCellValue(answer);
