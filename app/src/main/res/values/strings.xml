@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">UMemorizing!</string>
-    <string name="main_start">Start</string>
-    <string name="main_settings">Settings</string>
-    <string name="main_info_line1_left"></string>
+    <string name="button_start">Start</string>
+    <string name="button_settings">Settings</string>
+    <string name="main_info_line1_left" />
     <string name="main_info_line1_right">book file(s) detected in your book file folder</string>
     <string name="main_info_line2_left">You are now using:</string>
     <string name="present_book_undefined">Choose one!</string>
@@ -28,9 +28,24 @@
     <string name="dialog_title_create_book">Create a new book</string>
     <string name="dialog_button_create">Create</string>
     <string name="toast_created">Created!</string>
-    <string name="toast_book_not_choosen">Choose a book first!</string>
+    <string name="toast_book_not_chosen">Choose a book first!</string>
     <string name="toast_illegal_character">Illegal character!</string>
     <string name="toast_already_exists">This name has been token!</string>
     <string name="toast_create_failed">Failed to create</string>
     <string name="toast_book_need_name">Please enter the name of book!</string>
+    <string name="dialog_title_delete">Delete Confirmation</string>
+    <string name="dialog_message_delete">Sure to delete?</string>
+    <string name="dialog_button_delete">Sure, delete</string>
+    <string name="toast_delete_fail">Fail to delete</string>
+    <string name="toast_no_app_found_to_open">Can\'t find an app in your phone to open this file!</string>
+    <string name="dialog_title_config">Config book</string>
+    <string name="toast_rename_fail">Fail to rename</string>
+    <string name="button_use">Use</string>
+    <string name="button_config">Config</string>
+    <string name="button_edit">Edit</string>
+    <string name="button_create_book">Create a new book</string>
+    <string name="button_delete_book">Delete book</string>
+    <string name="button_show_answer">Show Answer</string>
+    <string name="button_remember">I can recite this</string>
+    <string name="button_remember_not">I didn\'t recollect</string>
 </resources>

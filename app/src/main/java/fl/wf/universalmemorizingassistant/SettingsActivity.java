@@ -69,7 +69,7 @@ public class SettingsActivity extends AppCompatActivity {
         bookNames = MyFileHandler.filesToStrings(bookFiles);
 
         booksListView.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_single_choice, bookNames));
-        presentBookTextView.setText(getString(R.string.text_present_book) + getPresentBook() + "\n" + getString(R.string.text_available_book));
+        presentBookTextView.setText(getString(R.string.text_present_book) + getPresentBook() + "\n\n" + getString(R.string.text_available_book));
     }
 
     void setPresentBook(String bookNameToSet) {
@@ -158,7 +158,7 @@ public class SettingsActivity extends AppCompatActivity {
 
     boolean isBookSelectedWithToast() {
         if (booksListView.getCheckedItemPosition() == -1) {
-            Toast.makeText(this, getString(R.string.toast_book_not_choosen), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.toast_book_not_chosen), Toast.LENGTH_SHORT).show();
             return false;
         } else return true;
     }
@@ -168,15 +168,15 @@ public class SettingsActivity extends AppCompatActivity {
             return;
 
         new AlertDialog.Builder(this)
-                .setTitle("Delete Confirmation")
-                .setMessage("Sure to delete?")
-                .setPositiveButton("Sure,delete", new DialogInterface.OnClickListener() {
+                .setTitle(getString(R.string.dialog_title_delete))
+                .setMessage(getString(R.string.dialog_message_delete) + "\n\n" + bookFiles[booksListView.getCheckedItemPosition()].getName())
+                .setPositiveButton(getString(R.string.dialog_button_delete), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         File fileToDelete = bookFiles[booksListView.getCheckedItemPosition()];
                         boolean deleted = fileToDelete.delete();
                         if (!deleted)
-                            Toast.makeText(SettingsActivity.this, "Delete Failed", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SettingsActivity.this, getString(R.string.toast_delete_fail), Toast.LENGTH_SHORT).show();
                         else {
                             updateBookNamesAndUI();
                             ArrayList<Book> bookList = MyFileHandler.deleteBookFromList(MyFileHandler.readFromBookDataFile(bookListFile), "/" + fileToDelete.getName());
@@ -184,7 +184,7 @@ public class SettingsActivity extends AppCompatActivity {
                         }
                     }
                 })
-                .setNegativeButton("Cancel", null)
+                .setNegativeButton(getString(R.string.dialog_button_cancel), null)
                 .show();
     }
 
@@ -196,7 +196,7 @@ public class SettingsActivity extends AppCompatActivity {
         try {
             startActivity(editIntent);
         } catch (ActivityNotFoundException e) {
-            Toast.makeText(this, "Find no app in your phone to open this file!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.toast_no_app_found_to_open), Toast.LENGTH_SHORT).show();
             // TODO: 2017/5/26  maybe there should be a popup here to ask the player to choose an app?
         }
     }
@@ -227,9 +227,9 @@ public class SettingsActivity extends AppCompatActivity {
         timesSpinner.setSelection(times, true);
 
         new AlertDialog.Builder(this)
-                .setTitle("Config book")
+                .setTitle(getString(R.string.dialog_title_config))
                 .setView(setBookView)
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                .setPositiveButton(getString(R.string.dialog_button_ok), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         File fileToUpdate = bookFiles[booksListView.getCheckedItemPosition()];
@@ -240,7 +240,7 @@ public class SettingsActivity extends AppCompatActivity {
                                 if (!Character.isLetterOrDigit(name.charAt(i)) &&
                                         !Character.toString(name.charAt(i)).equals("_") &&
                                         !Character.toString(name.charAt(i)).equals("-")) {
-                                    Toast.makeText(SettingsActivity.this, "Illegal Character", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(SettingsActivity.this, getString(R.string.toast_illegal_character), Toast.LENGTH_SHORT).show();
                                     onConfigClicked(view);
                                     return;
                                 }
@@ -252,7 +252,7 @@ public class SettingsActivity extends AppCompatActivity {
                                 //rename bookFile here
                                 boolean renamed = fileToUpdate.renameTo(new File(BasicStaticData.absAppFolderPath + name));
                                 if (!renamed) {
-                                    Toast.makeText(SettingsActivity.this, "Rename Failed", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(SettingsActivity.this, getString(R.string.toast_rename_fail), Toast.LENGTH_SHORT).show();
                                     onConfigClicked(view);
                                     return;
                                 }
@@ -270,7 +270,7 @@ public class SettingsActivity extends AppCompatActivity {
                         updateBookNamesAndUI();
                     }
                 })
-                .setNegativeButton("Cancel", null)
+                .setNegativeButton(getString(R.string.dialog_button_cancel), null)
                 .show();
     }
 

@@ -221,7 +221,7 @@ public class AnswerActivity extends AppCompatActivity {
     //These two methods used to control the show and hide of the components depending on the current state
     void UIShowThis() {
         yesButton.setVisibility(View.VISIBLE);
-        noButton.setText("NO");
+        noButton.setText(getString(R.string.button_remember_not));
         answerTextView.setVisibility(View.VISIBLE);
         answerShowed = true;
         answerEditText.setEnabled(false);
@@ -229,7 +229,7 @@ public class AnswerActivity extends AppCompatActivity {
 
     void UIShowNext() {
         yesButton.setVisibility(View.INVISIBLE);
-        noButton.setText("TOSEE");
+        noButton.setText(getString(R.string.button_show_answer));
         answerTextView.setVisibility(View.INVISIBLE);
         answerShowed = false;
         answerEditText.setText("");

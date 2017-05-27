@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">通用词句记忆</string>
-    <string name="main_start">开始</string>
-    <string name="main_settings">配置</string>
+    <string name="button_start">开始</string>
+    <string name="button_settings">设置</string>
     <string name="main_info_line1_left">检测到</string>
     <string name="main_info_line1_right">个可用文件</string>
     <string name="main_info_line2_left">当前正在使用：</string>
@@ -29,9 +29,24 @@
     <string name="dialog_title_create_book">新建词句书</string>
     <string name="dialog_button_create">新建</string>
     <string name="toast_created">新建成功！</string>
-    <string name="toast_book_not_choosen">请选择一本词句书！</string>
+    <string name="toast_book_not_chosen">请选择一本词句书！</string>
     <string name="toast_illegal_character">请勿使用特殊字符！</string>
     <string name="toast_already_exists">已有同名词句书！</string>
     <string name="toast_create_failed">创建失败</string>
     <string name="toast_book_need_name">请输入词句书名！</string>
+    <string name="dialog_title_delete">删除确认</string>
+    <string name="dialog_message_delete">确认删除该词句书？</string>
+    <string name="dialog_button_delete">是的，删除</string>
+    <string name="toast_delete_fail">删除失败</string>
+    <string name="toast_no_app_found_to_open">在您手机上没有找到能打开此文件的应用！</string>
+    <string name="dialog_title_config">配置词句书</string>
+    <string name="toast_rename_fail">重命名失败</string>
+    <string name="button_use">使用</string>
+    <string name="button_config">配置</string>
+    <string name="button_edit">编辑</string>
+    <string name="button_create_book">新建词句书</string>
+    <string name="button_delete_book">删除词句书</string>
+    <string name="button_show_answer">查看答案</string>
+    <string name="button_remember">记住了</string>
+    <string name="button_remember_not">没记住</string>
 </resources>
