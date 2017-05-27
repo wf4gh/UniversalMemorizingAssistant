@@ -69,7 +69,7 @@ public class SettingsActivity extends AppCompatActivity {
         bookNames = MyFileHandler.filesToStrings(bookFiles);
 
         booksListView.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_single_choice, bookNames));
-        presentBookTextView.setText(getString(R.string.text_present_book) + getPresentBook() + "\n" + getString(R.string.text_available_book));
+        presentBookTextView.setText(getString(R.string.text_present_book) + getPresentBook() + "\n\n" + getString(R.string.text_available_book));
     }
 
     void setPresentBook(String bookNameToSet) {
@@ -168,8 +168,8 @@ public class SettingsActivity extends AppCompatActivity {
             return;
 
         new AlertDialog.Builder(this)
-                .setTitle("Delete Confirmation")
-                .setMessage("Sure to delete?")
+                .setTitle(getString(R.string.dialog_title_delete))
+                .setMessage(getString(R.string.dialog_message_delete) + "\n\n" + bookFiles[booksListView.getCheckedItemPosition()].getName())
                 .setPositiveButton("Sure,delete", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {

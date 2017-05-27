@@ -34,4 +34,6 @@
     <string name="toast_already_exists">已有同名词句书！</string>
     <string name="toast_create_failed">创建失败</string>
     <string name="toast_book_need_name">请输入词句书名！</string>
+    <string name="dialog_title_delete">删除确认</string>
+    <string name="dialog_message_delete">确认删除该词句书？</string>
 </resources>

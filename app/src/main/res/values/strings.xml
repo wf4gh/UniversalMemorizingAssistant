@@ -33,4 +33,6 @@
     <string name="toast_already_exists">This name has been token!</string>
     <string name="toast_create_failed">Failed to create</string>
     <string name="toast_book_need_name">Please enter the name of book!</string>
+    <string name="dialog_title_delete">Delete Confirmation</string>
+    <string name="dialog_message_delete">Sure to delete?</string>
 </resources>
