@@ -9,9 +9,9 @@
     <!--todo styles of all these components required to be modified-->
     <android.support.v7.widget.Toolbar
         android:id="@+id/tb_main"
+        style="@style/AppTheme"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        style="@style/AppTheme"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -34,10 +34,12 @@
         android:id="@+id/tv_main_info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/bt_main_start"
+        android:text="text"
+        android:gravity="center_horizontal"
+        app:layout_constraintBottom_toTopOf="@id/bt_main_start"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/tb_main" />
 
     <Button
         android:id="@+id/bt_main_edit"
@@ -47,6 +49,6 @@
         android:text="Settings"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bt_main_start" />
+        app:layout_constraintTop_toBottomOf="@id/bt_main_start" />
 
 </android.support.constraint.ConstraintLayout>

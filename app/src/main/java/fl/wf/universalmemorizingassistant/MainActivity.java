@@ -18,6 +18,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -40,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
     File presentBookFile;
     String presentBookName = "";
     Intent settingsActivityIntent;
+    TextView infoTextView;
 
     // TODO: 2017/5/23   add viewer page as help
     @Override
@@ -57,12 +59,26 @@ public class MainActivity extends AppCompatActivity {
         }
         getRuntimePermission();
         settingsActivityIntent = new Intent(this, SettingsActivity.class);
+        infoTextView = (TextView) findViewById(R.id.tv_main_info);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         initializingUserData();
+        String textToShow = getTextToShow();
+        infoTextView.setText(textToShow);
+    }
+
+    String getTextToShow() {
+        String line1L = "";
+        String line1R = "book file(s) detected in your book file folder";
+        String line2L = "Your are now using:";
+
+        String line1 = line1L + bookFiles.length + line1R;
+        String line2 = line2L + getPresentBook();
+
+        return line1 + "\n\n" + line2;
     }
 
     @Override

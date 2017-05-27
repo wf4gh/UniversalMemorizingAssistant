@@ -42,31 +42,17 @@ class BookHandler {
 
         HSSFSheet sheet = wb.getSheetAt(0);
         if (sheet == null) {
-            // TODO: 2017/5/23  change this name
             sheet = wb.createSheet("SheetName");
-            Log.d(TAG, "openAndValidateBook: sheet null");
-        } else
-            Log.d(TAG, "openAndValidateBook: sheet not null");
+        }
 
-        Log.d(TAG, "openAndValidateBook: sheet.getLastRowNum(): " + sheet.getLastRowNum());
-        // TODO: 2017/5/26  add title line to workbook here
         if (sheet.getLastRowNum() < 1) {
-            Log.d(TAG, "openAndValidateBook: LastRowNum<1");
             wb = addNewLineToWorkbook(wb, "hint", "answer", true);
-
-            if (wb == null)
-                Log.d(TAG, "openAndValidateBook: wb null");
-            else
-                Log.d(TAG, "openAndValidateBook: wb not null");
-
             return wb;
-        } else Log.d(TAG, "openAndValidateBook: LastRomNum>1");
-        Log.d(TAG, "openAndValidateBook: sheet.getPhysicalNumberOfRows(): " + sheet.getPhysicalNumberOfRows());
+        }
 
         //This loop is used to remove all the empty rows in the sheet
         for (int i = 1; i < sheet.getLastRowNum(); i++) {
             if (sheet.getRow(i) == null) {
-                Log.d(TAG, "openAndValidateBook: NULL:" + i);
                 sheet.shiftRows(i + 1, sheet.getLastRowNum(), -1);
                 i--;
                 continue;
