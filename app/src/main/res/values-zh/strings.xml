@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">通用词句记忆</string>
+    <string name="main_start">开始</string>
+    <string name="main_settings">配置</string>
+    <string name="main_info_line1_left">检测到</string>
+    <string name="main_info_line1_right">个可用文件</string>
+    <string name="main_info_line2_left">当前正在使用：</string>
+</resources>

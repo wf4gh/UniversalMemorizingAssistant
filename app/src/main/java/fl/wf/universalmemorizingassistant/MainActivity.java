@@ -71,9 +71,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     String getTextToShow() {
-        String line1L = "";
-        String line1R = "book file(s) detected in your book file folder";
-        String line2L = "Your are now using:";
+        String line1L = getString(R.string.main_info_line1_left);
+        String line1R = getString(R.string.main_info_line1_right);
+        String line2L = getString(R.string.main_info_line2_left);
 
         String line1 = line1L + bookFiles.length + line1R;
         String line2 = line2L + getPresentBook();

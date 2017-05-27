@@ -74,8 +74,7 @@ public class AnswerActivity extends AppCompatActivity {
     }
 
     String getTextToShow() {
-        String presentBook = "Present Book: " + getPresentBook();
-        return presentBook;
+        return "Present Book: " + getPresentBook();
     }
 
     @Override
