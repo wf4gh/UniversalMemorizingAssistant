@@ -28,4 +28,9 @@
     <string name="dialog_title_create_book">Create a new book</string>
     <string name="dialog_button_create">Create</string>
     <string name="toast_created">Created!</string>
+    <string name="toast_book_not_choosen">Choose a book first!</string>
+    <string name="toast_illegal_character">Illegal character!</string>
+    <string name="toast_already_exists">This name has been token!</string>
+    <string name="toast_create_failed">Failed to create</string>
+    <string name="toast_book_need_name">Please enter the name of book!</string>
 </resources>

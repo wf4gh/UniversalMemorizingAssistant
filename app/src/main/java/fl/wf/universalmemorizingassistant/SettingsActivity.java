@@ -113,7 +113,7 @@ public class SettingsActivity extends AppCompatActivity {
                                         !Character.toString(name.charAt(i)).equals("_") &&
                                         !Character.toString(name.charAt(i)).equals("-") &&
                                         !Character.toString(name.charAt(i)).equals(" ")) {
-                                    Toast.makeText(SettingsActivity.this, "Illegal Character", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(SettingsActivity.this, getString(R.string.toast_illegal_character), Toast.LENGTH_SHORT).show();
                                     onAddBookClicked(view);
                                     return;
                                 }
@@ -122,11 +122,11 @@ public class SettingsActivity extends AppCompatActivity {
                             int createResult = MyFileHandler.createNewFile(newBookFile);
                             switch (createResult) {
                                 case MyFileHandler.CREATE_ALREADY_EXISTS:
-                                    Toast.makeText(SettingsActivity.this, "Already exists", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(SettingsActivity.this, getString(R.string.toast_already_exists), Toast.LENGTH_SHORT).show();
                                     onAddBookClicked(view);
                                     break;
                                 case MyFileHandler.CREATE_FAILED:
-                                    Toast.makeText(SettingsActivity.this, "Failed,try again", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(SettingsActivity.this, getString(R.string.toast_create_failed), Toast.LENGTH_SHORT).show();
                                     onAddBookClicked(view);
                                     break;
                                 case MyFileHandler.CREATE_SUCCESS:
@@ -146,7 +146,7 @@ public class SettingsActivity extends AppCompatActivity {
                             }
                             updateBookNamesAndUI();
                         } else {
-                            Toast.makeText(SettingsActivity.this, "Enter the name of book", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SettingsActivity.this, getString(R.string.toast_book_need_name), Toast.LENGTH_SHORT).show();
                             // i'm not sure if this FINAL VIEW will cause any problems...
                             onAddBookClicked(view);
                         }
@@ -158,7 +158,7 @@ public class SettingsActivity extends AppCompatActivity {
 
     boolean isBookSelectedWithToast() {
         if (booksListView.getCheckedItemPosition() == -1) {
-            Toast.makeText(this, "Choose a book first", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.toast_book_not_choosen), Toast.LENGTH_SHORT).show();
             return false;
         } else return true;
     }

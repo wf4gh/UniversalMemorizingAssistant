@@ -29,4 +29,9 @@
     <string name="dialog_title_create_book">新建词句书</string>
     <string name="dialog_button_create">新建</string>
     <string name="toast_created">新建成功！</string>
+    <string name="toast_book_not_choosen">请选择一本词句书！</string>
+    <string name="toast_illegal_character">请勿使用特殊字符！</string>
+    <string name="toast_already_exists">已有同名词句书！</string>
+    <string name="toast_create_failed">创建失败</string>
+    <string name="toast_book_need_name">请输入词句书名！</string>
 </resources>
