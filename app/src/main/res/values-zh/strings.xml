@@ -49,4 +49,17 @@
     <string name="button_show_answer">查看答案</string>
     <string name="button_remember">记住了</string>
     <string name="button_remember_not">没记住</string>
+    <string name="hint_enter_book_name">在此输入词句书名</string>
+    <string name="text_xls_extension">.xls</string>
+    <string name="text_memorizing_times">记忆次数：</string>
+    <string name="title_settings">设置</string>
+    <string name="text_config">重命名、改变目标记忆次数或重置进度</string>
+    <string name="checkbox_reset_progress">重置进度</string>
+    <string name="dialog_title_this_finish">本书已完成</string>
+    <string name="dialog_message_finished">再记一次？</string>
+    <string name="dialog_button_one_more_time">好的，再记一次</string>
+    <string name="dialog_button_back_to_start">回开始界面</string>
+    <string name="text_progress">进度：</string>
+    <string name="title_answer">记忆中...</string>
+    <string name="text_draft_area">草稿区</string>
 </resources>

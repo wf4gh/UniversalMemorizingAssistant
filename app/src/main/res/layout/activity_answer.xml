@@ -14,7 +14,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:title="bookNameHere">
+        app:title="@string/title_answer">
 
     </android.support.v7.widget.Toolbar>
 
@@ -34,7 +34,7 @@
             android:layout_gravity="center_horizontal"
             android:focusable="true"
             android:focusableInTouchMode="true"
-            android:text="InfoHere"
+            android:text="@string/text_present_book"
             tools:layout_editor_absoluteX="0dp"
             tools:layout_editor_absoluteY="0dp" />
 
@@ -47,7 +47,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Progress:" />
+                android:text="@string/text_progress" />
 
             <android.support.v4.widget.ContentLoadingProgressBar
                 android:id="@+id/pb_ans_progress"
@@ -77,20 +77,20 @@
                 android:id="@+id/tv_ans_hint"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="HintHere" />
+                android:text="@string/hint" />
 
             <TextView
                 android:id="@+id/tv_ans_answer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="AnswerHere"
+                android:text="@string/answer"
                 android:visibility="invisible" />
 
             <EditText
                 android:id="@+id/et_ans_ans"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Type your answer here.\nNo need to be the same.\nThis is just for your self check"
+                android:hint="@string/text_draft_area"
                 app:layout_constraintTop_toBottomOf="@id/sv_ans_hint" />
         </LinearLayout>
 
@@ -112,7 +112,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:onClick="onNoClicked"
-        android:text="ToSee"
+        android:text="@string/button_show_answer"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />

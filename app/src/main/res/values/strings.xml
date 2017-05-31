@@ -48,4 +48,17 @@
     <string name="button_show_answer">Show Answer</string>
     <string name="button_remember">I can recite this</string>
     <string name="button_remember_not">I didn\'t recollect</string>
+    <string name="hint_enter_book_name">Enter book name here</string>
+    <string name="text_xls_extension">.xls</string>
+    <string name="text_memorizing_times">Times to memorize:</string>
+    <string name="title_settings">Settings</string>
+    <string name="text_config">You can rename, change times of memorizing, and/or reset your memorizing progress here</string>
+    <string name="checkbox_reset_progress">Reset progress</string>
+    <string name="dialog_title_this_finish">This book finished</string>
+    <string name="dialog_message_finished">Memorize this book one more time?</string>
+    <string name="dialog_button_one_more_time">Ok, one more time</string>
+    <string name="dialog_button_back_to_start">Back to start</string>
+    <string name="title_answer">Memorizing...</string>
+    <string name="text_progress">Progress:</string>
+    <string name="text_draft_area">Draft area</string>
 </resources>

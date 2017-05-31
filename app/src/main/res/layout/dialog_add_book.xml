@@ -5,11 +5,6 @@
     android:orientation="vertical"
     android:padding="32dp">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="bookNameToAdd:" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -19,13 +14,13 @@
             android:id="@+id/et_dialog_add_book"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="Enter name here"
+            android:hint="@string/hint_enter_book_name"
             android:maxLength="16" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=".xls" />
+            android:text="@string/text_xls_extension" />
     </LinearLayout>
 
     <LinearLayout
@@ -39,7 +34,7 @@
             android:layout_height="wrap_content"
 
             android:background="@android:color/white"
-            android:text="Times: " />
+            android:text="@string/text_memorizing_times" />
 
         <Spinner
             android:id="@+id/sp_dialog_add_target_times"

@@ -27,8 +27,6 @@ import static android.os.Environment.getExternalStorageDirectory;
 public class AnswerActivity extends AppCompatActivity {
     private static final String TAG = "FLWFAnswerActivity";
 
-    String appFolderPath = BasicStaticData.appFolder;
-
     boolean answerShowed = false;
     int answerState = 0;
 
@@ -74,7 +72,7 @@ public class AnswerActivity extends AppCompatActivity {
     }
 
     String getTextToShow() {
-        return "Present Book: " + getPresentBook();
+        return getString(R.string.text_present_book) + getPresentBook();
     }
 
     @Override
@@ -102,9 +100,9 @@ public class AnswerActivity extends AppCompatActivity {
         }
         if (wb == null || wb.getSheetAt(0) == null || wb.getSheetAt(0).getLastRowNum() < 1) {
             new AlertDialog.Builder(this)
-                    .setTitle("TitleHere")
-                    .setMessage("This book is empty or Invalid,add rows or choose another!")
-                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    .setTitle(getString(R.string.dialog_title_no_present_book))
+                    .setMessage(getString(R.string.dialog_message_no_present_book))
+                    .setPositiveButton(getString(R.string.dialog_button_ok), new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             startActivity(settingsActivityIntent);
@@ -146,9 +144,9 @@ public class AnswerActivity extends AppCompatActivity {
                 bookIndex++;
                 if (BookHandler.rowCheck(wb, bookIndex) == BookHandler.ROW_END) {
                     new AlertDialog.Builder(this)
-                            .setTitle("ThisFinished")
-                            .setMessage("One more time?")
-                            .setPositiveButton("OK,one more time", new DialogInterface.OnClickListener() {
+                            .setTitle(getString(R.string.dialog_title_this_finish))
+                            .setMessage(getString(R.string.dialog_message_finished))
+                            .setPositiveButton(getString(R.string.dialog_button_one_more_time), new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     //update user book data file here
@@ -167,7 +165,7 @@ public class AnswerActivity extends AppCompatActivity {
                                     showCurrentRowValue();
                                 }
                             })
-                            .setNegativeButton("Back to start", new DialogInterface.OnClickListener() {
+                            .setNegativeButton(getString(R.string.dialog_button_back_to_start), new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     finish();
@@ -183,6 +181,8 @@ public class AnswerActivity extends AppCompatActivity {
         HSSFRow row = wb.getSheetAt(0).getRow(bookIndex);
         String hint = row.getCell(0).getStringCellValue();
         String ans = row.getCell(1).getStringCellValue();
+        hint = getString(R.string.hint) + "\n" + hint;
+        ans = getString(R.string.answer) + "\n" + ans;
         hintTextView.setText(hint);
         answerTextView.setText(ans);
     }

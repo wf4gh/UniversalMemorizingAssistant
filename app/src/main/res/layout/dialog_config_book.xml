@@ -8,7 +8,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Rename this book:(Leave it blank if you don't want change)" />
+        android:text="@string/text_config" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,6 +17,7 @@
 
         <EditText
             android:id="@+id/et_dialog_config_book"
+            android:hint="@string/hint_enter_book_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:maxLength="16" />
@@ -24,7 +25,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=".xls" />
+            android:text="@string/text_xls_extension" />
     </LinearLayout>
 
     <LinearLayout
@@ -37,7 +38,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@android:color/white"
-            android:text="Times: " />
+            android:text="@string/text_memorizing_times" />
 
         <Spinner
             android:id="@+id/sp_dialog_set_target_times"
@@ -51,6 +52,6 @@
         android:id="@+id/cb_dialog_set_reset"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="ResetProgress" />
+        android:text="@string/checkbox_reset_progress" />
 
 </LinearLayout>
