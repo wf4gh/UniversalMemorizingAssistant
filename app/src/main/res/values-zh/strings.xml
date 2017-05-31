@@ -69,4 +69,6 @@
     <string name="sheet_no_data">没有数据</string>
     <string name="sheet_sheet_name">词句书</string>
     <string name="sheet_times">剩余次数</string>
+    <string name="toast_storage_unavailable">手机存储不可用！</string>
+    <string name="toast_config_complete">配置完成！</string>
 </resources>

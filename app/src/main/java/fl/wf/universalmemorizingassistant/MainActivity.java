@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
 
         //Check if the storage is writable
         if (!MyFileHandler.isExternalStorageWritable()) {
-            Toast.makeText(this, "ExternalStorageUnavailable", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, R.string.toast_storage_unavailable, Toast.LENGTH_LONG).show();
             finish();
         }
         getRuntimePermission();

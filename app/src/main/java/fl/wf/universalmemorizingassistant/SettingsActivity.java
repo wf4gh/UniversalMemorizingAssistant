@@ -246,9 +246,7 @@ public class SettingsActivity extends AppCompatActivity {
                                 }
                             }
                             name = "/" + name + ".xls";
-                            if (name.equals(oldName))
-                                name = null;
-                            else {
+                            if (!name.equals(oldName)) {
                                 //rename bookFile here
                                 boolean renamed = fileToUpdate.renameTo(new File(BasicStaticData.absAppFolderPath + name));
                                 if (!renamed) {
@@ -257,7 +255,11 @@ public class SettingsActivity extends AppCompatActivity {
                                     return;
                                 }
                             }
-                        } else name = null;
+                        } else {
+                            Toast.makeText(SettingsActivity.this, getString(R.string.toast_book_need_name), Toast.LENGTH_SHORT).show();
+                            onConfigClicked(view);
+                            return;
+                        }
 
                         ArrayList<Book> bookList = MyFileHandler.readFromBookDataFile(bookListFile);
                         int newTimes = timesSpinner.getSelectedItemPosition() + 1;
@@ -268,6 +270,7 @@ public class SettingsActivity extends AppCompatActivity {
                         MyFileHandler.writeToBookDataFile(bookList, bookListFile);
 
                         updateBookNamesAndUI();
+                        Toast.makeText(SettingsActivity.this, getString(R.string.toast_config_complete), Toast.LENGTH_SHORT).show();
                     }
                 })
                 .setNegativeButton(getString(R.string.dialog_button_cancel), null)

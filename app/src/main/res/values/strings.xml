@@ -68,4 +68,6 @@
     <string name="sheet_hint">hint</string>
     <string name="sheet_answer">answer</string>
     <string name="sheet_times">Times left</string>
+    <string name="toast_storage_unavailable">Phone storage unavailable!</string>
+    <string name="toast_config_complete">Config complete!</string>
 </resources>
