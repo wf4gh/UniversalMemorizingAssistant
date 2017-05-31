@@ -140,8 +140,8 @@ public class MainActivity extends AppCompatActivity {
                                 }
 
                                 try {
-                                    HSSFWorkbook wb = BookHandler.openAndValidateBook(presentBookFile, book.getMaxTimes());
-                                    wb = BookHandler.addNewLineToWorkbook(wb, hint, answer, false);
+                                    HSSFWorkbook wb = new BookHandler(getApplicationContext()).openAndValidateBook(presentBookFile, book.getMaxTimes());
+                                    wb = new BookHandler(getApplicationContext()).addNewLineToWorkbook(wb, hint, answer, false);
                                     BookHandler.closeAndSaveBook(wb, presentBookFile);
                                     Toast.makeText(MainActivity.this, getString(R.string.toast_added), Toast.LENGTH_SHORT).show();
                                 } catch (IOException e) {

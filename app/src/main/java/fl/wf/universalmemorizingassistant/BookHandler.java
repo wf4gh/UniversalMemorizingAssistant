@@ -1,6 +1,6 @@
 package fl.wf.universalmemorizingassistant;
 
-import android.util.Log;
+import android.content.Context;
 
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
@@ -23,7 +23,7 @@ import static org.apache.poi.ss.usermodel.CellType.STRING;
  */
 
 class BookHandler {
-    private static final String TAG = "FLWFBookAccessor";
+//    private static final String TAG = "FLWFBookAccessor";
 
     static final int ANSWER_RIGHT = 1;
     static final int ANSWER_WRONG = -1;
@@ -34,19 +34,34 @@ class BookHandler {
     static final int ROW_INVALID = 0;
     static final int ROW_END = -1;
 
+
+    private String sheetName;
+    private String hint;
+    private String answer;
+    private String noData;
+    private String times;
+
+    public BookHandler(Context context) {
+        this.sheetName = context.getString(R.string.sheet_sheet_name);
+        this.hint = context.getString(R.string.sheet_hint);
+        this.answer = context.getString(R.string.sheet_answer);
+        this.noData = context.getString(R.string.sheet_no_data);
+        this.times = context.getString(R.string.sheet_times);
+    }
+
     //When the book is opened the first time,call this method to pre-process
-    static HSSFWorkbook openAndValidateBook(File bookFileToOpen, int maxTimes) throws IOException {
+    HSSFWorkbook openAndValidateBook(File bookFileToOpen, int maxTimes) throws IOException {
         FileInputStream fis = new FileInputStream(bookFileToOpen);
         HSSFWorkbook wb = new HSSFWorkbook(fis);
         fis.close();
 
         HSSFSheet sheet = wb.getSheetAt(0);
         if (sheet == null) {
-            sheet = wb.createSheet("SheetName");
+            sheet = wb.createSheet(sheetName);
         }
 
         if (sheet.getLastRowNum() < 1) {
-            wb = addNewLineToWorkbook(wb, "hint", "answer", true);
+            wb = addNewLineToWorkbook(wb, hint, answer, true);
             return wb;
         }
 
@@ -88,21 +103,21 @@ class BookHandler {
             HSSFCell c0 = r.getCell(0);
             if (c0 == null || c0.getStringCellValue().equals("")) {
                 c0 = r.createCell(0);
-                c0.setCellValue("NoData");
+                c0.setCellValue(noData);
             } else {
                 c0.setCellType(STRING);
                 if (c0.getStringCellValue().equals(""))
-                    c0.setCellValue("NoData");
+                    c0.setCellValue(noData);
             }
 
             HSSFCell c1 = sheet.getRow(i).getCell(1);
             if (c1 == null || c1.getStringCellValue().equals("")) {
                 c1 = r.createCell(1);
-                c1.setCellValue("NoData");
+                c1.setCellValue(noData);
             } else {
                 c1.setCellType(STRING);
                 if (c0.getStringCellValue().equals(""))
-                    c0.setCellValue("NoData");
+                    c0.setCellValue(noData);
             }
 
             HSSFCell c2 = sheet.getRow(i).getCell(2);
@@ -124,17 +139,17 @@ class BookHandler {
         return wb;
     }
 
-    static HSSFWorkbook createWorkbookWithTitle() {
+    HSSFWorkbook createWorkbookWithTitle() {
         HSSFWorkbook wb = new HSSFWorkbook();
-        wb.createSheet("SheetName");
+        wb.createSheet(sheetName);
         HSSFSheet sheet = wb.getSheetAt(0);
         HSSFRow row = sheet.createRow(0);
         HSSFCell c0 = row.createCell(0);
-        c0.setCellValue("hint");
+        c0.setCellValue(hint);
         HSSFCell c1 = row.createCell(1);
-        c1.setCellValue("answer");
+        c1.setCellValue(answer);
         HSSFCell c2 = row.createCell(2);
-        c2.setCellValue("times");
+        c2.setCellValue(times);
         return wb;
     }
 
@@ -206,13 +221,13 @@ class BookHandler {
         usedWorkbook.close();
     }
 
-    static HSSFWorkbook addNewLineToWorkbook(HSSFWorkbook workbook, String hint, String answer, boolean forTitle) {
+    HSSFWorkbook addNewLineToWorkbook(HSSFWorkbook workbook, String hint, String answer, boolean forTitle) {
         HSSFSheet sheet = workbook.getSheetAt(0);
         int rowCount = sheet.getLastRowNum();
         HSSFRow row;
         if (forTitle) {
             row = sheet.createRow(rowCount);
-            row.createCell(2).setCellValue("target times");
+            row.createCell(2).setCellValue(times);
         } else
             row = sheet.createRow(rowCount + 1);
         row.createCell(0).setCellValue(hint);

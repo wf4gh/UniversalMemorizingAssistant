@@ -132,7 +132,7 @@ public class SettingsActivity extends AppCompatActivity {
                                 case MyFileHandler.CREATE_SUCCESS:
                                     HSSFWorkbook wb;
                                     try {
-                                        wb = BookHandler.createWorkbookWithTitle();
+                                        wb = new BookHandler(getApplicationContext()).createWorkbookWithTitle();
                                         BookHandler.closeAndSaveBook(wb, newBookFile);
                                         int times = timesSpinner.getSelectedItemPosition() + 1;
                                         ArrayList<Book> bookList = MyFileHandler.addBookToList(MyFileHandler.readFromBookDataFile(bookListFile), "/" + newBookFile.getName(), times);

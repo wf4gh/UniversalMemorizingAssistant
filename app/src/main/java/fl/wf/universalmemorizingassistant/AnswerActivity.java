@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.sl.draw.geom.Context;
 
 import java.io.File;
 import java.io.IOException;
@@ -94,7 +95,8 @@ public class AnswerActivity extends AppCompatActivity {
         bookFile = new File(BasicStaticData.absAppFolderPath + bookName);
 
         try {
-            wb = BookHandler.openAndValidateBook(bookFile, bookMaxTimes);
+            // TODO: 2017/5/31  check here!
+            wb = new BookHandler(this).openAndValidateBook(bookFile, bookMaxTimes);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -157,7 +159,8 @@ public class AnswerActivity extends AppCompatActivity {
                                     BookHandler.setAllRowsToMaxTimes(wb, bookMaxTimes);
                                     try {
                                         BookHandler.closeAndSaveBook(wb, bookFile);
-                                        wb = BookHandler.openAndValidateBook(bookFile, bookMaxTimes);
+                                        // TODO: 2017/5/31  test here!
+                                        wb = new BookHandler(getApplicationContext()).openAndValidateBook(bookFile, bookMaxTimes);
                                     } catch (IOException e) {
                                         e.printStackTrace();
                                     }
