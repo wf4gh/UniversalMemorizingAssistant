@@ -1,5 +1,7 @@
 package fl.wf.universalmemorizingassistant;
 
+import android.content.Context;
+
 import java.io.File;
 
 import static android.os.Environment.getExternalStorageDirectory;
@@ -10,8 +12,8 @@ import static android.os.Environment.getExternalStorageDirectory;
  */
 
 final class BasicStaticData {
-    static final String appFolder = "/U_Memorizing";
-    static final String appBookDataFileName = "/BookData.xml";
+    private static final String appFolder = "/U_Memorizing";
+    private static final String appBookDataFileName = "/BookData.xml";
     static final String absAppFolderPath = getExternalStorageDirectory() + BasicStaticData.appFolder;
     static final File appFolderFile = new File(getExternalStorageDirectory() + appFolder);
     static final File appBookDataFile = new File(getExternalStorageDirectory() + appFolder + appBookDataFileName);

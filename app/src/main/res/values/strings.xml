@@ -61,4 +61,11 @@
     <string name="title_answer">Memorizing...</string>
     <string name="text_progress">Progress:</string>
     <string name="text_draft_area">Draft area</string>
+    <string name="text_no_data">No Data</string>
+    <string name="toast_hint_needed">Hint can\'t be empty!</string>
+    <string name="sheet_sheet_name">book</string>
+    <string name="sheet_no_data">No Data</string>
+    <string name="sheet_hint">hint</string>
+    <string name="sheet_answer">answer</string>
+    <string name="sheet_times">Times left</string>
 </resources>

@@ -123,6 +123,10 @@ public class MainActivity extends AppCompatActivity {
                             public void onClick(DialogInterface dialog, int which) {
                                 EditText hintEditText = (EditText) quickAddView.findViewById(R.id.et_dialog_quick_add_hint);
                                 String hint = hintEditText.getText().toString();
+                                if (hint.equals("")) {
+                                    Toast.makeText(MainActivity.this, getString(R.string.toast_hint_needed), Toast.LENGTH_SHORT).show();
+                                    return;
+                                }
                                 EditText answerEditText = (EditText) quickAddView.findViewById(R.id.et_dialog_quick_add_answer);
                                 String answer = answerEditText.getText().toString();
 //                                Log.d(TAG, "onClick: \nhint:" + hint + "\nans:" + answer);

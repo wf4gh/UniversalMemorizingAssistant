@@ -62,4 +62,11 @@
     <string name="text_progress">进度：</string>
     <string name="title_answer">记忆中...</string>
     <string name="text_draft_area">草稿区</string>
+    <string name="text_no_data">没有数据</string>
+    <string name="toast_hint_needed">提示不可为空！</string>
+    <string name="sheet_answer">答案</string>
+    <string name="sheet_hint">提示</string>
+    <string name="sheet_no_data">没有数据</string>
+    <string name="sheet_sheet_name">词句书</string>
+    <string name="sheet_times">剩余次数</string>
 </resources>
