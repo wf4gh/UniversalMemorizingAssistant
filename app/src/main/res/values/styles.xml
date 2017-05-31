@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!--&lt;!&ndash; Base application theme. &ndash;&gt;-->
     <!--<style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">-->
@@ -10,13 +10,18 @@
     <!---->
     <!---->
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="android:background">@android:color/darker_gray</item>
-        <item name="colorPrimary">@android:color/black</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <!--<item name="android:background">@android:color/darker_gray</item>-->
+        <item name="colorPrimary">@android:color/darker_gray</item>
+        <item name="colorPrimaryDark">@android:color/background_dark</item>
+        <item name="colorAccent">@android:color/primary_text_dark</item>
         <item name="overlapAnchor">false</item>
+        <item name="android:navigationBarColor" tools:targetApi="lollipop">@android:color/black</item>
+    </style>
+
+    <style name="ToolBar" parent="AppTheme">
+        <item name="android:background">#222222</item>
     </style>
 
 </resources>

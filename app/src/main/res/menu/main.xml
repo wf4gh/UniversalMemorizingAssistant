@@ -3,14 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/menu_add"
-        android:icon="@mipmap/ic_add_black_48dp"
+        android:icon="@mipmap/ic_add_box_white_48dp"
         android:orderInCategory="100"
         android:title="@string/menu_quick_add"
         app:showAsAction="ifRoom" />
     <item
 
         android:id="@+id/menu_options"
-        android:icon="@mipmap/ic_more_vert_black_48dp"
+        android:icon="@mipmap/ic_more_vert_white_48dp"
         android:orderInCategory="200"
         android:title="@string/menu_options"
         app:showAsAction="ifRoom">
