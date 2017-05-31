@@ -38,6 +38,8 @@ public class SettingsActivity extends AppCompatActivity {
     ListView booksListView;
     Intent editIntent;
 
+    int tmpOldTimes;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -218,13 +220,13 @@ public class SettingsActivity extends AppCompatActivity {
         setBookEditText.setText(MyFileHandler.getFileNameNoEx(fileToUpdate.getName()));
         ArrayList<Book> bookList = MyFileHandler.readFromBookDataFile(bookListFile);
 
-        int times = 4;
+        tmpOldTimes = 4;
         for (Book b : bookList) {
             if (b.getName().equals(bookName)) {
-                times = b.getMaxTimes() - 1;
+                tmpOldTimes = b.getMaxTimes() - 1;
             }
         }
-        timesSpinner.setSelection(times, true);
+        timesSpinner.setSelection(tmpOldTimes, true);
 
         new AlertDialog.Builder(this)
                 .setTitle(getString(R.string.dialog_title_config))
@@ -263,8 +265,23 @@ public class SettingsActivity extends AppCompatActivity {
 
                         ArrayList<Book> bookList = MyFileHandler.readFromBookDataFile(bookListFile);
                         int newTimes = timesSpinner.getSelectedItemPosition() + 1;
+
                         CheckBox resetCheckBox = (CheckBox) setBookView.findViewById(R.id.cb_dialog_set_reset);
                         boolean reset = resetCheckBox.isChecked();
+
+                        if (tmpOldTimes != newTimes - 1 || reset) {
+                            Log.d(TAG, "onClick: tmpOT:" + tmpOldTimes + "\nnewTimes:" + newTimes);
+                            try {
+                                File bookFile = new File(BasicStaticData.absAppFolderPath + name);
+                                HSSFWorkbook wb = new BookHandler(getApplicationContext()).openAndValidateBook(bookFile, newTimes);
+                                wb = BookHandler.setAllRowsToMaxTimes(wb, newTimes);
+                                BookHandler.closeAndSaveBook(wb, bookFile);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            reset = true;
+                        } else
+                            Log.d(TAG, "onClick: not running!");
 
                         bookList = MyFileHandler.updateBookFromList(bookList, oldName, name, newTimes, reset);
                         MyFileHandler.writeToBookDataFile(bookList, bookListFile);

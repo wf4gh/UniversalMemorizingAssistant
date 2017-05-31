@@ -156,7 +156,7 @@ public class AnswerActivity extends AppCompatActivity {
                                     bookArrayList = MyFileHandler.updateBookFromList(bookArrayList, bookName, 1, true);
                                     MyFileHandler.writeToBookDataFile(bookArrayList, BasicStaticData.appBookDataFile);
 
-                                    BookHandler.setAllRowsToMaxTimes(wb, bookMaxTimes);
+                                    wb = BookHandler.setAllRowsToMaxTimes(wb, bookMaxTimes);
                                     try {
                                         BookHandler.closeAndSaveBook(wb, bookFile);
                                         // TODO: 2017/5/31  test here!

@@ -41,7 +41,7 @@ class BookHandler {
     private String noData;
     private String times;
 
-    public BookHandler(Context context) {
+    BookHandler(Context context) {
         this.sheetName = context.getString(R.string.sheet_sheet_name);
         this.hint = context.getString(R.string.sheet_hint);
         this.answer = context.getString(R.string.sheet_answer);
@@ -174,7 +174,7 @@ class BookHandler {
         HSSFCell timesCell = rowToUpdate.getCell(2);
 
         //new valid row set left times
-        if (timesCell.getCellTypeEnum() == BLANK)
+        if (timesCell.getCellTypeEnum() == BLANK )
             timesCell.setCellValue(maxTimes);
 
         int timesNow = (int) timesCell.getNumericCellValue();
@@ -196,7 +196,7 @@ class BookHandler {
         }
     }
 
-    static void setAllRowsToMaxTimes(HSSFWorkbook usedWorkbook, int maxTimes) {
+    static HSSFWorkbook setAllRowsToMaxTimes(HSSFWorkbook usedWorkbook, int maxTimes) {
         HSSFSheet sheet = usedWorkbook.getSheetAt(0);
 
         for (int i = 1; i <= sheet.getLastRowNum(); i++) {
@@ -209,6 +209,7 @@ class BookHandler {
                 c2.setCellValue(maxTimes);
             }
         }
+        return usedWorkbook;
     }
 
     static void closeAndSaveBook(HSSFWorkbook usedWorkbook, File bookFileToUpdate) throws IOException {
