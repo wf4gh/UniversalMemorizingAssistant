@@ -31,6 +31,7 @@
         </activity>
         <activity android:name=".AnswerActivity" />
         <activity android:name=".SettingsActivity" />
+        <activity android:name=".EditActivity"></activity>
     </application>
 
 </manifest>

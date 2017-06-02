@@ -1,7 +1,6 @@
 package fl.wf.universalmemorizingassistant;
 
 import android.annotation.SuppressLint;
-import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -36,7 +35,7 @@ public class SettingsActivity extends AppCompatActivity {
 
     TextView presentBookTextView;
     ListView booksListView;
-    Intent editIntent;
+//    Intent editIntent;
 
     int tmpOldTimes;
 
@@ -54,7 +53,7 @@ public class SettingsActivity extends AppCompatActivity {
 
         presentBookTextView = (TextView) findViewById(R.id.tv_settings_present_book);
         booksListView = (ListView) findViewById(R.id.lv_settings_books);
-        editIntent = new Intent();
+//        editIntent = new Intent();
         bookListFile = BasicStaticData.appBookDataFile;
     }
 
@@ -93,6 +92,7 @@ public class SettingsActivity extends AppCompatActivity {
         int position = booksListView.getCheckedItemPosition();
         setPresentBook(bookNames[position]);
         updateBookNamesAndUI();
+        Toast.makeText(this, R.string.toast_present_book_set_complete, Toast.LENGTH_SHORT).show();
     }
 
     public void onAddBookClicked(final View view) {
@@ -190,17 +190,21 @@ public class SettingsActivity extends AppCompatActivity {
                 .show();
     }
 
-    public void onEditClicked(View view) {
+    public void onSaveClicked(View view) {
         if (!isBookSelectedWithToast())
             return;
 
-        editIntent = MyFileHandler.getExcelFileIntent(bookFiles[booksListView.getCheckedItemPosition()], this);
-        try {
-            startActivity(editIntent);
-        } catch (ActivityNotFoundException e) {
-            Toast.makeText(this, getString(R.string.toast_no_app_found_to_open), Toast.LENGTH_SHORT).show();
-            // TODO: 2017/5/26  maybe there should be a popup here to ask the player to choose an app?
-        }
+        Intent intent=new Intent(this,EditActivity.class);
+        startActivity(intent);
+
+////edit with a third-party program
+//        editIntent = MyFileHandler.getExcelFileIntent(bookFiles[booksListView.getCheckedItemPosition()], this);
+//        try {
+//            startActivity(editIntent);
+//        } catch (ActivityNotFoundException e) {
+//            Toast.makeText(this, getString(R.string.toast_no_app_found_to_open), Toast.LENGTH_SHORT).show();
+//            // 2017/5/26  maybe there should be a popup here to ask the player to choose an app?
+//        }
     }
 
     public void onConfigClicked(final View view) {

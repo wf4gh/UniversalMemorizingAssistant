@@ -70,4 +70,9 @@
     <string name="sheet_times">Times left</string>
     <string name="toast_storage_unavailable">Phone storage unavailable!</string>
     <string name="toast_config_complete">Config complete!</string>
+    <string name="title_edit">Edit</string>
+    <string name="button_add">Add</string>
+    <string name="button_delete">Delete</string>
+    <string name="button_save">Save</string>
+    <string name="toast_present_book_set_complete">Present book updated!</string>
 </resources>

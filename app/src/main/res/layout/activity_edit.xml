@@ -8,96 +8,75 @@
 
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/tb_settings"
+        android:id="@+id/tb_edit"
         style="@style/ToolBar"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:padding="0dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:title="@string/title_settings">
+        app:title="@string/title_edit">
 
     </android.support.v7.widget.Toolbar>
 
     <TextView
-        android:id="@+id/tv_settings_present_book"
+        android:id="@+id/tv_edit_present_book"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="8dp"
         android:text="@string/text_present_book"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tb_settings" />
+        app:layout_constraintTop_toBottomOf="@+id/tb_edit" />
 
     <Button
-        android:id="@+id/bt_settings_set_present"
+        android:id="@+id/bt_edit_add"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:onClick="onSetThisClicked"
-        android:text="@string/button_use"
+        android:onClick="onAddClicked"
+        android:text="@string/button_add"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_settings_present_book" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_edit_present_book" />
 
     <Button
-        android:id="@+id/bt_settings_config"
+        android:id="@+id/bt_edit_delete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:onClick="onConfigClicked"
-        android:text="@string/button_config"
+        android:onClick="onDeleteClicked"
+        android:text="@string/button_delete"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/bt_settings_set_present" />
+        app:layout_constraintTop_toBottomOf="@+id/bt_edit_add" />
 
     <Button
         android:id="@+id/bt_settings_edit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:onClick="onSaveClicked"
-        android:text="@string/button_edit"
+        android:text="@string/button_save"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/bt_settings_config" />
+        app:layout_constraintTop_toBottomOf="@id/bt_edit_delete" />
 
-    <Button
-        android:id="@+id/bt_settings_create_book"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:onClick="onAddBookClicked"
-        android:padding="8dp"
-        android:text="@string/button_create_book"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent" />
-
-
-    <Button
-        android:id="@+id/bt_settings_delete"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:onClick="onDeleteBookClicked"
-        android:padding="8dp"
-        android:text="@string/button_delete_book"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toRightOf="@id/bt_settings_create_book" />
 
     <ListView
         android:id="@+id/lv_settings_books"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:choiceMode="singleChoice"
+        android:paddingBottom="8dp"
         android:paddingEnd="0dp"
         android:paddingLeft="8dp"
         android:paddingRight="0dp"
         android:paddingStart="8dp"
-        app:layout_constraintBottom_toTopOf="@id/bt_settings_create_book"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/bt_settings_set_present"
-        app:layout_constraintTop_toBottomOf="@id/tv_settings_present_book">
+        app:layout_constraintRight_toLeftOf="@id/bt_edit_add"
+        app:layout_constraintTop_toBottomOf="@id/tv_edit_present_book">
 
     </ListView>
 
