@@ -34,6 +34,7 @@
         android:id="@+id/tv_main_info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textSize="16sp"
         android:gravity="center_horizontal"
         app:layout_constraintBottom_toTopOf="@id/bt_main_start"
         app:layout_constraintLeft_toLeftOf="parent"

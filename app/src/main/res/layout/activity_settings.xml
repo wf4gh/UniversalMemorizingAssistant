@@ -9,9 +9,10 @@
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/tb_settings"
-        android:layout_width="0dp"
         style="@style/ToolBar"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="0dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -23,6 +24,7 @@
         android:id="@+id/tv_settings_present_book"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:padding="8dp"
         android:text="@string/text_present_book"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tb_settings" />
@@ -31,7 +33,9 @@
         android:id="@+id/bt_settings_set_present"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="8dp"
         android:onClick="onSetThisClicked"
+        android:padding="8dp"
         android:text="@string/button_use"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_settings_present_book" />
@@ -40,7 +44,9 @@
         android:id="@+id/bt_settings_config"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="8dp"
         android:onClick="onConfigClicked"
+        android:padding="8dp"
         android:text="@string/button_config"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/bt_settings_set_present" />
@@ -49,7 +55,9 @@
         android:id="@+id/bt_settings_edit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="8dp"
         android:onClick="onEditClicked"
+        android:padding="8dp"
         android:text="@string/button_edit"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/bt_settings_config" />
@@ -58,7 +66,9 @@
         android:id="@+id/bt_settings_create_book"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="8dp"
         android:onClick="onAddBookClicked"
+        android:padding="8dp"
         android:text="@string/button_create_book"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent" />
@@ -68,7 +78,9 @@
         android:id="@+id/bt_settings_delete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="8dp"
         android:onClick="onDeleteBookClicked"
+        android:padding="8dp"
         android:text="@string/button_delete_book"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toRightOf="@id/bt_settings_create_book" />
@@ -78,6 +90,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:choiceMode="singleChoice"
+        android:padding="8dp"
         app:layout_constraintBottom_toTopOf="@id/bt_settings_create_book"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/bt_settings_set_present"
