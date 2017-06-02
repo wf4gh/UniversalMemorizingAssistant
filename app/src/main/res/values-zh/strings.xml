@@ -35,7 +35,7 @@
     <string name="toast_create_failed">创建失败</string>
     <string name="toast_book_need_name">请输入词句书名！</string>
     <string name="dialog_title_delete">删除确认</string>
-    <string name="dialog_message_delete">确认删除该词句书？</string>
+    <string name="dialog_message_delete">确认删除该词句书？\n注意，这将会完全删除该文件！</string>
     <string name="dialog_button_delete">是的，删除</string>
     <string name="toast_delete_fail">删除失败</string>
     <string name="toast_no_app_found_to_open">在您手机上没有找到能打开此文件的应用！</string>
@@ -60,7 +60,7 @@
     <string name="dialog_button_one_more_time">好的，再记一次</string>
     <string name="dialog_button_back_to_start">回开始界面</string>
     <string name="text_progress">进度：</string>
-    <string name="title_answer">记忆中...</string>
+    <string name="title_answer">记忆中…</string>
     <string name="text_draft_area">草稿区</string>
     <string name="text_no_data">没有数据</string>
     <string name="toast_hint_needed">提示不可为空！</string>

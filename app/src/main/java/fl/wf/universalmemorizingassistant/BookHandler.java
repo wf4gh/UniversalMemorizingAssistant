@@ -101,7 +101,7 @@ class BookHandler {
         for (int i = 1; i <= sheet.getLastRowNum(); i++) {
             HSSFRow r = sheet.getRow(i);
             HSSFCell c0 = r.getCell(0);
-            if (c0 == null || c0.getStringCellValue().equals("")) {
+            if (c0 == null) {
                 c0 = r.createCell(0);
                 c0.setCellValue(noData);
             } else {
@@ -111,7 +111,7 @@ class BookHandler {
             }
 
             HSSFCell c1 = sheet.getRow(i).getCell(1);
-            if (c1 == null || c1.getStringCellValue().equals("")) {
+            if (c1 == null) {
                 c1 = r.createCell(1);
                 c1.setCellValue(noData);
             } else {
@@ -174,7 +174,7 @@ class BookHandler {
         HSSFCell timesCell = rowToUpdate.getCell(2);
 
         //new valid row set left times
-        if (timesCell.getCellTypeEnum() == BLANK )
+        if (timesCell.getCellTypeEnum() == BLANK)
             timesCell.setCellValue(maxTimes);
 
         int timesNow = (int) timesCell.getNumericCellValue();
