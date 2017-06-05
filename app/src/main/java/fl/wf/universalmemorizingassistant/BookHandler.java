@@ -1,6 +1,7 @@
 package fl.wf.universalmemorizingassistant;
 
 import android.content.Context;
+import android.util.Log;
 
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
@@ -23,7 +24,7 @@ import static org.apache.poi.ss.usermodel.CellType.STRING;
  */
 
 class BookHandler {
-//    private static final String TAG = "FLWFBookAccessor";
+    private static final String TAG = "FLWFBookAccessor";
 
     static final int ANSWER_RIGHT = 1;
     static final int ANSWER_WRONG = -1;
@@ -234,5 +235,16 @@ class BookHandler {
         row.createCell(0).setCellValue(hint);
         row.createCell(1).setCellValue(answer);
         return workbook;
+    }
+
+    static String[] workbookToStrings(HSSFWorkbook wb) {
+        String[] rows;
+        HSSFSheet sheet = wb.getSheetAt(0);
+        int rowNum = sheet.getLastRowNum();
+        rows = new String[rowNum];
+        for (int i = 0; i < rowNum; i++) {
+            rows[i] = sheet.getRow(i + 1).getCell(0).getStringCellValue() + "\n" + sheet.getRow(i + 1).getCell(1).getStringCellValue();
+        }
+        return rows;
     }
 }

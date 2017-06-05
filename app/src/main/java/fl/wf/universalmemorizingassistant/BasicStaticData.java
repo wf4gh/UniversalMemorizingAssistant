@@ -14,7 +14,7 @@ import static android.os.Environment.getExternalStorageDirectory;
 final class BasicStaticData {
     private static final String appFolder = "/U_Memorizing";
     private static final String appBookDataFileName = "/BookData.xml";
-    static final String absAppFolderPath = getExternalStorageDirectory() + BasicStaticData.appFolder;
+    static final String absAppFolderPath = getExternalStorageDirectory() + appFolder;
     static final File appFolderFile = new File(getExternalStorageDirectory() + appFolder);
     static final File appBookDataFile = new File(getExternalStorageDirectory() + appFolder + appBookDataFileName);
 }
