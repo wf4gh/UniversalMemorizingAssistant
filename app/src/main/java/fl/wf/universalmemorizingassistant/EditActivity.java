@@ -1,12 +1,19 @@
 package fl.wf.universalmemorizingassistant;
 
+import android.annotation.SuppressLint;
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
@@ -19,6 +26,7 @@ public class EditActivity extends AppCompatActivity {
     File bookFile;
     int bookMaxTimes;
     ListView rowsListView;
+    String bookName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +47,7 @@ public class EditActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        String bookName = getIntent().getStringExtra("bookName");
+        bookName = getIntent().getStringExtra("bookName");
         String toShow = getString(R.string.text_present_editing_book) + bookName;
         presentEditTextView.setText(toShow);
 
@@ -77,5 +85,49 @@ public class EditActivity extends AppCompatActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void onAddClicked(View view) {
+
+        @SuppressLint("InflateParams") final View quickAddView = getLayoutInflater().inflate(R.layout.dialog_quick_add, null);
+        new AlertDialog.Builder(this)
+                .setTitle(R.string.dialog_title_add)
+                .setView(quickAddView)
+                .setPositiveButton(getString(R.string.dialog_button_add), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        EditText hintEditText = (EditText) quickAddView.findViewById(R.id.et_dialog_quick_add_hint);
+                        String hint = hintEditText.getText().toString();
+                        if (hint.equals("")) {
+                            Toast.makeText(EditActivity.this, getString(R.string.toast_hint_needed), Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        EditText answerEditText = (EditText) quickAddView.findViewById(R.id.et_dialog_quick_add_answer);
+                        String answer = answerEditText.getText().toString();
+                        if (answer.equals(""))
+                            answer = getString(R.string.sheet_no_data);
+//                                Log.d(TAG, "onClick: \nhint:" + hint + "\nans:" + answer);
+                        Book book = MyFileHandler.getBook(BasicStaticData.appBookDataFile, "/" + bookName);
+
+                        //think this is not likely to happen now...
+                        if (book == null) {
+//                            Log.e(TAG, "onClick: book Null!!!");
+                            book = new Book();
+                            book.setMaxTimes(5);
+                        }
+
+                        try {
+                            HSSFWorkbook wb = new BookHandler(getApplicationContext()).openAndValidateBook(bookFile, book.getMaxTimes());
+                            wb = new BookHandler(getApplicationContext()).addNewLineToWorkbook(wb, hint, answer, false);
+                            BookHandler.closeAndSaveBook(wb, bookFile);
+                            Toast.makeText(EditActivity.this, getString(R.string.toast_added), Toast.LENGTH_SHORT).show();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        updateList();
+                    }
+                })
+                .setNegativeButton(getString(R.string.dialog_button_cancel), null)
+                .show();
     }
 }

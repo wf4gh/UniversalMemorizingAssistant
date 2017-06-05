@@ -76,4 +76,5 @@
     <string name="button_save">Save</string>
     <string name="toast_present_book_set_complete">Present book updated!</string>
     <string name="text_present_editing_book">Present editing book:</string>
+    <string name="dialog_title_add">Add</string>
 </resources>

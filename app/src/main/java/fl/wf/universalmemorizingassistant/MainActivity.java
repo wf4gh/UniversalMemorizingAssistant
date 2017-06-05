@@ -129,6 +129,8 @@ public class MainActivity extends AppCompatActivity {
                                 }
                                 EditText answerEditText = (EditText) quickAddView.findViewById(R.id.et_dialog_quick_add_answer);
                                 String answer = answerEditText.getText().toString();
+                                if (answer.equals(""))
+                                    answer = getString(R.string.sheet_no_data);
 //                                Log.d(TAG, "onClick: \nhint:" + hint + "\nans:" + answer);
                                 Book book = MyFileHandler.getBook(BasicStaticData.appBookDataFile, "/" + presentBookName);
 
