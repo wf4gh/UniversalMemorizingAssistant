@@ -6,7 +6,6 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -127,6 +126,15 @@ public class EditActivity extends AppCompatActivity {
                         updateList();
                     }
                 })
+                .setNegativeButton(getString(R.string.dialog_button_cancel), null)
+                .show();
+    }
+
+    public void onDeleteClicked(View view) {
+        new AlertDialog.Builder(this)
+                .setTitle(R.string.dialog_title_delete)
+                .setMessage(R.string.dialog_message_delete_row)
+                .setPositiveButton(getString(R.string.dialog_button_delete), null)
                 .setNegativeButton(getString(R.string.dialog_button_cancel), null)
                 .show();
     }

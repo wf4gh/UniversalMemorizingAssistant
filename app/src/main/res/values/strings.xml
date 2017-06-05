@@ -34,7 +34,7 @@
     <string name="toast_create_failed">Failed to create</string>
     <string name="toast_book_need_name">Please enter the name of book!</string>
     <string name="dialog_title_delete">Delete Confirmation</string>
-    <string name="dialog_message_delete">Sure to delete?\nNotice that his will delete this file from your phone completely!</string>
+    <string name="dialog_message_delete_file">Sure to delete?\nNotice that his will delete this file from your phone completely!</string>
     <string name="dialog_button_delete">Sure, delete</string>
     <string name="toast_delete_fail">Fail to delete</string>
     <string name="toast_no_app_found_to_open">Can\'t find an app in your phone to open this file!</string>
@@ -77,4 +77,5 @@
     <string name="toast_present_book_set_complete">Present book updated!</string>
     <string name="text_present_editing_book">Present editing book:</string>
     <string name="dialog_title_add">Add</string>
+    <string name="dialog_message_delete_row">Sure to delete?\nNotice that his will delete this row from your book completely!</string>
 </resources>
