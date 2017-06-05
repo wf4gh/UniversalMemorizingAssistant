@@ -190,11 +190,15 @@ public class SettingsActivity extends AppCompatActivity {
                 .show();
     }
 
-    public void onSaveClicked(View view) {
+    public void onEditClicked(View view) {
         if (!isBookSelectedWithToast())
             return;
 
-        Intent intent=new Intent(this,EditActivity.class);
+        File fileToUpdate = bookFiles[booksListView.getCheckedItemPosition()];
+        String bookName = fileToUpdate.getName();
+
+        Intent intent = new Intent(this, EditActivity.class);
+        intent.putExtra("bookName", bookName);
         startActivity(intent);
 
 ////edit with a third-party program

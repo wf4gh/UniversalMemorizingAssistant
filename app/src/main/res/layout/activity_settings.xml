@@ -57,7 +57,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
-        android:onClick="onSaveClicked"
+        android:onClick="onEditClicked"
         android:text="@string/button_edit"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/bt_settings_config" />

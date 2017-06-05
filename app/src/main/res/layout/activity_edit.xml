@@ -25,7 +25,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="8dp"
-        android:text="@string/text_present_book"
+        android:text="@string/text_present_editing_book"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tb_edit" />
 
@@ -52,7 +52,7 @@
         app:layout_constraintTop_toBottomOf="@+id/bt_edit_add" />
 
     <Button
-        android:id="@+id/bt_settings_edit"
+        android:id="@+id/bt_edit_save"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
