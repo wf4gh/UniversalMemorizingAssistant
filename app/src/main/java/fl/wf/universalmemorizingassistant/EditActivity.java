@@ -134,7 +134,6 @@ public class EditActivity extends AppCompatActivity {
     }
 
     public void onDeleteClicked(View view) {
-
         if (!isBookSelectedWithToast())
             return;
 
@@ -155,6 +154,7 @@ public class EditActivity extends AppCompatActivity {
                             HSSFWorkbook wb = new BookHandler(getApplicationContext()).openAndValidateBook(bookFile, book.getMaxTimes());
                             wb = BookHandler.removeLineFromWorkbook(wb, position);
                             BookHandler.closeAndSaveBook(wb, bookFile);
+                            Toast.makeText(EditActivity.this, R.string.toast_deleted, Toast.LENGTH_SHORT).show();
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
