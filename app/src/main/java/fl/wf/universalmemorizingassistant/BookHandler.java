@@ -50,6 +50,20 @@ class BookHandler {
         this.times = context.getString(R.string.sheet_times);
     }
 
+    static HSSFWorkbook removeLineFromWorkbook(HSSFWorkbook wb, int lineIndex) {
+        HSSFSheet sheet = wb.getSheetAt(0);
+        int lastRowNum = sheet.getLastRowNum();
+        if (lastRowNum == lineIndex) {
+            sheet.removeRow(sheet.getRow(lastRowNum));
+            Log.d(TAG, "removeLineFromWorkbook: ");
+            return wb;
+        } else {
+            sheet.shiftRows(lineIndex + 1, lastRowNum, -1);
+            sheet.removeRow(sheet.getRow(lastRowNum));
+            return wb;
+        }
+    }
+
     //When the book is opened the first time,call this method to pre-process
     HSSFWorkbook openAndValidateBook(File bookFileToOpen, int maxTimes) throws IOException {
         FileInputStream fis = new FileInputStream(bookFileToOpen);

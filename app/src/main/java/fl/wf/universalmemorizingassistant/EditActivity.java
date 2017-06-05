@@ -6,6 +6,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -20,6 +21,8 @@ import java.io.File;
 import java.io.IOException;
 
 public class EditActivity extends AppCompatActivity {
+
+    private static final String TAG = "FLWFEditActivity";
 
     TextView presentEditTextView;
     File bookFile;
@@ -88,20 +91,20 @@ public class EditActivity extends AppCompatActivity {
 
     public void onAddClicked(View view) {
 
-        @SuppressLint("InflateParams") final View quickAddView = getLayoutInflater().inflate(R.layout.dialog_quick_add, null);
+        @SuppressLint("InflateParams") final View addView = getLayoutInflater().inflate(R.layout.dialog_quick_add, null);
         new AlertDialog.Builder(this)
                 .setTitle(R.string.dialog_title_add)
-                .setView(quickAddView)
+                .setView(addView)
                 .setPositiveButton(getString(R.string.dialog_button_add), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        EditText hintEditText = (EditText) quickAddView.findViewById(R.id.et_dialog_quick_add_hint);
+                        EditText hintEditText = (EditText) addView.findViewById(R.id.et_dialog_quick_add_hint);
                         String hint = hintEditText.getText().toString();
                         if (hint.equals("")) {
                             Toast.makeText(EditActivity.this, getString(R.string.toast_hint_needed), Toast.LENGTH_SHORT).show();
                             return;
                         }
-                        EditText answerEditText = (EditText) quickAddView.findViewById(R.id.et_dialog_quick_add_answer);
+                        EditText answerEditText = (EditText) addView.findViewById(R.id.et_dialog_quick_add_answer);
                         String answer = answerEditText.getText().toString();
                         if (answer.equals(""))
                             answer = getString(R.string.sheet_no_data);
@@ -131,11 +134,41 @@ public class EditActivity extends AppCompatActivity {
     }
 
     public void onDeleteClicked(View view) {
+
+        if (!isBookSelectedWithToast())
+            return;
+
+        Log.d(TAG, "onDeleteClicked: CheckedItemPosition:" + rowsListView.getCheckedItemPosition());
         new AlertDialog.Builder(this)
                 .setTitle(R.string.dialog_title_delete)
                 .setMessage(R.string.dialog_message_delete_row)
-                .setPositiveButton(getString(R.string.dialog_button_delete), null)
+                .setPositiveButton(getString(R.string.dialog_button_delete), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        int position = rowsListView.getCheckedItemPosition() + 1;
+                        Book book = MyFileHandler.getBook(BasicStaticData.appBookDataFile, "/" + bookName);
+                        if (book == null) {
+                            book = new Book();
+                            book.setMaxTimes(5);
+                        }
+                        try {
+                            HSSFWorkbook wb = new BookHandler(getApplicationContext()).openAndValidateBook(bookFile, book.getMaxTimes());
+                            wb = BookHandler.removeLineFromWorkbook(wb, position);
+                            BookHandler.closeAndSaveBook(wb, bookFile);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        updateList();
+                    }
+                })
                 .setNegativeButton(getString(R.string.dialog_button_cancel), null)
                 .show();
+    }
+
+    boolean isBookSelectedWithToast() {
+        if (rowsListView.getCheckedItemPosition() == -1) {
+            Toast.makeText(this, R.string.toast_need_choose_line, Toast.LENGTH_SHORT).show();
+            return false;
+        } else return true;
     }
 }

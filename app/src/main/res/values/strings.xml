@@ -78,4 +78,5 @@
     <string name="text_present_editing_book">Present editing book:</string>
     <string name="dialog_title_add">Add</string>
     <string name="dialog_message_delete_row">Sure to delete?\nNotice that his will delete this row from your book completely!</string>
+    <string name="toast_need_choose_line">Please choose a line first!</string>
 </resources>
