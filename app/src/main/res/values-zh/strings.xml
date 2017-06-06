@@ -81,4 +81,5 @@
     <string name="dialog_message_delete_row">确认删除？\n注意，该行将从词句书中完全移除！</string>
     <string name="toast_need_choose_line">请选择要删除的内容！</string>
     <string name="toast_deleted">已删除！</string>
+    <string name="text_left_times">该条目剩余记忆次数：</string>
 </resources>

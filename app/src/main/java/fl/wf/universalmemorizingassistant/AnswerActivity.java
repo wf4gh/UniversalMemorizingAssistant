@@ -45,6 +45,7 @@ public class AnswerActivity extends AppCompatActivity {
     TextView answerTextView;
     EditText answerEditText;
     Intent settingsActivityIntent;
+    TextView leftTimesTextView;
 
 
     @Override
@@ -68,6 +69,7 @@ public class AnswerActivity extends AppCompatActivity {
         hintTextView = (TextView) findViewById(R.id.tv_ans_hint);
         answerEditText = (EditText) findViewById(R.id.et_ans_ans);
         answerTextView = (TextView) findViewById(R.id.tv_ans_answer);
+        leftTimesTextView = (TextView) findViewById(R.id.tv_ans_left_times);
 
         // TODO: 2017/5/15 (IUV) find a chart api,add it
     }
@@ -184,10 +186,13 @@ public class AnswerActivity extends AppCompatActivity {
         HSSFRow row = wb.getSheetAt(0).getRow(bookIndex);
         String hint = row.getCell(0).getStringCellValue();
         String ans = row.getCell(1).getStringCellValue();
+        int leftTimes = (int) row.getCell(2).getNumericCellValue();
         hint = getString(R.string.hint) + "\n" + hint;
         ans = getString(R.string.answer) + "\n" + ans;
+        String leftTimesString = getString(R.string.text_left_times)+ leftTimes;
         hintTextView.setText(hint);
         answerTextView.setText(ans);
+        leftTimesTextView.setText(leftTimesString);
     }
 
     @Override
