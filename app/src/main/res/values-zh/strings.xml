@@ -84,4 +84,10 @@
     <string name="text_left_times">该条目剩余记忆次数：</string>
     <string name="text_fetch_fail">获取失败</string>
     <string name="text_version">版本：</string>
+    <string name="button_generate_example">生成示例文件</string>
+    <string name="name_example">示例.xls</string>
+    <string name="sheet_ans_word">呵呵</string>
+    <string name="sheet_hint_word">interesting</string>
+    <string name="toast_example_exists">示例文件已存在！</string>
+    <string name="toast_example_generated">示例文件生成成功！</string>
 </resources>

@@ -33,16 +33,4 @@ public class SplashActivity extends AppCompatActivity {
             }
         }, 1000);
     }
-
-    void setPresentBook(String bookNameToSet) {
-        SharedPreferences presentBook = getSharedPreferences("presentBook", MODE_PRIVATE);
-        SharedPreferences.Editor editor = presentBook.edit();
-        editor.putString("presentBook", bookNameToSet);
-        editor.apply();
-    }
-
-    String getPresentBook() {
-        SharedPreferences presentBook = getSharedPreferences("presentBook", MODE_PRIVATE);
-        return presentBook.getString("presentBook", getString(R.string.present_book_undefined));
-    }
 }
