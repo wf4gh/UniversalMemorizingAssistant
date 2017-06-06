@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="8dp"
+    android:orientation="vertical"
+    tools:context="fl.wf.universalmemorizingassistant.HelpActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:textSize="16sp"
+        android:text="text_about:
+
+Current Version:
+Contact:
+
+
+
+introduction:
+
+//basic introduction
+
+
+
+
+If you are an experienced computer/phone user and familiar with this kind of apps, the content
+above will be enough for you to use this app. If not or you are interested in more details, you can
+continue reading the content below.
+
+
+
+
+Universal Memorizing Assisstant is an app that helps you to memorize things, you can use it in many
+conditions that concerning memorizing, like learing a second language, memorizing answers to
+questions and so on. Here is some of its usage:
+//PIC//
+
+The biggest difference between this app and other word/sentense-memorizing app is this app allows
+you to custom your reciting content completely. This may be quite useful in some specific
+conditions, for example:
+
+When learing some words/sentenses of a second language that you can't easily find in a dictionary:
+//////
+Or you just want to custom your own dictionary:
+//////
+about the file:
+This app use the .xls flie as a storage to store your data to memorize (sorry that .xlsx is not
+supported yet), each file is called a 'book' in this app, represent a book you will memorize.
+You can edit your .xls file in your PC and use it in your phone, through this app, which I think is
+the most convenient way to make your own book and use it.
+//////
+Of course you can also edit your book through this app:
+//////
+A folder named U_Memorizing will be created in your phone storage in the root dictionary, and all
+the .xls files in this folder will be scaned as books to use. So when you have created a book file
+in your PC and want to use it in this app, move it into this folder. And if you want to backup your
+books, back up this folder.
+"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

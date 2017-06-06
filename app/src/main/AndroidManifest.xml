@@ -33,6 +33,7 @@
         <activity android:name=".SettingsActivity" />
         <activity android:name=".EditActivity" />
         <activity android:name=".MainActivity" />
+        <activity android:name=".HelpActivity"></activity>
     </application>
 
 </manifest>

@@ -154,12 +154,13 @@ public class MainActivity extends AppCompatActivity {
                         .setNegativeButton(getString(R.string.dialog_button_cancel), null)
                         .show();
                 break;
-            // TODO: 2017/5/27   complete these help and about here
-            case R.id.menu_help:
-                Toast.makeText(this, "Help!", Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.menu_about:
 
+            case R.id.menu_help:
+                Intent intent = new Intent(this, HelpActivity.class);
+                startActivity(intent);
+                break;
+
+            case R.id.menu_about:
                 String versionName = getString(R.string.text_version);
                 try {
                     versionName = versionName + getApplicationContext().getPackageManager().getPackageInfo(getApplicationContext().getPackageName(), 0).versionName;
@@ -167,7 +168,6 @@ public class MainActivity extends AppCompatActivity {
                     e.printStackTrace();
                     versionName = versionName + getString(R.string.text_fetch_fail);
                 }
-
                 new AlertDialog.Builder(this)
                         .setTitle(getString(R.string.menu_about))
                         .setMessage(getString(R.string.app_name) + "\n" + versionName + "\n")
