@@ -159,7 +159,20 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(this, "Help!", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.menu_about:
-                Toast.makeText(this, "About!", Toast.LENGTH_SHORT).show();
+
+                String versionName = getString(R.string.text_version);
+                try {
+                    versionName = versionName + getApplicationContext().getPackageManager().getPackageInfo(getApplicationContext().getPackageName(), 0).versionName;
+                } catch (PackageManager.NameNotFoundException e) {
+                    e.printStackTrace();
+                    versionName = versionName + getString(R.string.text_fetch_fail);
+                }
+
+                new AlertDialog.Builder(this)
+                        .setTitle(getString(R.string.menu_about))
+                        .setMessage(getString(R.string.app_name) + "\n" + versionName + "\n")
+//                        .setPositiveButton(getString(R.string.dialog_button_ok), null)
+                        .show();
                 break;
         }
         return super.onOptionsItemSelected(item);

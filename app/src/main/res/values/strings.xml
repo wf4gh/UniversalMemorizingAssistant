@@ -81,4 +81,6 @@
     <string name="toast_need_choose_line">Please choose a line first!</string>
     <string name="toast_deleted">Deleted!</string>
     <string name="text_left_times">Left memorizing times of this item:</string>
+    <string name="text_version">Version:</string>
+    <string name="text_fetch_fail">Fetch failed</string>
 </resources>
