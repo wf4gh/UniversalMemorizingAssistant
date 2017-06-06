@@ -50,7 +50,7 @@ public class EditActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         bookName = getIntent().getStringExtra("bookName");
-        String toShow = getString(R.string.text_present_editing_book) + bookName;
+        String toShow = bookName + ":";
         presentEditTextView.setText(toShow);
 
         String bookPath = BasicStaticData.absAppFolderPath + "/" + bookName;

@@ -50,7 +50,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="8dp"
-        android:text="@string/text_present_editing_book"
+        android:text=""
         app:layout_constraintBaseline_toBaselineOf="@id/bt_edit_delete"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tb_edit" />

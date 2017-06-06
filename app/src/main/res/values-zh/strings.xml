@@ -76,7 +76,6 @@
     <string name="button_save">保存</string>
     <string name="title_edit">编辑</string>
     <string name="toast_present_book_set_complete">设置当前词句书成功！</string>
-    <string name="text_present_editing_book">当前编辑：</string>
     <string name="dialog_title_add">添加</string>
     <string name="dialog_message_delete_row">确认删除？\n注意，该行将从词句书中完全移除！</string>
     <string name="toast_need_choose_line">请选择要删除的内容！</string>
@@ -91,6 +90,6 @@
     <string name="toast_example_exists">示例文件已存在！</string>
     <string name="toast_example_generated">示例文件生成成功！</string>
     <string name="sheet_hint_question">第二次世界大战爆发于哪一年？</string>
-    <string name="sheet_hint_sentense">粽子是甜的。</string>
-    <string name="sheet_ans_sentense">Rice dumpling tastes sweet.</string>
+    <string name="sheet_hint_sentence">粽子是甜的。</string>
+    <string name="sheet_ans_sentence">Rice dumpling tastes sweet.</string>
 </resources>

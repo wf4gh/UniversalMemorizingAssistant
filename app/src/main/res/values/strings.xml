@@ -75,7 +75,6 @@
     <string name="button_delete">Delete</string>
     <string name="button_save">Save</string>
     <string name="toast_present_book_set_complete">Present book updated!</string>
-    <string name="text_present_editing_book">Present editing book:</string>
     <string name="dialog_title_add">Add</string>
     <string name="dialog_message_delete_row">Sure to delete?\nNotice that his will delete this row from your book completely!</string>
     <string name="toast_need_choose_line">Please choose a line first!</string>
@@ -89,8 +88,8 @@
     <string name="toast_example_generated">Example file generated!</string>
     <string name="sheet_hint_word">呵呵</string>
     <string name="sheet_ans_word">interesting</string>
-    <string name="sheet_hint_sentense">Rice dumpling tastes sweet.</string>
-    <string name="sheet_ans_sentense">粽子是甜的。</string>
+    <string name="sheet_hint_sentence">Rice dumpling tastes sweet.</string>
+    <string name="sheet_ans_sentence">粽子是甜的。</string>
     <string name="sheet_hint_question">In which year did The World War II break out?</string>
     <string name="sheet_hint_answer" translatable="false">1939</string>
 </resources>

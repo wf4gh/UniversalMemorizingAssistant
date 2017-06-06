@@ -81,9 +81,9 @@ public class MainActivity extends AppCompatActivity {
             length = bookFiles.length;
         else
             length = 0;
-        String line1 = line1L + length + line1R;
+        String line1 = line1L + " " + length + " " + line1R;
 
-        String line2 = line2L + getPresentBook();
+        String line2 = line2L + " " + getPresentBook();
 
         return line1 + "\n\n" + line2;
     }

@@ -10,11 +10,7 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Locale;
-
-import static android.R.attr.name;
-import static fl.wf.universalmemorizingassistant.MyFileHandler.createNewFile;
 
 public class HelpActivity extends AppCompatActivity {
 
@@ -56,7 +52,7 @@ public class HelpActivity extends AppCompatActivity {
                     BookHandler bookHandler = new BookHandler(getApplicationContext());
                     wb = bookHandler.createWorkbookWithTitle();
                     wb = bookHandler.addNewLineToWorkbook(wb, getString(R.string.sheet_hint_word), getString(R.string.sheet_ans_word), false);
-                    wb = bookHandler.addNewLineToWorkbook(wb, getString(R.string.sheet_hint_sentense), getString(R.string.sheet_ans_sentense), false);
+                    wb = bookHandler.addNewLineToWorkbook(wb, getString(R.string.sheet_hint_sentence), getString(R.string.sheet_ans_sentence), false);
                     if (language.equals("zh"))
                         wb = bookHandler.addNewLineToWorkbook(wb, "normal map", "法线贴图", false);
                     wb = bookHandler.addNewLineToWorkbook(wb, getString(R.string.sheet_hint_question), getString(R.string.sheet_hint_answer), false);

@@ -75,7 +75,7 @@ public class AnswerActivity extends AppCompatActivity {
     }
 
     String getTextToShow() {
-        return getString(R.string.text_present_book) + getPresentBook();
+        return getString(R.string.text_present_book) + " " + getPresentBook();
     }
 
     @Override
@@ -189,7 +189,7 @@ public class AnswerActivity extends AppCompatActivity {
         int leftTimes = (int) row.getCell(2).getNumericCellValue();
         hint = getString(R.string.hint) + "\n" + hint;
         ans = getString(R.string.answer) + "\n" + ans;
-        String leftTimesString = getString(R.string.text_left_times)+ leftTimes;
+        String leftTimesString = getString(R.string.text_left_times) + " " + leftTimes;
         hintTextView.setText(hint);
         answerTextView.setText(ans);
         leftTimesTextView.setText(leftTimesString);

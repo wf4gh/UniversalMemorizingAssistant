@@ -70,7 +70,7 @@ public class SettingsActivity extends AppCompatActivity {
         bookNames = MyFileHandler.filesToStrings(bookFiles);
 
         booksListView.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_single_choice, bookNames));
-        presentBookTextView.setText(getString(R.string.text_present_book) + getPresentBook() + "\n\n" + getString(R.string.text_available_book));
+        presentBookTextView.setText(getString(R.string.text_present_book) + " " + getPresentBook() + "\n\n" + getString(R.string.text_available_book));
     }
 
     void setPresentBook(String bookNameToSet) {
