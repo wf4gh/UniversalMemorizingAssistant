@@ -90,4 +90,7 @@
     <string name="sheet_hint_word">interesting</string>
     <string name="toast_example_exists">示例文件已存在！</string>
     <string name="toast_example_generated">示例文件生成成功！</string>
+    <string name="sheet_hint_question">第二次世界大战爆发于哪一年？</string>
+    <string name="sheet_hint_sentense">粽子是甜的。</string>
+    <string name="sheet_ans_sentense">Rice dumpling tastes sweet.</string>
 </resources>

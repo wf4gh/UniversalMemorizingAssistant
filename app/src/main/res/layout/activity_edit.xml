@@ -20,48 +20,40 @@
 
     </android.support.v7.widget.Toolbar>
 
+
+    <Button
+        android:id="@+id/bt_edit_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="4dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginTop="4dp"
+        android:onClick="onDeleteClicked"
+        android:text="@string/button_delete"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tb_edit" />
+
+    <Button
+        android:id="@+id/bt_edit_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="4dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginTop="4dp"
+        android:onClick="onAddClicked"
+        android:text="@string/button_add"
+        app:layout_constraintRight_toLeftOf="@id/bt_edit_delete"
+        app:layout_constraintTop_toBottomOf="@id/tb_edit" />
+
     <TextView
         android:id="@+id/tv_edit_present_book"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="8dp"
         android:text="@string/text_present_editing_book"
+        app:layout_constraintBaseline_toBaselineOf="@id/bt_edit_delete"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tb_edit" />
-
-    <Button
-        android:id="@+id/bt_edit_add"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:onClick="onAddClicked"
-        android:text="@string/button_add"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_edit_present_book" />
-
-    <Button
-        android:id="@+id/bt_edit_delete"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:onClick="onDeleteClicked"
-        android:text="@string/button_delete"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bt_edit_add" />
-
-    <!--<Button-->
-        <!--android:id="@+id/bt_edit_save"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginEnd="8dp"-->
-        <!--android:layout_marginRight="8dp"-->
-        <!--android:onClick="onSaveClicked"-->
-        <!--android:text="@string/button_save"-->
-        <!--app:layout_constraintRight_toRightOf="parent"-->
-        <!--app:layout_constraintTop_toBottomOf="@id/bt_edit_delete" />-->
-
 
     <ListView
         android:id="@+id/lv_edit_rows"
@@ -75,8 +67,8 @@
         android:paddingStart="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/bt_edit_add"
-        app:layout_constraintTop_toBottomOf="@id/tv_edit_present_book">
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/bt_edit_add">
 
     </ListView>
 

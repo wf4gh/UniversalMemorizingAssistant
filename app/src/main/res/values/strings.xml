@@ -89,4 +89,8 @@
     <string name="toast_example_generated">Example file generated!</string>
     <string name="sheet_hint_word">呵呵</string>
     <string name="sheet_ans_word">interesting</string>
+    <string name="sheet_hint_sentense">Rice dumpling tastes sweet.</string>
+    <string name="sheet_ans_sentense">粽子是甜的。</string>
+    <string name="sheet_hint_question">In which year did The World War II break out?</string>
+    <string name="sheet_hint_answer" translatable="false">1939</string>
 </resources>

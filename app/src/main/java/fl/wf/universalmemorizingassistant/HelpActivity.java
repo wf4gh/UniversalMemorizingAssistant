@@ -56,8 +56,13 @@ public class HelpActivity extends AppCompatActivity {
                     BookHandler bookHandler = new BookHandler(getApplicationContext());
                     wb = bookHandler.createWorkbookWithTitle();
                     wb = bookHandler.addNewLineToWorkbook(wb, getString(R.string.sheet_hint_word), getString(R.string.sheet_ans_word), false);
-                    wb = bookHandler.addNewLineToWorkbook(wb, "", "", false);
-                    // TODO: 2017/6/6  add lines here
+                    wb = bookHandler.addNewLineToWorkbook(wb, getString(R.string.sheet_hint_sentense), getString(R.string.sheet_ans_sentense), false);
+                    if (language.equals("zh"))
+                        wb = bookHandler.addNewLineToWorkbook(wb, "normal map", "法线贴图", false);
+                    wb = bookHandler.addNewLineToWorkbook(wb, getString(R.string.sheet_hint_question), getString(R.string.sheet_hint_answer), false);
+                    // TODO: 2017/6/6  a poem from tagore?
+                    //wb = bookHandler.addNewLineToWorkbook(wb, "", "", false);
+
                     BookHandler.closeAndSaveBook(wb, exampleFile);
                 } catch (IOException e) {
                     e.printStackTrace();
