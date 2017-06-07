@@ -92,6 +92,25 @@
     <string name="sheet_ans_sentence">粽子是甜的。</string>
     <string name="sheet_hint_question">In which year did The World War II break out?</string>
     <string name="sheet_hint_answer" translatable="false">1939</string>
-    <string name="manual_title">Universal Memorizing Assistant Manual</string>
-    <string name="brief_introduction">Brief introduction:</string>
+    <string name="manual_title">Universal Memorizing Assistant Manual\n</string>
+    <string name="manual_brief_introduction">Brief introduction:</string>
+    <string name="manual_text_1">
+        \n\u3000\u3000 Universal Memorizing Assistant is an app that helps you to memorize things.\n\n\u3000\u3000
+        It will create a folder named U_Memorizing in the root dictionary of your phone storage,
+        and use .xls files as books for storing your memorizing content.\n\n\u3000\u3000
+        You can create, delete and edit your book files through either your phone or your PC.\n\n\u3000\u3000
+        An example file has been generated for you to understand how to use this app. You can always regenerate it by clicking this button:
+    </string>
+    <string name="manual_text_2">
+        \u3000\u3000 If you are an experienced computer/phone user and familiar with this kind of apps,
+        the content above will be enough for you to use this app.\n\n\u3000\u3000
+        If not or you are interested in more details, you can continue reading the content below.
+    </string>
+    <string name="manual_feature">\nFeature:</string>
+    <string name="manual_text_3">
+        \u3000\u3000 Universal Memorizing Assistant is an app that you can use it in many conditions concerning memorizing,
+        like learning a second language, memorizing answers to questions and so on. \n\n\u3000\u3000
+        Here is some of its usage:\n\n\u3000\u3000
+         - Memorizing words that are not likely to find in a dictionary:
+    </string>
 </resources>

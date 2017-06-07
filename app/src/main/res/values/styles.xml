@@ -17,7 +17,9 @@
         <item name="colorPrimaryDark">@android:color/background_dark</item>
         <item name="colorAccent">@android:color/primary_text_dark</item>
         <item name="overlapAnchor">false</item>
-        <item name="android:navigationBarColor" tools:targetApi="lollipop">@android:color/black</item>
+        <item name="android:navigationBarColor" tools:targetApi="lollipop">@android:color/black
+        </item>
+        <item name="android:textAllCaps">false</item>
     </style>
 
     <style name="ToolBar" parent="AppTheme">
