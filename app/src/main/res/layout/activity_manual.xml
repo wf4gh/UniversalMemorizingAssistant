@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:scrollbars="vertical"
+    android:background="#444444"
     tools:context="fl.wf.universalmemorizingassistant.ManualActivity">
 
     <LinearLayout
@@ -53,5 +54,38 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/manual_text_3" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:adjustViewBounds="true"
+                android:paddingLeft="8dp"
+                android:paddingStart="8dp"
+                android:paddingRight="2dp"
+                android:paddingEnd="2dp"
+                android:src="@drawable/word_1" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:adjustViewBounds="true"
+                android:paddingLeft="2dp"
+                android:paddingStart="2dp"
+                android:paddingRight="8dp"
+                android:paddingEnd="8dp"
+                android:src="@drawable/word_2" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/manual_text_4" />
     </LinearLayout>
 </ScrollView>

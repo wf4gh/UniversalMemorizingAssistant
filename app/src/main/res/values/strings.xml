@@ -108,9 +108,12 @@
     </string>
     <string name="manual_feature">\nFeature:</string>
     <string name="manual_text_3">
-        \u3000\u3000 Universal Memorizing Assistant is an app that you can use it in many conditions concerning memorizing,
+        \n\u3000\u3000 Universal Memorizing Assistant is an app that you can use it in many conditions concerning memorizing,
         like learning a second language, memorizing answers to questions and so on. \n\n\u3000\u3000
-        Here is some of its usage:\n\n\u3000\u3000
-         - Memorizing words that are not likely to find in a dictionary:
+        Here is some of its usage:\n\n
+        \u3000\u3000 - Memorizing words that are not likely to find in a dictionary:
+    </string>
+    <string name="manual_text_4" >
+         \u3000\u3000 - Memorizing sentences that you want to use as motto:
     </string>
 </resources>
