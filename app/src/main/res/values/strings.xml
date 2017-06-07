@@ -21,7 +21,7 @@
     <string name="answer">Answer:</string>
     <string name="menu_quick_add">Quick add</string>
     <string name="menu_options">Options</string>
-    <string name="menu_help">Help</string>
+    <string name="menu_manual">Manual</string>
     <string name="menu_about">About</string>
     <string name="text_present_book">Present book:</string>
     <string name="text_available_book">Available books:</string>
@@ -92,4 +92,6 @@
     <string name="sheet_ans_sentence">粽子是甜的。</string>
     <string name="sheet_hint_question">In which year did The World War II break out?</string>
     <string name="sheet_hint_answer" translatable="false">1939</string>
+    <string name="manual_title">Universal Memorizing Assistant Manual</string>
+    <string name="brief_introduction">Brief introduction:</string>
 </resources>

@@ -22,7 +22,7 @@
     <string name="answer">答案：</string>
     <string name="menu_quick_add">快速添加</string>
     <string name="menu_options">选项</string>
-    <string name="menu_help">说明</string>
+    <string name="menu_manual">说明</string>
     <string name="menu_about">关于</string>
     <string name="text_present_book">当前使用词句书：</string>
     <string name="text_available_book">可用词句书：</string>

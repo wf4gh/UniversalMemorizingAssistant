@@ -12,7 +12,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Locale;
 
-public class HelpActivity extends AppCompatActivity {
+public class ManualActivity extends AppCompatActivity {
 
     private static final String TAG = "FLWFHelpActivity";
 
@@ -27,7 +27,7 @@ public class HelpActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_help);
+        setContentView(R.layout.activity_manual);
 
         language = Locale.getDefault().getLanguage();
 

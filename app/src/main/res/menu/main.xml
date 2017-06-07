@@ -16,9 +16,9 @@
         app:showAsAction="ifRoom">
         <menu>
             <item
-                android:id="@+id/menu_help"
+                android:id="@+id/menu_manual"
                 android:orderInCategory="200"
-                android:title="@string/menu_help"
+                android:title="@string/menu_manual"
                 app:showAsAction="ifRoom" />
 
             <!--<item-->

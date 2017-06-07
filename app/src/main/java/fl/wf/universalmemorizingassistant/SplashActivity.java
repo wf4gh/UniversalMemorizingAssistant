@@ -26,7 +26,7 @@ public class SplashActivity extends AppCompatActivity {
                     editor.putBoolean("isFirstRun", false);
                     editor.apply();
 
-                    Intent helpIntent = new Intent(SplashActivity.this, HelpActivity.class);
+                    Intent helpIntent = new Intent(SplashActivity.this, ManualActivity.class);
                     startActivity(helpIntent);
                 }
                 finish();

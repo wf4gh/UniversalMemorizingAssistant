@@ -33,7 +33,7 @@
         <activity android:name=".SettingsActivity" />
         <activity android:name=".EditActivity" />
         <activity android:name=".MainActivity" />
-        <activity android:name=".HelpActivity"></activity>
+        <activity android:name=".ManualActivity"></activity>
     </application>
 
 </manifest>

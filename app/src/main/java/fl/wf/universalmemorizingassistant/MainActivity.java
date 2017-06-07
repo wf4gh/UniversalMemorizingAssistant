@@ -155,8 +155,8 @@ public class MainActivity extends AppCompatActivity {
                         .show();
                 break;
 
-            case R.id.menu_help:
-                Intent intent = new Intent(this, HelpActivity.class);
+            case R.id.menu_manual:
+                Intent intent = new Intent(this, ManualActivity.class);
                 startActivity(intent);
                 break;
 

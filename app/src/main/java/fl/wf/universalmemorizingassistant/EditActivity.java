@@ -76,7 +76,8 @@ public class EditActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         if (rows != null)
-            rowsListView.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_single_choice, rows));
+//            rowsListView.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_single_choice, rows));
+            rowsListView.setAdapter(new ArrayAdapter<>(this, R.layout.list_item_rows, rows));
     }
 
     @Override
