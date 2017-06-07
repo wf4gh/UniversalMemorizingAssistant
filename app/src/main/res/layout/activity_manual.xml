@@ -194,5 +194,51 @@
             android:layout_width="wrap_content"
             android:text="@string/manual_text_7"
             android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/manual_files"
+            android:textColor="@android:color/white"
+            android:textSize="15sp" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="@string/manual_text_8"
+            android:layout_height="wrap_content" />
+
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/text_image"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"
+            android:src="@drawable/pc_edit" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="@string/manual_text_9"
+            android:layout_height="wrap_content" />
+
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/text_image"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"
+            android:src="@drawable/edit" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="@string/manual_text_10"
+            android:layout_height="wrap_content" />
+
     </LinearLayout>
 </ScrollView>

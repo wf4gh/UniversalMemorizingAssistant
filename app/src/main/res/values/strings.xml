@@ -114,15 +114,31 @@
         Here is some of its usage:\n\n
         \u3000\u3000 - Memorizing words that are not likely to find in a dictionary:\n
     </string>
-    <string name="manual_text_4" >
+    <string name="manual_text_4">
          \n\u3000\u3000 - Memorizing sentences that you want to use as motto:\n
     </string>
     <string name="manual_text_5">
          \n\u3000\u3000 - Memorizing answers to questions:\n
     </string>
     <string name="manual_text_7">
-        The biggest difference between this app and other word/sentence-memorizing app is in this app you
-will custom your memorizing content completely. This may be quite useful when you are about to
-memorizing a lot of items that created by yourself.
+        \n\u3000\u3000 The biggest difference between this app and other word/sentence-memorizing app is that
+        in this app you will custom your memorizing content completely.\n\n
+        \u3000\u3000 This may be quite useful when you are about to memorizing a lot of items that created by yourself.
+    </string>
+    <string name="manual_files">\nAbout files:</string>
+    <string name="manual_text_8">
+        \n\u3000\u3000 This app use the .xls file as a storage to store your data to memorize (sorry that .xlsx is not supported yet),
+        each file is called a \'book\' in this app, represent a book you will memorize.\n
+        \n\u3000\u3000 You can edit your .xls file in your PC and use it in your phone, through this app,
+        which I think is the most convenient way to make your own book and use it:\n
+    </string>
+    <string name="manual_text_9">
+        \n\u3000\u3000 while you can also edit your book through this app:\n
+    </string>
+    <string name="manual_text_10">
+        \n\u3000\u3000 A folder named U_Memorizing will be created in your phone storage in the root dictionary, and all
+the .xls files in this folder will be scanned as books to use. So when you have created a book file
+in your PC and want to use it in this app, move it into this folder. And if you want to backup your
+books, back up this folder.\n
     </string>
 </resources>
