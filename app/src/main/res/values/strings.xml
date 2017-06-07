@@ -92,6 +92,7 @@
     <string name="sheet_ans_sentence">粽子是甜的。</string>
     <string name="sheet_hint_question">In which year did The World War II break out?</string>
     <string name="sheet_hint_answer" translatable="false">1939</string>
+    <string name="text_image">Image</string>
     <string name="manual_title">Universal Memorizing Assistant Manual\n</string>
     <string name="manual_brief_introduction">Brief introduction:</string>
     <string name="manual_text_1">
@@ -111,9 +112,17 @@
         \n\u3000\u3000 Universal Memorizing Assistant is an app that you can use it in many conditions concerning memorizing,
         like learning a second language, memorizing answers to questions and so on. \n\n\u3000\u3000
         Here is some of its usage:\n\n
-        \u3000\u3000 - Memorizing words that are not likely to find in a dictionary:
+        \u3000\u3000 - Memorizing words that are not likely to find in a dictionary:\n
     </string>
     <string name="manual_text_4" >
-         \u3000\u3000 - Memorizing sentences that you want to use as motto:
+         \n\u3000\u3000 - Memorizing sentences that you want to use as motto:\n
+    </string>
+    <string name="manual_text_5">
+         \n\u3000\u3000 - Memorizing answers to questions:\n
+    </string>
+    <string name="manual_text_7">
+        The biggest difference between this app and other word/sentence-memorizing app is in this app you
+will custom your memorizing content completely. This may be quite useful when you are about to
+memorizing a lot of items that created by yourself.
     </string>
 </resources>

@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:scrollbars="vertical"
     android:background="#444444"
+    android:scrollbars="vertical"
     tools:context="fl.wf.universalmemorizingassistant.ManualActivity">
 
     <LinearLayout
@@ -65,10 +65,11 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:adjustViewBounds="true"
-                android:paddingLeft="8dp"
-                android:paddingStart="8dp"
-                android:paddingRight="2dp"
+                android:contentDescription="@string/text_image"
                 android:paddingEnd="2dp"
+                android:paddingLeft="4dp"
+                android:paddingRight="2dp"
+                android:paddingStart="4dp"
                 android:src="@drawable/word_1" />
 
             <ImageView
@@ -76,10 +77,11 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:adjustViewBounds="true"
+                android:contentDescription="@string/text_image"
+                android:paddingEnd="4dp"
                 android:paddingLeft="2dp"
+                android:paddingRight="4dp"
                 android:paddingStart="2dp"
-                android:paddingRight="8dp"
-                android:paddingEnd="8dp"
                 android:src="@drawable/word_2" />
         </LinearLayout>
 
@@ -87,5 +89,110 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/manual_text_4" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:adjustViewBounds="true"
+                android:contentDescription="@string/text_image"
+                android:paddingEnd="2dp"
+                android:paddingLeft="4dp"
+                android:paddingRight="2dp"
+                android:paddingStart="4dp"
+                android:src="@drawable/sen_1" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:adjustViewBounds="true"
+                android:contentDescription="@string/text_image"
+                android:paddingEnd="4dp"
+                android:paddingLeft="2dp"
+                android:paddingRight="4dp"
+                android:paddingStart="2dp"
+                android:src="@drawable/sen_2" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/manual_text_5" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:adjustViewBounds="true"
+                android:contentDescription="@string/text_image"
+                android:paddingEnd="2dp"
+                android:paddingLeft="4dp"
+                android:paddingRight="2dp"
+                android:paddingStart="4dp"
+                android:src="@drawable/que_1" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:adjustViewBounds="true"
+                android:contentDescription="@string/text_image"
+                android:paddingEnd="4dp"
+                android:paddingLeft="2dp"
+                android:paddingRight="4dp"
+                android:paddingStart="2dp"
+                android:src="@drawable/que_2" />
+        </LinearLayout>
+
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:text="@string/manual_text_6"-->
+            <!--android:layout_height="wrap_content" />-->
+
+        <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:orientation="horizontal">-->
+
+            <!--<ImageView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_weight="1"-->
+                <!--android:adjustViewBounds="true"-->
+                <!--android:contentDescription="@string/text_image"-->
+                <!--android:paddingEnd="2dp"-->
+                <!--android:paddingLeft="4dp"-->
+                <!--android:paddingRight="2dp"-->
+                <!--android:paddingStart="4dp"-->
+                <!--android:src="@drawable/term_1" />-->
+
+            <!--<ImageView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_weight="1"-->
+                <!--android:adjustViewBounds="true"-->
+                <!--android:contentDescription="@string/text_image"-->
+                <!--android:paddingEnd="4dp"-->
+                <!--android:paddingLeft="2dp"-->
+                <!--android:paddingRight="4dp"-->
+                <!--android:paddingStart="2dp"-->
+                <!--android:src="@drawable/term_2" />-->
+        <!--</LinearLayout>-->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="@string/manual_text_7"
+            android:layout_height="wrap_content" />
     </LinearLayout>
 </ScrollView>

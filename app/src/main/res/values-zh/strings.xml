@@ -94,6 +94,7 @@
     <string name="sheet_ans_sentence">Rice dumpling tastes sweet.</string>
     <string name="manual_brief_introduction">简介：</string>
     <string name="manual_title">通用词句记忆使用手册\n</string>
+    <string name="text_image">图片</string>
     <!--<string name="manual_text_1">1</string>-->
     <!--<string name="manual_text_2">2</string>-->
 </resources>
