@@ -136,9 +136,11 @@
         \n\u3000\u3000 while you can also edit your book through this app:\n
     </string>
     <string name="manual_text_10">
-        \n\u3000\u3000 A folder named U_Memorizing will be created in your phone storage in the root dictionary, and all
-the .xls files in this folder will be scanned as books to use. So when you have created a book file
-in your PC and want to use it in this app, move it into this folder. And if you want to backup your
-books, back up this folder.\n
+        \n\u3000\u3000 A folder named U_Memorizing will be created in your phone storage in the root dictionary,
+        and all the .xls files in this folder will be scanned as books to use.\n
+    </string>
+    <string name="manual_text_11">
+        \n\u3000\u3000 So when you have created a book file in your PC and want to use it in this app, move it into this folder.
+        And if you want to backup your books, back up this folder.\n
     </string>
 </resources>

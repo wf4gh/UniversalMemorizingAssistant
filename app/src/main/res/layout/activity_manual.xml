@@ -156,44 +156,44 @@
         </LinearLayout>
 
         <!--<TextView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:text="@string/manual_text_6"-->
-            <!--android:layout_height="wrap_content" />-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:text="@string/manual_text_6"-->
+        <!--android:layout_height="wrap_content" />-->
 
         <!--<LinearLayout-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:orientation="horizontal">-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:orientation="horizontal">-->
 
-            <!--<ImageView-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_weight="1"-->
-                <!--android:adjustViewBounds="true"-->
-                <!--android:contentDescription="@string/text_image"-->
-                <!--android:paddingEnd="2dp"-->
-                <!--android:paddingLeft="4dp"-->
-                <!--android:paddingRight="2dp"-->
-                <!--android:paddingStart="4dp"-->
-                <!--android:src="@drawable/term_1" />-->
+        <!--<ImageView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_weight="1"-->
+        <!--android:adjustViewBounds="true"-->
+        <!--android:contentDescription="@string/text_image"-->
+        <!--android:paddingEnd="2dp"-->
+        <!--android:paddingLeft="4dp"-->
+        <!--android:paddingRight="2dp"-->
+        <!--android:paddingStart="4dp"-->
+        <!--android:src="@drawable/term_1" />-->
 
-            <!--<ImageView-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_weight="1"-->
-                <!--android:adjustViewBounds="true"-->
-                <!--android:contentDescription="@string/text_image"-->
-                <!--android:paddingEnd="4dp"-->
-                <!--android:paddingLeft="2dp"-->
-                <!--android:paddingRight="4dp"-->
-                <!--android:paddingStart="2dp"-->
-                <!--android:src="@drawable/term_2" />-->
+        <!--<ImageView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_weight="1"-->
+        <!--android:adjustViewBounds="true"-->
+        <!--android:contentDescription="@string/text_image"-->
+        <!--android:paddingEnd="4dp"-->
+        <!--android:paddingLeft="2dp"-->
+        <!--android:paddingRight="4dp"-->
+        <!--android:paddingStart="2dp"-->
+        <!--android:src="@drawable/term_2" />-->
         <!--</LinearLayout>-->
 
         <TextView
             android:layout_width="wrap_content"
-            android:text="@string/manual_text_7"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:text="@string/manual_text_7" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -205,8 +205,8 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:text="@string/manual_text_8"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:text="@string/manual_text_8" />
 
 
         <ImageView
@@ -221,12 +221,12 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:text="@string/manual_text_9"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:text="@string/manual_text_9" />
 
 
         <ImageView
-            android:layout_width="wrap_content"
+            android:layout_width="180dp"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
             android:contentDescription="@string/text_image"
@@ -237,8 +237,22 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:text="@string/manual_text_10"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:text="@string/manual_text_10" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/text_image"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"
+            android:src="@drawable/pc_folder" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/manual_text_11" />
 
     </LinearLayout>
 </ScrollView>
