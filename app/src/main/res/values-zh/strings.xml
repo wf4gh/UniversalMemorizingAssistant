@@ -97,14 +97,14 @@
     <string name="manual_brief_introduction">简介：</string>
     <string name="manual_text_1">
         \n\u3000\u3000 通用词句记忆是用来辅助记忆的一款应用。
-        它将在手机内部存储根目录下创建名为U_Memorizing的文件夹，在其中使用xls格式文件作为词句书保存你要记忆的内容。\n
+        它将在手机内部存储根目录下创建名为U_Memorizing的文件夹，在其中使用xls格式文件(即Excel创建的表格文件）作为词句书保存你要记忆的内容。\n
         \n\u3000\u3000 你可以通过手机或电脑来创建、删除、编辑这些词句书文件（xls文件）。
-        一个示例文件已经生成在U_Memorizing文件夹中，你可以通过这个文件（词句书）了解如何使用。
+        一个示例文件已经生成在U_Memorizing文件夹中，你可以通过这个文件（词句书）了解此应用的使用。
         如果文件已删除，点击下面的按钮将重新生成：
     </string>
     <string name="manual_text_2">
-        \u3000\u3000 如果你对电脑及手机的原理有一定的了解并熟悉此类应用，了解以上的内容就足以开始使用此应用了。
-        如果你想进一步了解相关细节，可以继续阅读下面的内容。
+        \u3000\u3000 如果你对电脑及手机的原理有一定的了解并熟悉此类应用，阅读完以上的内容，你就足以开始使用此应用了。
+        如果你对相关细节有兴趣，可以继续阅读下面的内容。
     </string>
     <string name="manual_feature">\n功能:</string>
     <string name="manual_text_3">
@@ -118,53 +118,47 @@
          \n\u3000\u3000 - 背一些知识要点：\n
     </string>
     <string name="manual_text_6">
-         \n\u3000\u3000 - 术语s:\n
+         \n\u3000\u3000 - 记忆一些专业术语：\n
     </string>
     <string name="manual_text_7">
-        \n\u3000\u3000 The biggest difference between this app and other word/sentence-memorizing app is that
-        in this app you will custom your memorizing content completely.\n\n
-        \u3000\u3000 This may be quite useful when you are about to memorizing a lot of items that created by yourself.
+        \n\u3000\u3000 此应用的最大特点是所有的词句书都是完全由你自己定义的。在你需要记忆一些属于你自己的“独特”的内容的时候，这一点相当有用。
     </string>
-    <string name="manual_files">\nAbout files:</string>
+    <string name="manual_files">\n关于文件：</string>
     <string name="manual_text_8">
-        \n\u3000\u3000 This app use the .xls file as a storage to store your data to memorize (sorry that .xlsx is not supported yet),
-        each file is called a \'book\' in this app, represent a book you will memorize.\n
-        \n\u3000\u3000 You can edit your .xls file in your PC and use it in your phone, through this app,
-        which I think is the most convenient way to make your own book and use it:\n
+        \n\u3000\u3000 此应用使用xls文件存储你要记忆的内容（暂不支持xlsx格式）,
+        每个文件被称作一本“词句书”，代表你将要记忆的一本单词书/句子书/问题集等。\n
+        \n\u3000\u3000 个人认为最简便的使用方式是在电脑上编辑词句书文件，然后在此应用中使用：\n
     </string>
     <string name="manual_text_9">
-        \n\u3000\u3000 while you can also edit your book through this app:\n
+        \n\u3000\u3000 当然此应用也提供了简单的编辑功能：\n
     </string>
     <string name="manual_text_10">
-        \n\u3000\u3000 A folder named U_Memorizing will be created in your phone storage in the root dictionary,
-        and all the .xls files in this folder will be scanned as books to use.\n
+        \n\u3000\u3000 名为U_Memorizing的文件夹将在你手机的根目录中创建，所有在其中的xls文件都会扫描并作为词句书在此应用中使用。\n
+        \n\u3000\u3000 注意此文件夹中还会创建一个名为 “BookData.xml”的文件，里面将会存储所有词句书的进度及目标记忆次数信息。
+        如果你没打算重置自己的所有词句书信息，请不要删除此文件。\n
     </string>
     <string name="manual_text_11">
-        \n\u3000\u3000 So when you have created a book file in your PC and want to use it in this app, move it into this folder.
-        And if you want to backup your books, back up this folder.
+        \n\u3000\u3000 综上所述，当你在电脑端创建了一本词句书并想在此应用中使用时，把它复制到U_Memorizing文件夹中就可以了。
+        如果你想备份你的词句书，同样备份这个文件夹。
     </string>
-    <string name="manual_book_format">\nBook editing format:</string>
+    <string name="manual_book_format">\n词句书格式：</string>
     <string name="manual_text_12">
-        \n\u3000\u3000 In a book file, only the first sheet is used. The first row is reserved as title, when editing your own book, you can leave it blank(it will be staffed automatically when using this book) or staff it if you like.
-        \n\n\u3000\u3000 The first three columns of a book represents hint,answer,and left memorizing times.\n
-        \n\u3000\u3000 When editing a book file, it is recommended make sure the hint and answer is not blank(though they are also being staffed if left blank).\n
-        \n\u3000\u3000 As to left memorizing times, you can set it if you like, or it will be staffed with default value, 5, when using this book.\n
+        \n\u3000\u3000 在一个词句书文件中，只有第一个表被使用。其中，第一行作为列名。
+        当编写你自己的词句书时，你可以空出第一行，在使用进应用会自动填充。
+        \n\n\u3000\u3000 前三列分别为提示、答案、目标记忆次数。在编辑时，建议提示与答案不要为空，
+        虽然空白处在使用时同样会进行填充。至于目标记忆次数，可以自行设置，如果空出，使用时将填充为默认值5次。\n
     </string>
-    <string name="manual_memorizing_algorithm">About memorizing algorithm:</string>
+    <string name="manual_memorizing_algorithm">关于记忆算法：</string>
     <string name="manual_text_13">
-        \n\u3000\u3000 By default, each item of a book will be memorized 5 times, you can change this in the settings page.\n
-        \n\u3000\u3000 when memorizing, if you choose \'I can recite this\', the left times of this item will decrease by 1 time,
-        or it will increase by 1 time(but will not exceed the max target memorizing times you have set).\n
-        \n\u3000\u3000 After every item in a book has been memorized for your targeting times,
-        you will be noted that you have finished this book. You can choose another one or re-memorize this if you want.\n
-        \n\u3000\u3000 Of course you can also change your present memorizing book, and all your process will be saved.\n
+        \n\u3000\u3000 默认情况下，词句书中的每一个条目将记忆5次，记忆次数可以在设置界面中修改。\n
+        \n\u3000\u3000 在记忆时，如果选择“记住了”，则剩余记忆次数减1，“没记住”则加1，但不会超过目标记忆次数。
+        在所有条目都完成目标次数后，你将会收到此书已完成的提示，此时可以选择其他词句书或再记一次。\n
+        \n\u3000\u3000 当然，你可以随时切换当前正在记忆的词句书，所有进度都会保留。\n
     </string>
-    <string name="manual_contact_author">About Author:</string>
+    <string name="manual_contact_author">关于作者：</string>
     <string name="manual_text_14">
-        \n\u3000\u3000 As english is not my native language, I am pretty sure there must be some *bugs* in my expressions above,
-        but I am fine with them and I will not *crash* for them, I hope you are still all right for now too. :p \n
-        \n\u3000\u3000 Anyway, thanks for your reading. And sorry for your reading.\n
-        \n\u3000\u3000 Report bugs or any other issues, contact:\n
+        \n\u3000\u3000 感谢使用！\n
+        \n\u3000\u3000 提交Bug、意见、建议或其他任何相关事项，请联系：\n
         \n\u3000\u3000 fl_wjh@163.com
         \n\u3000\u3000 wfmytemp@gmail.com\n\n\n
     </string>

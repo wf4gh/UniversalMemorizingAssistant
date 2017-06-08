@@ -14,7 +14,7 @@
     <string name="dialog_title_quick_add">Quick add a line to present book</string>
     <string name="toast_added">Added!</string>
     <string name="dialog_title_permission">why need the permission?</string>
-    <string name="dialog_message_permission">This app need the permission of \'storage\' to save your book files in your phone.</string>
+    <string name="dialog_message_permission">This app need the permission of \"storage\" to save your book files in your phone.</string>
     <string name="dialog_button_got_it">Got it</string>
     <string name="toast_need_permission">Can\'t get the storage permission</string>
     <string name="hint">Hint:</string>
@@ -128,7 +128,7 @@
     <string name="manual_files">\nAbout files:</string>
     <string name="manual_text_8">
         \n\u3000\u3000 This app use the .xls file as a storage to store your data to memorize (sorry that .xlsx is not supported yet),
-        each file is called a \'book\' in this app, represent a book you will memorize.\n
+        each file is called a \"book\" in this app, represent a book you will memorize.\n
         \n\u3000\u3000 You can edit your .xls file in your PC and use it in your phone, through this app,
         which I think is the most convenient way to make your own book and use it:\n
     </string>
@@ -141,7 +141,9 @@
     </string>
     <string name="manual_text_11">
         \n\u3000\u3000 So when you have created a book file in your PC and want to use it in this app, move it into this folder.
-        And if you want to backup your books, back up this folder.
+        And if you want to backup your books, back up this folder.\n
+        \n\u3000\u3000 Note that a file named \"BookData.xml\" will also be created here, which stores all your book data,
+        like progress and targeting memorizing times. DO NOT delete it if your are not about to reset all your book progress.\n
     </string>
     <string name="manual_book_format">\nBook editing format:</string>
     <string name="manual_text_12">
@@ -153,7 +155,7 @@
     <string name="manual_memorizing_algorithm">About memorizing algorithm:</string>
     <string name="manual_text_13">
         \n\u3000\u3000 By default, each item of a book will be memorized 5 times, you can change this in the settings page.\n
-        \n\u3000\u3000 when memorizing, if you choose \'I can recite this\', the left times of this item will decrease by 1 time,
+        \n\u3000\u3000 when memorizing, if you choose \"I can recite this\", the left times of this item will decrease by 1 time,
         or it will increase by 1 time(but will not exceed the max target memorizing times you have set).\n
         \n\u3000\u3000 After every item in a book has been memorized for your targeting times,
         you will be noted that you have finished this book. You can choose another one or re-memorize this if you want.\n
