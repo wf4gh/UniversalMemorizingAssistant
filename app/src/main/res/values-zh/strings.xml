@@ -155,9 +155,10 @@
     </string>
     <string name="manual_contact_author">联系作者：</string>
     <string name="manual_text_14">
-        \n\u3000\u3000 感谢使用！\n
         \n\u3000\u3000 提交Bug、意见、建议或其他任何相关事项，请联系：\n
         \n\u3000\u3000 fl_wjh@163.com
-        \n\u3000\u3000 wfmytemp@gmail.com\n\n\n
+        \n\u3000\u3000 wfmytemp@gmail.com\n
+        \n\u3000\u3000 感谢使用！\n\n\n
     </string>
+    <string name="title_Manual">使用手册</string>
 </resources>

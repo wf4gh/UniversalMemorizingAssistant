@@ -34,7 +34,7 @@
     <string name="toast_create_failed">Failed to create</string>
     <string name="toast_book_need_name">Please enter the name of book!</string>
     <string name="dialog_title_delete">Delete Confirmation</string>
-    <string name="dialog_message_delete_file">Sure to delete?\nNotice that his will delete this file from your phone completely!</string>
+    <string name="dialog_message_delete_file">Sure to delete?\nNotice that this will delete this file from your phone completely!</string>
     <string name="dialog_button_delete">Sure, delete</string>
     <string name="toast_delete_fail">Fail to delete</string>
     <string name="dialog_title_config">Config book</string>
@@ -168,4 +168,5 @@
         \n\u3000\u3000 wfmytemp@gmail.com\n\n\n
     </string>
     <string name="manual_text_6">6</string>
+    <string name="title_Manual">Manual</string>
 </resources>

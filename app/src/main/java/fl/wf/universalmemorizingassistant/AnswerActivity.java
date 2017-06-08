@@ -55,7 +55,6 @@ public class AnswerActivity extends AppCompatActivity {
 
         settingsActivityIntent = new Intent(this, SettingsActivity.class);
 
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.tb_answer);
         setSupportActionBar(toolbar);
 
