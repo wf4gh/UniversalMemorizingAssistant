@@ -9,7 +9,6 @@
         app:showAsAction="ifRoom" />
     <item
 
-        android:id="@+id/menu_options"
         android:icon="@mipmap/ic_more_vert_white_48dp"
         android:orderInCategory="200"
         android:title="@string/menu_options"

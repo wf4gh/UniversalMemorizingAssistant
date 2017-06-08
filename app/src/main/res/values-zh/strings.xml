@@ -38,7 +38,6 @@
     <string name="dialog_message_delete_file">确认删除该词句书？\n注意，这将会完全删除该文件！</string>
     <string name="dialog_button_delete">是的，删除</string>
     <string name="toast_delete_fail">删除失败</string>
-    <string name="toast_no_app_found_to_open">在您手机上没有找到能打开此文件的应用！</string>
     <string name="dialog_title_config">配置词句书</string>
     <string name="toast_rename_fail">重命名失败</string>
     <string name="button_use">使用</string>
@@ -62,7 +61,6 @@
     <string name="text_progress">进度：</string>
     <string name="title_answer">记忆中…</string>
     <string name="text_draft_area">草稿区</string>
-    <string name="text_no_data">没有数据</string>
     <string name="toast_hint_needed">提示不可为空！</string>
     <string name="sheet_answer">答案</string>
     <string name="sheet_hint">提示</string>
@@ -73,7 +71,6 @@
     <string name="toast_config_complete">配置完成！</string>
     <string name="button_add">添加</string>
     <string name="button_delete">删除</string>
-    <string name="button_save">保存</string>
     <string name="title_edit">编辑</string>
     <string name="toast_present_book_set_complete">设置当前词句书成功！</string>
     <string name="dialog_title_add">添加</string>
