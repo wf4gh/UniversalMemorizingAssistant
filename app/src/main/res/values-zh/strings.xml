@@ -92,9 +92,80 @@
     <string name="sheet_hint_question">第二次世界大战爆发于哪一年？</string>
     <string name="sheet_hint_sentence">粽子是甜的。</string>
     <string name="sheet_ans_sentence">Rice dumpling tastes sweet.</string>
-    <string name="manual_brief_introduction">简介：</string>
-    <string name="manual_title">通用词句记忆使用手册\n</string>
     <string name="text_image">图片</string>
-    <!--<string name="manual_text_1">1</string>-->
-    <!--<string name="manual_text_2">2</string>-->
+    <string name="manual_title">通用词句记忆使用手册\n</string>
+    <string name="manual_brief_introduction">简介：</string>
+    <string name="manual_text_1">
+        \n\u3000\u3000 通用词句记忆是用来辅助记忆的一款应用。
+        它将在手机内部存储根目录下创建名为U_Memorizing的文件夹，在其中使用xls格式文件作为词句书保存你要记忆的内容。\n
+        \n\u3000\u3000 你可以通过手机或电脑来创建、删除、编辑这些词句书文件（xls文件）。
+        一个示例文件已经生成在U_Memorizing文件夹中，你可以通过这个文件（词句书）了解如何使用。
+        如果文件已删除，点击下面的按钮将重新生成：
+    </string>
+    <string name="manual_text_2">
+        \u3000\u3000 如果你对电脑及手机的原理有一定的了解并熟悉此类应用，了解以上的内容就足以开始使用此应用了。
+        如果你想进一步了解相关细节，可以继续阅读下面的内容。
+    </string>
+    <string name="manual_feature">\n功能:</string>
+    <string name="manual_text_3">
+        \n\u3000\u3000 此应用在很多与记忆相关的情境下都可以用到，如学习一门外语、记忆专业术语、记忆问题答案等。以下是一些示例：\n\n
+        \u3000\u3000 - 记忆一些在词典上不易查到的单词或表达:\n
+    </string>
+    <string name="manual_text_4">
+         \n\u3000\u3000 - 记忆一些如真理般正确的名言警钟：\n
+    </string>
+    <string name="manual_text_5">
+         \n\u3000\u3000 - 背一些知识要点：\n
+    </string>
+    <string name="manual_text_6">
+         \n\u3000\u3000 - 术语s:\n
+    </string>
+    <string name="manual_text_7">
+        \n\u3000\u3000 The biggest difference between this app and other word/sentence-memorizing app is that
+        in this app you will custom your memorizing content completely.\n\n
+        \u3000\u3000 This may be quite useful when you are about to memorizing a lot of items that created by yourself.
+    </string>
+    <string name="manual_files">\nAbout files:</string>
+    <string name="manual_text_8">
+        \n\u3000\u3000 This app use the .xls file as a storage to store your data to memorize (sorry that .xlsx is not supported yet),
+        each file is called a \'book\' in this app, represent a book you will memorize.\n
+        \n\u3000\u3000 You can edit your .xls file in your PC and use it in your phone, through this app,
+        which I think is the most convenient way to make your own book and use it:\n
+    </string>
+    <string name="manual_text_9">
+        \n\u3000\u3000 while you can also edit your book through this app:\n
+    </string>
+    <string name="manual_text_10">
+        \n\u3000\u3000 A folder named U_Memorizing will be created in your phone storage in the root dictionary,
+        and all the .xls files in this folder will be scanned as books to use.\n
+    </string>
+    <string name="manual_text_11">
+        \n\u3000\u3000 So when you have created a book file in your PC and want to use it in this app, move it into this folder.
+        And if you want to backup your books, back up this folder.
+    </string>
+    <string name="manual_book_format">\nBook editing format:</string>
+    <string name="manual_text_12">
+        \n\u3000\u3000 In a book file, only the first sheet is used. The first row is reserved as title, when editing your own book, you can leave it blank(it will be staffed automatically when using this book) or staff it if you like.
+        \n\n\u3000\u3000 The first three columns of a book represents hint,answer,and left memorizing times.\n
+        \n\u3000\u3000 When editing a book file, it is recommended make sure the hint and answer is not blank(though they are also being staffed if left blank).\n
+        \n\u3000\u3000 As to left memorizing times, you can set it if you like, or it will be staffed with default value, 5, when using this book.\n
+    </string>
+    <string name="manual_memorizing_algorithm">About memorizing algorithm:</string>
+    <string name="manual_text_13">
+        \n\u3000\u3000 By default, each item of a book will be memorized 5 times, you can change this in the settings page.\n
+        \n\u3000\u3000 when memorizing, if you choose \'I can recite this\', the left times of this item will decrease by 1 time,
+        or it will increase by 1 time(but will not exceed the max target memorizing times you have set).\n
+        \n\u3000\u3000 After every item in a book has been memorized for your targeting times,
+        you will be noted that you have finished this book. You can choose another one or re-memorize this if you want.\n
+        \n\u3000\u3000 Of course you can also change your present memorizing book, and all your process will be saved.\n
+    </string>
+    <string name="manual_contact_author">About Author:</string>
+    <string name="manual_text_14">
+        \n\u3000\u3000 As english is not my native language, I am pretty sure there must be some *bugs* in my expressions above,
+        but I am fine with them and I will not *crash* for them, I hope you are still all right for now too. :p \n
+        \n\u3000\u3000 Anyway, thanks for your reading. And sorry for your reading.\n
+        \n\u3000\u3000 Report bugs or any other issues, contact:\n
+        \n\u3000\u3000 fl_wjh@163.com
+        \n\u3000\u3000 wfmytemp@gmail.com\n\n\n
+    </string>
 </resources>
