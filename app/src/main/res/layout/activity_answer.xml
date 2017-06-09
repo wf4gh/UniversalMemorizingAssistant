@@ -94,12 +94,12 @@
                 android:textSize="20sp"
                 android:visibility="invisible" />
 
-            <EditText
-                android:id="@+id/et_ans_ans"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/text_draft_area"
-                app:layout_constraintTop_toBottomOf="@id/sv_ans_hint" />
+            <!--<EditText-->
+                <!--android:id="@+id/et_ans_ans"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:hint="@string/text_draft_area"-->
+                <!--app:layout_constraintTop_toBottomOf="@id/sv_ans_hint" />-->
         </LinearLayout>
 
     </ScrollView>

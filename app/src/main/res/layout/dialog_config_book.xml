@@ -49,6 +49,7 @@
         <Spinner
             android:id="@+id/sp_dialog_set_target_times"
             android:layout_width="wrap_content"
+            android:background="#777777"
             android:layout_height="wrap_content"
             android:entries="@array/target_times" />
     </LinearLayout>
