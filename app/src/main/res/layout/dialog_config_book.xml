@@ -10,6 +10,10 @@
         android:layout_height="wrap_content"
         android:text="@string/text_config" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="8dp" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -17,9 +21,9 @@
 
         <EditText
             android:id="@+id/et_dialog_config_book"
-            android:hint="@string/hint_enter_book_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:hint="@string/hint_enter_book_name"
             android:maxLength="16" />
 
         <TextView
@@ -27,6 +31,10 @@
             android:layout_height="wrap_content"
             android:text="@string/text_xls_extension" />
     </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="8dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -40,10 +48,14 @@
 
         <Spinner
             android:id="@+id/sp_dialog_set_target_times"
-            android:layout_width="100dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:entries="@array/target_times" />
     </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="8dp" />
 
     <CheckBox
         android:id="@+id/cb_dialog_set_reset"

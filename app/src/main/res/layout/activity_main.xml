@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context="fl.wf.universalmemorizingassistant.MainActivity">
 
-    <!--todo styles of all these components required to be modified-->
     <android.support.v7.widget.Toolbar
         android:id="@+id/tb_main"
         android:layout_width="0dp"

@@ -43,7 +43,6 @@ public class MainActivity extends AppCompatActivity {
     Intent settingsActivityIntent;
     TextView infoTextView;
 
-    // TODO: 2017/5/23   add viewer page as help
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -196,7 +195,6 @@ public class MainActivity extends AppCompatActivity {
 
         //make bookFiles not null;
         if (bookFiles == null) {
-            // TODO: 2017/5/22 create an example xls file
             bookFiles = appFolderFile.listFiles(xlsFilter);
         }
 
@@ -243,7 +241,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    /* TODO-suspend: 2017/5/26   can enter the app even the permission is not granted, in app explain why the permission is needed.
+    /* suspend: 2017/5/26   can enter the app even the permission is not granted, in app explain why the permission is needed.
      ------Before request of permission accepted, the user can't actually use this app */
 
     //A failed test about getRuntimePermission

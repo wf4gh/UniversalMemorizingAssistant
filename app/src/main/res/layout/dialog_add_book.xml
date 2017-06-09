@@ -23,6 +23,10 @@
             android:text="@string/text_xls_extension" />
     </LinearLayout>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="8dp" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -35,7 +39,7 @@
 
         <Spinner
             android:id="@+id/sp_dialog_add_target_times"
-            android:layout_width="100dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:entries="@array/target_times" />
     </LinearLayout>

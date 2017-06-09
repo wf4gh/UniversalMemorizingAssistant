@@ -71,7 +71,6 @@ public class ManualActivity extends AppCompatActivity {
                     if (language.equals("zh"))
                         wb = bookHandler.addNewLineToWorkbook(wb, "normal map", "法线贴图", false);
                     wb = bookHandler.addNewLineToWorkbook(wb, getString(R.string.sheet_hint_question), getString(R.string.sheet_hint_answer), false);
-                    // TODO: 2017/6/6  a poem from tagore?
                     //wb = bookHandler.addNewLineToWorkbook(wb, "", "", false);
 
                     BookHandler.closeAndSaveBook(wb, exampleFile);

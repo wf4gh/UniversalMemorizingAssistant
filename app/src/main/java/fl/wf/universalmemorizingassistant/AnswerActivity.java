@@ -69,8 +69,6 @@ public class AnswerActivity extends AppCompatActivity {
         answerEditText = (EditText) findViewById(R.id.et_ans_ans);
         answerTextView = (TextView) findViewById(R.id.tv_ans_answer);
         leftTimesTextView = (TextView) findViewById(R.id.tv_ans_left_times);
-
-        // TODO: 2017/5/15 (IUV) find a chart api,add it
     }
 
     String getTextToShow() {
@@ -96,7 +94,6 @@ public class AnswerActivity extends AppCompatActivity {
         bookFile = new File(BasicStaticData.absAppFolderPath + bookName);
 
         try {
-            // TODO: 2017/5/31  check here!
             wb = new BookHandler(this).openAndValidateBook(bookFile, bookMaxTimes);
         } catch (IOException e) {
             e.printStackTrace();
@@ -160,7 +157,6 @@ public class AnswerActivity extends AppCompatActivity {
                                     wb = BookHandler.setAllRowsToMaxTimes(wb, bookMaxTimes);
                                     try {
                                         BookHandler.closeAndSaveBook(wb, bookFile);
-                                        // TODO: 2017/5/31  test here!
                                         wb = new BookHandler(getApplicationContext()).openAndValidateBook(bookFile, bookMaxTimes);
                                     } catch (IOException e) {
                                         e.printStackTrace();
