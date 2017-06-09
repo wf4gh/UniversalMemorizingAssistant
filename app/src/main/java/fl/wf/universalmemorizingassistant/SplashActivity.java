@@ -25,6 +25,7 @@ public class SplashActivity extends AppCompatActivity {
                     SharedPreferences.Editor editor = firstRunChecker.edit();
                     editor.putBoolean("isFirstRun", false);
                     editor.apply();
+                    setPresentBook(getString(R.string.name_example));
 
                     Intent helpIntent = new Intent(SplashActivity.this, ManualActivity.class);
                     startActivity(helpIntent);
@@ -32,5 +33,12 @@ public class SplashActivity extends AppCompatActivity {
                 finish();
             }
         }, 1000);
+    }
+
+    void setPresentBook(String bookNameToSet) {
+        SharedPreferences presentBook = getSharedPreferences("presentBook", MODE_PRIVATE);
+        SharedPreferences.Editor editor = presentBook.edit();
+        editor.putString("presentBook", bookNameToSet);
+        editor.apply();
     }
 }

@@ -20,23 +20,22 @@ public class ManualActivity extends AppCompatActivity {
 
     String language;
 
-    String forWords;
-    String forSentenses;
-    String forTechnicalTerminology;
-    String forQueestion;
-    String forReciting;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manual);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.tb_edit);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.tb_manual);
+        if(toolbar ==null){
+            Log.d(TAG, "onCreate: NULL");
+        }else Log.d(TAG, "onCreate: NOT NULL");
+
         setSupportActionBar(toolbar);
 
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }
+            Log.d(TAG, "onCreate: SET TRUE");
+        }else Log.d(TAG, "onCreate: NOT Set");
 
         language = Locale.getDefault().getLanguage();
 
