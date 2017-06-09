@@ -110,7 +110,7 @@
         \u3000\u3000 - 记忆一些在词典上不易查到的单词或表达:\n
     </string>
     <string name="manual_text_4">
-         \n\u3000\u3000 - 记忆一些如真理般正确的名言警钟：\n
+         \n\u3000\u3000 - 记忆一些如真理般正确的名言警句：\n
     </string>
     <string name="manual_text_5">
          \n\u3000\u3000 - 背一些知识要点：\n
@@ -121,7 +121,7 @@
     <string name="manual_text_7">
         \n\u3000\u3000 此应用的最大特点是所有的词句书都是完全由你自己定义的。在你需要记忆一些属于你自己的“独特”的内容的时候，这一点相当有用。
     </string>
-    <string name="manual_files">\n关于文件：</string>
+    <string name="manual_files">\n文件说明：</string>
     <string name="manual_text_8">
         \n\u3000\u3000 此应用使用xls文件存储你要记忆的内容（暂不支持xlsx格式）,
         每个文件被称作一本“词句书”，代表你将要记忆的一本单词书/句子书/问题集等。\n
@@ -146,7 +146,7 @@
         \n\n\u3000\u3000 前三列分别为提示、答案、目标记忆次数。在编辑时，建议提示与答案不要为空（虽然空白处在使用时同样会进行填充）。
         至于目标记忆次数，可以自行设置，如果空出，使用时将填充为默认值5次。\n
     </string>
-    <string name="manual_memorizing_algorithm">关于记忆算法：</string>
+    <string name="manual_memorizing_algorithm">记忆算法：</string>
     <string name="manual_text_13">
         \n\u3000\u3000 默认情况下，词句书中的每一个条目将记忆5次，记忆次数可以在设置界面中修改。\n
         \n\u3000\u3000 在记忆时，如果选择“记住了”，则剩余记忆次数减1，“没记住”则加1，但不会超过目标记忆次数。
